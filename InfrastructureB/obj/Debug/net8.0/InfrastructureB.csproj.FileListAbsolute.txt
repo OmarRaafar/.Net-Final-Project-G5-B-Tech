@@ -9,3 +9,9 @@ D:\Programming\ITI .Net Full Stack Sohag\Last Version B-Tech\B-Tech-G5-Project\I
 D:\Programming\ITI .Net Full Stack Sohag\Last Version B-Tech\B-Tech-G5-Project\InfrastructureB\obj\Debug\net8.0\refint\InfrastructureB.dll
 D:\Programming\ITI .Net Full Stack Sohag\Last Version B-Tech\B-Tech-G5-Project\InfrastructureB\obj\Debug\net8.0\InfrastructureB.pdb
 D:\Programming\ITI .Net Full Stack Sohag\Last Version B-Tech\B-Tech-G5-Project\InfrastructureB\obj\Debug\net8.0\ref\InfrastructureB.dll
+D:\Programming\ITI .Net Full Stack Sohag\Last Version B-Tech\B-Tech-G5-Project\InfrastructureB\bin\Debug\net8.0\ApplicationB.dll
+D:\Programming\ITI .Net Full Stack Sohag\Last Version B-Tech\B-Tech-G5-Project\InfrastructureB\bin\Debug\net8.0\ModelsB.dll
+D:\Programming\ITI .Net Full Stack Sohag\Last Version B-Tech\B-Tech-G5-Project\InfrastructureB\bin\Debug\net8.0\ApplicationB.pdb
+D:\Programming\ITI .Net Full Stack Sohag\Last Version B-Tech\B-Tech-G5-Project\InfrastructureB\bin\Debug\net8.0\ModelsB.pdb
+D:\Programming\ITI .Net Full Stack Sohag\Last Version B-Tech\B-Tech-G5-Project\InfrastructureB\obj\Debug\net8.0\InfrastructureB.csproj.AssemblyReference.cache
+D:\Programming\ITI .Net Full Stack Sohag\Last Version B-Tech\B-Tech-G5-Project\InfrastructureB\obj\Debug\net8.0\Infrastr.03B3DBF3.Up2Date

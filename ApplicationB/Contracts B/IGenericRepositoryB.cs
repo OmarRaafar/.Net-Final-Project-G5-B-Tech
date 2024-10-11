@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ApplicationB.Contracts_B
 {
-    public interface IGenericRepositoryB
+    public interface IGenericRepositoryB<T>
     {
     }
 }

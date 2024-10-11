@@ -9,3 +9,7 @@ D:\Programming\ITI .Net Full Stack Sohag\Last Version B-Tech\B-Tech-G5-Project\A
 D:\Programming\ITI .Net Full Stack Sohag\Last Version B-Tech\B-Tech-G5-Project\ApplicationB\obj\Debug\net8.0\refint\ApplicationB.dll
 D:\Programming\ITI .Net Full Stack Sohag\Last Version B-Tech\B-Tech-G5-Project\ApplicationB\obj\Debug\net8.0\ApplicationB.pdb
 D:\Programming\ITI .Net Full Stack Sohag\Last Version B-Tech\B-Tech-G5-Project\ApplicationB\obj\Debug\net8.0\ref\ApplicationB.dll
+D:\Programming\ITI .Net Full Stack Sohag\Last Version B-Tech\B-Tech-G5-Project\ApplicationB\bin\Debug\net8.0\ModelsB.dll
+D:\Programming\ITI .Net Full Stack Sohag\Last Version B-Tech\B-Tech-G5-Project\ApplicationB\bin\Debug\net8.0\ModelsB.pdb
+D:\Programming\ITI .Net Full Stack Sohag\Last Version B-Tech\B-Tech-G5-Project\ApplicationB\obj\Debug\net8.0\ApplicationB.csproj.AssemblyReference.cache
+D:\Programming\ITI .Net Full Stack Sohag\Last Version B-Tech\B-Tech-G5-Project\ApplicationB\obj\Debug\net8.0\Applicat.3B6645CA.Up2Date
