@@ -1,0 +1,17 @@
+D:\Programming\ITI .Net Full Stack Sohag\Last Version B-Tech\B-Tech-G5-Project\DbContextB\bin\Debug\net8.0\DbContextB.deps.json
+D:\Programming\ITI .Net Full Stack Sohag\Last Version B-Tech\B-Tech-G5-Project\DbContextB\bin\Debug\net8.0\DbContextB.runtimeconfig.json
+D:\Programming\ITI .Net Full Stack Sohag\Last Version B-Tech\B-Tech-G5-Project\DbContextB\bin\Debug\net8.0\DbContextB.dll
+D:\Programming\ITI .Net Full Stack Sohag\Last Version B-Tech\B-Tech-G5-Project\DbContextB\bin\Debug\net8.0\DbContextB.pdb
+D:\Programming\ITI .Net Full Stack Sohag\Last Version B-Tech\B-Tech-G5-Project\DbContextB\bin\Debug\net8.0\ModelsB.dll
+D:\Programming\ITI .Net Full Stack Sohag\Last Version B-Tech\B-Tech-G5-Project\DbContextB\bin\Debug\net8.0\ModelsB.pdb
+D:\Programming\ITI .Net Full Stack Sohag\Last Version B-Tech\B-Tech-G5-Project\DbContextB\obj\Debug\net8.0\DbContextB.csproj.AssemblyReference.cache
+D:\Programming\ITI .Net Full Stack Sohag\Last Version B-Tech\B-Tech-G5-Project\DbContextB\obj\Debug\net8.0\DbContextB.GeneratedMSBuildEditorConfig.editorconfig
+D:\Programming\ITI .Net Full Stack Sohag\Last Version B-Tech\B-Tech-G5-Project\DbContextB\obj\Debug\net8.0\DbContextB.AssemblyInfoInputs.cache
+D:\Programming\ITI .Net Full Stack Sohag\Last Version B-Tech\B-Tech-G5-Project\DbContextB\obj\Debug\net8.0\DbContextB.AssemblyInfo.cs
+D:\Programming\ITI .Net Full Stack Sohag\Last Version B-Tech\B-Tech-G5-Project\DbContextB\obj\Debug\net8.0\DbContextB.csproj.CoreCompileInputs.cache
+D:\Programming\ITI .Net Full Stack Sohag\Last Version B-Tech\B-Tech-G5-Project\DbContextB\obj\Debug\net8.0\DbContextB.csproj.Up2Date
+D:\Programming\ITI .Net Full Stack Sohag\Last Version B-Tech\B-Tech-G5-Project\DbContextB\obj\Debug\net8.0\DbContextB.dll
+D:\Programming\ITI .Net Full Stack Sohag\Last Version B-Tech\B-Tech-G5-Project\DbContextB\obj\Debug\net8.0\refint\DbContextB.dll
+D:\Programming\ITI .Net Full Stack Sohag\Last Version B-Tech\B-Tech-G5-Project\DbContextB\obj\Debug\net8.0\DbContextB.pdb
+D:\Programming\ITI .Net Full Stack Sohag\Last Version B-Tech\B-Tech-G5-Project\DbContextB\obj\Debug\net8.0\DbContextB.genruntimeconfig.cache
+D:\Programming\ITI .Net Full Stack Sohag\Last Version B-Tech\B-Tech-G5-Project\DbContextB\obj\Debug\net8.0\ref\DbContextB.dll

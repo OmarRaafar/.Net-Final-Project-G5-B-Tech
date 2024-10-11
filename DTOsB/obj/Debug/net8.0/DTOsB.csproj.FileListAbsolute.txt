@@ -1,0 +1,11 @@
+D:\Programming\ITI .Net Full Stack Sohag\Last Version B-Tech\B-Tech-G5-Project\DTOsB\bin\Debug\net8.0\DTOsB.deps.json
+D:\Programming\ITI .Net Full Stack Sohag\Last Version B-Tech\B-Tech-G5-Project\DTOsB\bin\Debug\net8.0\DTOsB.dll
+D:\Programming\ITI .Net Full Stack Sohag\Last Version B-Tech\B-Tech-G5-Project\DTOsB\bin\Debug\net8.0\DTOsB.pdb
+D:\Programming\ITI .Net Full Stack Sohag\Last Version B-Tech\B-Tech-G5-Project\DTOsB\obj\Debug\net8.0\DTOsB.GeneratedMSBuildEditorConfig.editorconfig
+D:\Programming\ITI .Net Full Stack Sohag\Last Version B-Tech\B-Tech-G5-Project\DTOsB\obj\Debug\net8.0\DTOsB.AssemblyInfoInputs.cache
+D:\Programming\ITI .Net Full Stack Sohag\Last Version B-Tech\B-Tech-G5-Project\DTOsB\obj\Debug\net8.0\DTOsB.AssemblyInfo.cs
+D:\Programming\ITI .Net Full Stack Sohag\Last Version B-Tech\B-Tech-G5-Project\DTOsB\obj\Debug\net8.0\DTOsB.csproj.CoreCompileInputs.cache
+D:\Programming\ITI .Net Full Stack Sohag\Last Version B-Tech\B-Tech-G5-Project\DTOsB\obj\Debug\net8.0\DTOsB.dll
+D:\Programming\ITI .Net Full Stack Sohag\Last Version B-Tech\B-Tech-G5-Project\DTOsB\obj\Debug\net8.0\refint\DTOsB.dll
+D:\Programming\ITI .Net Full Stack Sohag\Last Version B-Tech\B-Tech-G5-Project\DTOsB\obj\Debug\net8.0\DTOsB.pdb
+D:\Programming\ITI .Net Full Stack Sohag\Last Version B-Tech\B-Tech-G5-Project\DTOsB\obj\Debug\net8.0\ref\DTOsB.dll

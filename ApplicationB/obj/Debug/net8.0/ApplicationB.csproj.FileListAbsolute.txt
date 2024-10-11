@@ -1,0 +1,11 @@
+D:\Programming\ITI .Net Full Stack Sohag\Last Version B-Tech\B-Tech-G5-Project\ApplicationB\bin\Debug\net8.0\ApplicationB.deps.json
+D:\Programming\ITI .Net Full Stack Sohag\Last Version B-Tech\B-Tech-G5-Project\ApplicationB\bin\Debug\net8.0\ApplicationB.dll
+D:\Programming\ITI .Net Full Stack Sohag\Last Version B-Tech\B-Tech-G5-Project\ApplicationB\bin\Debug\net8.0\ApplicationB.pdb
+D:\Programming\ITI .Net Full Stack Sohag\Last Version B-Tech\B-Tech-G5-Project\ApplicationB\obj\Debug\net8.0\ApplicationB.GeneratedMSBuildEditorConfig.editorconfig
+D:\Programming\ITI .Net Full Stack Sohag\Last Version B-Tech\B-Tech-G5-Project\ApplicationB\obj\Debug\net8.0\ApplicationB.AssemblyInfoInputs.cache
+D:\Programming\ITI .Net Full Stack Sohag\Last Version B-Tech\B-Tech-G5-Project\ApplicationB\obj\Debug\net8.0\ApplicationB.AssemblyInfo.cs
+D:\Programming\ITI .Net Full Stack Sohag\Last Version B-Tech\B-Tech-G5-Project\ApplicationB\obj\Debug\net8.0\ApplicationB.csproj.CoreCompileInputs.cache
+D:\Programming\ITI .Net Full Stack Sohag\Last Version B-Tech\B-Tech-G5-Project\ApplicationB\obj\Debug\net8.0\ApplicationB.dll
+D:\Programming\ITI .Net Full Stack Sohag\Last Version B-Tech\B-Tech-G5-Project\ApplicationB\obj\Debug\net8.0\refint\ApplicationB.dll
+D:\Programming\ITI .Net Full Stack Sohag\Last Version B-Tech\B-Tech-G5-Project\ApplicationB\obj\Debug\net8.0\ApplicationB.pdb
+D:\Programming\ITI .Net Full Stack Sohag\Last Version B-Tech\B-Tech-G5-Project\ApplicationB\obj\Debug\net8.0\ref\ApplicationB.dll
