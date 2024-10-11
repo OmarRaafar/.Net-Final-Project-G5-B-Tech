@@ -20,8 +20,8 @@ namespace ModelsB.Order_B
         public ICollection<OrderItemB> OrderItems { get; set; }
         public ICollection<DiscountB> Discounts { get; set; }
         [ForeignKey("ApplicationUserB")]
-        public int UserId { get; set; }
-        public ApplicationUserB User { get; set; }
+        public string ApplicationUserId { get; set; }
+        public ApplicationUserB ApplicationUser { get; set; }
         [ForeignKey("ShippingB")]
         public int ShippingId { get; set; }
         public ShippingB Shipping { get; set; }

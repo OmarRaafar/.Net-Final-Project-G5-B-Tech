@@ -4300,11 +4300,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Programming\\ITI .Net Full Stack Sohag\\Last Version B-Tech\\B-Tech-G5-Project\\DbContextB\\DbContextB.csproj",
+      "projectUniqueName": "D:\\Programming\\ITI .Net Full Stack Sohag\\Final Project\\FinalProjectG5\\.Net-Final-Project-G5-B-Tech-\\DbContextB\\DbContextB.csproj",
       "projectName": "DbContextB",
-      "projectPath": "D:\\Programming\\ITI .Net Full Stack Sohag\\Last Version B-Tech\\B-Tech-G5-Project\\DbContextB\\DbContextB.csproj",
+      "projectPath": "D:\\Programming\\ITI .Net Full Stack Sohag\\Final Project\\FinalProjectG5\\.Net-Final-Project-G5-B-Tech-\\DbContextB\\DbContextB.csproj",
       "packagesPath": "C:\\Users\\Mohammed Abbas\\.nuget\\packages\\",
-      "outputPath": "D:\\Programming\\ITI .Net Full Stack Sohag\\Last Version B-Tech\\B-Tech-G5-Project\\DbContextB\\obj\\",
+      "outputPath": "D:\\Programming\\ITI .Net Full Stack Sohag\\Final Project\\FinalProjectG5\\.Net-Final-Project-G5-B-Tech-\\DbContextB\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -4326,8 +4326,8 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "D:\\Programming\\ITI .Net Full Stack Sohag\\Last Version B-Tech\\B-Tech-G5-Project\\ModelsB\\ModelsB.csproj": {
-              "projectPath": "D:\\Programming\\ITI .Net Full Stack Sohag\\Last Version B-Tech\\B-Tech-G5-Project\\ModelsB\\ModelsB.csproj"
+            "D:\\Programming\\ITI .Net Full Stack Sohag\\Final Project\\FinalProjectG5\\.Net-Final-Project-G5-B-Tech-\\ModelsB\\ModelsB.csproj": {
+              "projectPath": "D:\\Programming\\ITI .Net Full Stack Sohag\\Final Project\\FinalProjectG5\\.Net-Final-Project-G5-B-Tech-\\ModelsB\\ModelsB.csproj"
             }
           }
         }

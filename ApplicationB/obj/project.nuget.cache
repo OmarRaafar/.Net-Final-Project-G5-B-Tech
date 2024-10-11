@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "b8/Zehbygkk=",
+  "dgSpecHash": "44SoF397EAY=",
   "success": true,
-  "projectFilePath": "D:\\Programming\\ITI .Net Full Stack Sohag\\Last Version B-Tech\\B-Tech-G5-Project\\ApplicationB\\ApplicationB.csproj",
+  "projectFilePath": "D:\\Programming\\ITI .Net Full Stack Sohag\\Final Project\\FinalProjectG5\\.Net-Final-Project-G5-B-Tech-\\ApplicationB\\ApplicationB.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Mohammed Abbas\\.nuget\\packages\\microsoft.aspnetcore.cryptography.internal\\8.0.10\\microsoft.aspnetcore.cryptography.internal.8.0.10.nupkg.sha512",
     "C:\\Users\\Mohammed Abbas\\.nuget\\packages\\microsoft.aspnetcore.cryptography.keyderivation\\8.0.10\\microsoft.aspnetcore.cryptography.keyderivation.8.0.10.nupkg.sha512",

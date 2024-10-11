@@ -22,8 +22,8 @@ namespace ModelsB.Product_B
         public ProductB Product { get; set; }
         
         [ForeignKey("ApplicationUserB")]
-        public int UserId { get; set; }
-        public ApplicationUserB User { get; set; }
+        public string ApplicationUserId { get; set; }
+        public ApplicationUserB ApplicationUser { get; set; }
 
     }
 }

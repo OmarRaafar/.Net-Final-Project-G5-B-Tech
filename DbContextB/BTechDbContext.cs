@@ -25,7 +25,7 @@ namespace DbContextB
         //        "TrustServerCertificate=true");
 
         public BTechDbContext(DbContextOptions<BTechDbContext> options, IHttpContextAccessor httpContextAccessor)
-        : base()
+        : base(options)
         {
            _httpContextAccessor = httpContextAccessor;
         }
@@ -60,9 +60,14 @@ namespace DbContextB
             builder.Entity<ProductCategoryB>().HasOne(pc => pc.Category).WithMany(c => c.ProductCategories)
                 .HasForeignKey(pc => pc.CategoryId);
 
+            builder.Entity<OrderB>().HasOne(o => o.Payment).WithOne(p => p.Order).HasForeignKey<PaymentB>(p => p.OrderId);
+            builder.Entity<OrderB>().HasOne(o => o.Shipping).WithOne(p => p.Order).HasForeignKey<ShippingB>(p => p.OrderId);
+            builder.Entity<OrderB>().HasOne(o => o.ApplicationUser).WithMany().HasForeignKey(o => o.ApplicationUserId);
+
             builder.Entity<DiscountB>().HasIndex(d => d.Code).IsUnique();
 
-            builder.Entity<ReviewB>().HasIndex(r => new { r.ProductId, r.UserId }).IsUnique();
+            builder.Entity<ReviewB>().HasIndex(r => new { r.ProductId, r.ApplicationUserId }).IsUnique();
+            builder.Entity<ReviewB>().HasOne(r => r.ApplicationUser).WithMany().HasForeignKey(r => r.ApplicationUserId);
         }
 
         /// <summary>
