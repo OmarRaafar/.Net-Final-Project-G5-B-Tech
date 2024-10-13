@@ -33,3 +33,5 @@ D:\Programming\ITI .Net Full Stack Sohag\Final Project\FinalProjectG5\.Net-Final
 D:\Programming\ITI .Net Full Stack Sohag\Final Project\FinalProjectG5\.Net-Final-Project-G5-B-Tech-\InfrastructureB\obj\Debug\net8.0\refint\InfrastructureB.dll
 D:\Programming\ITI .Net Full Stack Sohag\Final Project\FinalProjectG5\.Net-Final-Project-G5-B-Tech-\InfrastructureB\obj\Debug\net8.0\InfrastructureB.pdb
 D:\Programming\ITI .Net Full Stack Sohag\Final Project\FinalProjectG5\.Net-Final-Project-G5-B-Tech-\InfrastructureB\obj\Debug\net8.0\ref\InfrastructureB.dll
+D:\Programming\ITI .Net Full Stack Sohag\Final Project\FinalProjectG5\.Net-Final-Project-G5-B-Tech-\InfrastructureB\bin\Debug\net8.0\DbContextB.dll
+D:\Programming\ITI .Net Full Stack Sohag\Final Project\FinalProjectG5\.Net-Final-Project-G5-B-Tech-\InfrastructureB\bin\Debug\net8.0\DbContextB.pdb

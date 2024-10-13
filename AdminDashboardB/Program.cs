@@ -55,9 +55,12 @@ namespace WebApplication1
             //using (var serviceScope = app.Services.GetService<IServiceScopeFactory>().CreateScope())
             //{
             //    var services = serviceScope.ServiceProvider;
+            //    var context = services.GetRequiredService<BTechDbContext>();
+            //    var seeder = new DataSeeder(context);
             //    try
             //    {
             //        RoleInitializer.Initialize(services).Wait();
+            //        seeder.Seed();
             //    }
             //    catch (Exception ex)
             //    {

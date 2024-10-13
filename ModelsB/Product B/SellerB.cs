@@ -34,6 +34,6 @@ namespace ModelsB.Product_B
         [MaxLength(250)]
         public string? ProfileImageUrl { get; set; }
         public DateTime RegisteredDate { get; set; }
-        public List<ProductB> Products { get; set; }
+
     }
 }
