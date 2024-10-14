@@ -21,10 +21,6 @@ namespace ModelsB.Product_B
         public ICollection<ProductCategoryB> ProductCategories { get; set; }
         public ICollection<ProductImageB> Images { get; set; }
         public ICollection<OrderItemB> OrderItems { get; set; }
-       
-        [ForeignKey("SellerB")]
-        public int? SellerId { get; set; }
-        public SellerB? Seller { get; set; }
         public ICollection<ProductSpecificationsB> Specifications { get; set; }
         public ICollection<ProductTranslationB> Translations { get; set; }
     }

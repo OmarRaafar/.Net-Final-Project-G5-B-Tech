@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ApplicationB.Contracts_B;
 
-namespace InfrastructureB
+namespace InfrastructureB.Product
 {
-    public class GenericRepositoryB<T>: IGenericRepositoryB<T> where T :class
+    public class ProductSpecificationsRepository
     {
     }
 }

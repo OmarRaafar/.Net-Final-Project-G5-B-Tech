@@ -18,16 +18,13 @@ namespace DbContextB
 {
     public class BTechDbContext : IdentityDbContext<ApplicationUserB>
     {
-        private readonly IHttpContextAccessor _httpContextAccessor;
+      
 
-        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        //    => optionsBuilder.UseSqlServer("Data Source=.;Initial Catalog=B_TechDB;Integrated Security=True;Encrypt=True;" +
-        //        "TrustServerCertificate=true");
 
-        public BTechDbContext(DbContextOptions<BTechDbContext> options, IHttpContextAccessor httpContextAccessor)
+        public BTechDbContext(DbContextOptions<BTechDbContext> options)
         : base(options)
         {
-           _httpContextAccessor = httpContextAccessor;
+           
         }
 
 

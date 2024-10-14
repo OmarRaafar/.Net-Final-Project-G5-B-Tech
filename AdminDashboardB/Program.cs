@@ -1,3 +1,4 @@
+using ApplicationB.Mapper_B;
 using DbContextB;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
@@ -18,21 +19,23 @@ namespace WebApplication1
 
 
             // Add services to the container.
-            //var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ??
-            //    throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+            
             builder.Services.AddDbContext<BTechDbContext>(options =>
            options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-            builder.Services.AddDefaultIdentity<ApplicationUserB>(options => options.SignIn.RequireConfirmedAccount = false)
-                .AddEntityFrameworkStores<BTechDbContext>();
+            builder.Services.AddIdentity<ApplicationUserB, IdentityRole>().AddEntityFrameworkStores<BTechDbContext>()
+                   .AddDefaultTokenProviders().AddDefaultUI();
+
+
+          
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-            builder.Services.AddIdentity<ApplicationUserB, IdentityRole>().AddEntityFrameworkStores<BTechDbContext>()
-                    .AddDefaultTokenProviders().AddDefaultUI();
-
+           
             builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
             builder.Services.AddMvc().AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
                 .AddDataAnnotationsLocalization();
+
+            builder.Services.AddAutoMapper(typeof(MappingProfile));
 
             builder.Services.Configure<RequestLocalizationOptions>(options =>
             {
@@ -88,6 +91,7 @@ namespace WebApplication1
             var locOptions = app.Services.GetService<IOptions<RequestLocalizationOptions>>();
             app.UseRequestLocalization(locOptions.Value);
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.MapControllerRoute(
