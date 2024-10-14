@@ -910,3 +910,5 @@ F:\الصالة الرياضية\books\DevOps\Project\.Net-Final-Project-G5-B-Te
 F:\الصالة الرياضية\books\DevOps\Project\.Net-Final-Project-G5-B-Tech\AdminDashboardB\obj\Debug\net8.0\AdminDas.B87703F2.Up2Date
 F:\الصالة الرياضية\books\DevOps\Project\.Net-Final-Project-G5-B-Tech\AdminDashboardB\obj\Debug\net8.0\AdminDashboardB.genruntimeconfig.cache
 F:\الصالة الرياضية\books\DevOps\Project\.Net-Final-Project-G5-B-Tech\AdminDashboardB\obj\Debug\net8.0\ref\AdminDashboardB.dll
+F:\الصالة الرياضية\books\DevOps\Project\.Net-Final-Project-G5-B-Tech\AdminDashboardB\bin\Debug\net8.0\InfrastructureB.dll
+F:\الصالة الرياضية\books\DevOps\Project\.Net-Final-Project-G5-B-Tech\AdminDashboardB\bin\Debug\net8.0\InfrastructureB.pdb

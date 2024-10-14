@@ -17,6 +17,8 @@ namespace ApplicationB.Mapper_B
             CreateMap<ProductB, ProductDto>().ReverseMap(); 
             CreateMap<ProductImageB, ProductImageDto>().ReverseMap();
             CreateMap<ProductTranslationB, ProductTranslationDto>().ReverseMap();
+            CreateMap<ProductSpecificationsB, ProductSpecificationDto>().ReverseMap();
+            CreateMap<ProductSpecificationTranslationB, ProductSpecificationTranslationDto>().ReverseMap();
         }
     
     }

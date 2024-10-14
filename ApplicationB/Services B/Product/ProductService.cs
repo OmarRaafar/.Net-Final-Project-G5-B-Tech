@@ -149,3 +149,97 @@ public class ProductService//:IProductService
 
 }
 
+/*
+  private readonly IProductRepository _productRepository;
+    private readonly IMapper _mapper;
+
+    public ProductService(IProductRepository productRepository, IMapper mapper)
+    {
+        _productRepository = productRepository;
+        _mapper = mapper;
+    }
+
+    public async Task<ResultView<ProductDto>> CreateProductAsync(ProductDto productDto, int userId)
+    {
+        var product = _mapper.Map<ProductB>(productDto);
+        product.CreatedBy = userId;
+
+        // Handle translations
+        if (productDto.Translations != null)
+        {
+            product.Translations = productDto.Translations.Select(t => new ProductTranslationB
+            {
+                Name = t.Name,
+                BrandName = t.BrandName,
+                Description = t.Description
+            }).ToList();
+        }
+
+        // Handle specifications
+        if (productDto.Specifications != null)
+        {
+            product.Specifications = productDto.Specifications.Select(spec => new ProductSpecificationsB
+            {
+                Translations = spec.Translations.Select(trans => new ProductSpecificationTranslationB
+                {
+                    TranslatedKey = trans.TranslatedKey,
+                    TranslatedValue = trans.TranslatedValue
+                }).ToList()
+            }).ToList();
+        }
+
+        await _productRepository.AddAsync(product);
+
+        return new ResultView<ProductDto>
+        {
+            Success = true,
+            Data = productDto
+        };
+    }
+
+    public async Task<ResultView<ProductDto>> UpdateProductAsync(ProductDto productDto, int userId)
+    {
+        var product = await _productRepository.GetByIdAsync(productDto.Id);
+        if (product == null)
+        {
+            return new ResultView<ProductDto>
+            {
+                Success = false,
+                Message = "Product not found."
+            };
+        }
+
+        // Update basic properties
+        product.UpdatedBy = userId;
+        product.Updated = DateTime.Now;
+
+        // Update translations
+        product.Translations = productDto.Translations.Select(t => new ProductTranslationB
+        {
+            Name = t.Name,
+            BrandName = t.BrandName,
+            Description = t.Description
+        }).ToList();
+
+        // Update specifications
+        product.Specifications = productDto.Specifications.Select(spec => new ProductSpecificationsB
+        {
+            Translations = spec.Translations.Select(trans => new ProductSpecificationTranslationB
+            {
+                TranslatedKey = trans.TranslatedKey,
+                TranslatedValue = trans.TranslatedValue
+            }).ToList()
+        }).ToList();
+
+        await _productRepository.UpdateAsync(product);
+
+        return new ResultView<ProductDto>
+        {
+            Success = true,
+            Data = productDto
+        };
+    }
+}
+ 
+ 
+ */

@@ -1,4 +1,7 @@
+using ApplicationB.Contracts_B.Product;
+using ApplicationB.Contracts_B;
 using ApplicationB.Mapper_B;
+using ApplicationB.Services_B.Product;
 using DbContextB;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
@@ -8,6 +11,7 @@ using Microsoft.Extensions.Options;
 using ModelsB.Authentication_and_Authorization_B;
 using System.Globalization;
 using WebApplication1.Data;
+using InfrastructureB.Product;
 
 namespace WebApplication1
 {
@@ -36,6 +40,16 @@ namespace WebApplication1
                 .AddDataAnnotationsLocalization();
 
             builder.Services.AddAutoMapper(typeof(MappingProfile));
+
+            builder.Services.AddScoped<IProductRepository, ProductRepository>();
+            builder.Services.AddScoped<ProductService>();
+            builder.Services.AddScoped<IProductImageRepository, ProductImageRepository>();
+            builder.Services.AddScoped<ProductImageService>();
+
+            builder.Services.AddScoped<IProductSpecificationRepository, ProductSpecificationRepository>();
+            builder.Services.AddScoped<ProductSpecificationService>();
+            builder.Services.AddScoped<IProductTranslationRepository, ProductTranslationRepository>();
+            builder.Services.AddScoped<ProductTranslationService>();
 
             builder.Services.Configure<RequestLocalizationOptions>(options =>
             {

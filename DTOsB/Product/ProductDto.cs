@@ -11,7 +11,6 @@ namespace DTOsB.Product
         public int Id { get; set; }
         public decimal Price { get; set; }
         public int StockQuantity { get; set; }
-        public int? SellerId { get; set; }
 
         public int CreatedBy { get; set; }
         public DateTime Created { get; set; } = DateTime.Now;
@@ -20,5 +19,6 @@ namespace DTOsB.Product
         public bool IsDeleted { get; set; }
         public List<ProductImageDto> Images { get; set; }
         public List<ProductTranslationDto> Translations { get; set; }
+        public List<ProductSpecificationDto> Specifications { get; set; }
     }
 }
