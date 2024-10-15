@@ -664,6 +664,7 @@
         "dependencies": {
           "AutoMapper": "13.0.1",
           "DTOsB": "1.0.0",
+          "Microsoft.AspNetCore.Http.Abstractions": "2.2.0",
           "ModelsB": "1.0.0"
         },
         "runtime": {

@@ -12,6 +12,10 @@ using ModelsB.Authentication_and_Authorization_B;
 using System.Globalization;
 using WebApplication1.Data;
 using InfrastructureB.Product;
+using ApplicationB.Services_B;
+using ApplicationB.Contracts_B.General;
+using ApplicationB.Services_B.General;
+using InfrastructureB.General;
 
 namespace WebApplication1
 {
@@ -40,16 +44,28 @@ namespace WebApplication1
                 .AddDataAnnotationsLocalization();
 
             builder.Services.AddAutoMapper(typeof(MappingProfile));
+            builder.Services.AddHttpContextAccessor();
 
+
+            #region AddScoped
+            builder.Services.AddScoped<ILanguageRepository, LanguageRepository>();
+            builder.Services.AddScoped<ILanguageService, LanguageService>();
+            builder.Services.AddScoped<IUserService, UserService>();
             builder.Services.AddScoped<IProductRepository, ProductRepository>();
-            builder.Services.AddScoped<ProductService>();
+            builder.Services.AddScoped<IProductService,ProductService>();
             builder.Services.AddScoped<IProductImageRepository, ProductImageRepository>();
-            builder.Services.AddScoped<ProductImageService>();
+            builder.Services.AddScoped<IProductImageService,ProductImageService>();
 
-            builder.Services.AddScoped<IProductSpecificationRepository, ProductSpecificationRepository>();
-            builder.Services.AddScoped<ProductSpecificationService>();
+            //builder.Services.AddScoped<IProductSpecificationRepository, ProductSpecificationRepository>();
+            //builder.Services.AddScoped<ProductSpecificationService>();
             builder.Services.AddScoped<IProductTranslationRepository, ProductTranslationRepository>();
-            builder.Services.AddScoped<ProductTranslationService>();
+            builder.Services.AddScoped<IProductTranslationService,ProductTranslationService>();
+
+            builder.Services.AddScoped<IReviewRepository, ReviewRepository>();
+            builder.Services.AddScoped<IReviewService, ReviewService>();
+            #endregion
+
+
 
             builder.Services.Configure<RequestLocalizationOptions>(options =>
             {

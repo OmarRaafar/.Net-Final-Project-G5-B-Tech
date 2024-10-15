@@ -1,4 +1,5 @@
 ﻿using ApplicationB.Contracts_B.Product;
+using ApplicationB.Services_B.General;
 using AutoMapper;
 using DTOsB.Product;
 using DTOsB.Shared;
@@ -11,28 +12,36 @@ using System.Threading.Tasks;
 
 namespace ApplicationB.Services_B.Product
 {
-    public class ProductTranslationService
+    public class ProductTranslationService: IProductTranslationService
     {
         private readonly IProductTranslationRepository _translationRepository;
         private readonly IMapper _mapper;
+        private readonly IUserService _userService;
+        private readonly ILanguageService _languageService;
 
-        public ProductTranslationService(IProductTranslationRepository translationRepository, IMapper mapper)
+        public ProductTranslationService(IProductTranslationRepository translationRepository, IMapper mapper,
+            IUserService userService, ILanguageService languageService)
         {
             _translationRepository = translationRepository;
             _mapper = mapper;
+            _userService = userService;
+            _languageService = languageService;
         }
 
-        public async Task<ResultView<ProductTranslationDto>> AddTranslationAsync(ProductTranslationDto translationDto, int userId)
+        public async Task<ResultView<ProductTranslationDto>> AddTranslationAsync(ProductTranslationDto translationDto)
         {
             var translation = _mapper.Map<ProductTranslationB>(translationDto);
-            //translation.CreatedBy = userId;
+            
+            translation.Product.CreatedBy = _userService.GetCurrentUserId();
+            translation.Language.Code= _languageService.GetCurrentLanguageCode();
+
 
             await _translationRepository.AddAsync(translation);
             return ResultView<ProductTranslationDto>.Success(translationDto);
       
         }
 
-        public async Task<ResultView<ProductTranslationDto>> UpdateTranslationAsync(ProductTranslationDto translationDto, int userId)
+        public async Task<ResultView<ProductTranslationDto>> UpdateTranslationAsync(ProductTranslationDto translationDto)
         {
             var existingTranslation = await _translationRepository.GetByIdAsync(translationDto.Id);
             if (existingTranslation == null)
@@ -40,24 +49,53 @@ namespace ApplicationB.Services_B.Product
                 return ResultView<ProductTranslationDto>.Failure("Translation not found.");
               
             }
-
-            //existingTranslation.UpdatedBy = userId;
             _mapper.Map(translationDto, existingTranslation);
+
+            existingTranslation.Product.UpdatedBy = _userService.GetCurrentUserId();
+            existingTranslation.Language.Code = _languageService.GetCurrentLanguageCode();
 
             await _translationRepository.UpdateAsync(existingTranslation);
             return ResultView<ProductTranslationDto>.Success(translationDto);
            
         }
 
-        public async Task<ResultView<ProductTranslationDto>> DeleteTranslationAsync(int id, int userId)
+
+
+        public async Task<ResultView<IQueryable<ProductTranslationDto>>> GetTranslationsByProductIdAsync(int productId)
         {
-            await _translationRepository.DeleteAsync(id);
-            return ResultView<ProductTranslationDto>.Success(null);
+            var translations = await _translationRepository.GetTranslationsByProductId(productId);
+            if (!translations.Any())
+            {
+                return ResultView<IQueryable<ProductTranslationDto>>.Failure("No translations found for this product.");
+            }
+
+            var translationDtos = _mapper.Map<IQueryable<ProductTranslationDto>>(translations);
+            return ResultView<IQueryable<ProductTranslationDto>>.Success(translationDtos);
         }
 
-        public IQueryable<ProductTranslationB> GetTranslationsByProductId(int productId)
+        public async Task<ResultView<IQueryable<ProductTranslationDto>>> GetAllTranslationsAsync()
         {
-            return _translationRepository.GetTranslationsByProductId(productId);
+            var translations = await _translationRepository.GetAllAsync();
+            var translationDtos = _mapper.Map<IQueryable<ProductTranslationDto>>(translations);
+            return ResultView<IQueryable<ProductTranslationDto>>.Success(translationDtos);
         }
+
+
+        //No need to delete
+        //public async Task<ResultView<ProductTranslationDto>> DeleteTranslationAsync(int id)
+        //{
+        //    var translation = await _translationRepository.GetByIdAsync(id);
+
+        //    if (translation == null)
+        //    {
+        //        return ResultView<ProductTranslationDto>.Failure("Translation not found.");
+        //    }
+
+        //    if (translation.Product.IsDeleted == false)
+        //    {
+        //        return ResultView<ProductTranslationDto>.Failure("You Must Delete Product First");
+        //    }
+        //    return ResultView<ProductTranslationDto>.Success(null);
+        //}
     }
 }

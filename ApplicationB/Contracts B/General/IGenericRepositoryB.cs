@@ -9,11 +9,11 @@ namespace ApplicationB.Contracts_B
 {
     public interface IGenericRepositoryB<T>
     {
-        IQueryable<T> GetAll();
-        Task<T> GetByIdAsync(int id);
-        Task AddAsync(T entity);
-        Task UpdateAsync(T entity);
-        Task DeleteAsync(int id);
+        public Task<IQueryable<T>> GetAllAsync();
+        public Task<T> GetByIdAsync(int id);
+        public Task AddAsync(T entity);
+        public Task UpdateAsync(T entity);
+        public Task DeleteAsync(int id);
        
     }
 }

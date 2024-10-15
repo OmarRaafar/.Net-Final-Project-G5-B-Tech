@@ -11,14 +11,14 @@ using System.Threading.Tasks;
 
 namespace InfrastructureB.Product
 {
-    public class ProductSpecificationRepository : GenericRepositoryB<ProductSpecificationsB>, IProductSpecificationRepository
-    {
-        public ProductSpecificationRepository(BTechDbContext context) : base(context) { }
+    //public class ProductSpecificationRepository : GenericRepositoryWithLogging<ProductSpecificationsB>, IProductSpecificationRepository
+    //{
+    //    public ProductSpecificationRepository(BTechDbContext context) : base(context) { }
 
-        public IQueryable<ProductSpecificationsB> GetSpecificationsByProductId(int productId)
-        {
-            return GetAll().Where(spec => spec.ProductId == productId);
-        }
+    //    public IQueryable<ProductSpecificationsB> GetSpecificationsByProductId(int productId)
+    //    {
+    //        return GetAll().Where(spec => spec.ProductId == productId);
+    //    }
     
-    }
+    //}
 }

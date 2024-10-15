@@ -11,9 +11,9 @@ namespace ApplicationB.Services_B.Product
 {
     public interface IProductImageService
     {
-        public  Task<ResultView<ProductImageDto>> AddImageAsync(ProductImageDto productImageDto, int userId);
-        public Task<ResultView<ProductImageDto>> UpdateImageAsync(ProductImageDto productImageDto, int userId);
-        public  Task<ResultView<ProductImageDto>> DeleteImageAsync(int id);
-        public IQueryable<ProductImageB> GetImagesByProductId(int productId);
+        Task<ResultView<ProductImageDto>> AddImageAsync(ProductImageDto productImageDto);
+        Task<ResultView<ProductImageDto>> UpdateImageAsync(ProductImageDto productImageDto);
+        Task<ResultView<ProductImageDto>> GetProductImageByIdAsync(int id);
+        Task<ResultView<List<ProductImageDto>>> GetProductImagesByProductIdAsync(int productId);
     }
 }

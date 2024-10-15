@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace ModelsB.Order_B
 {
-    public class OrderB //:BaseEntityB if Admin make Order.
+    public class OrderB 
     {
         public int Id { get; set; }
         public DateTime OrderDate { get; set; }

@@ -117,12 +117,10 @@ namespace DbContextB.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
                     b.Property<string>("LoginProvider")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ProviderKey")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ProviderDisplayName")
                         .HasColumnType("nvarchar(max)");
@@ -159,12 +157,10 @@ namespace DbContextB.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("LoginProvider")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Name")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Value")
                         .HasColumnType("nvarchar(max)");
@@ -611,9 +607,6 @@ namespace DbContextB.Migrations
                     b.Property<decimal>("Price")
                         .HasColumnType("money");
 
-                    b.Property<int?>("SellerId")
-                        .HasColumnType("int");
-
                     b.Property<int>("StockQuantity")
                         .HasColumnType("int");
 
@@ -624,8 +617,6 @@ namespace DbContextB.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("SellerId");
 
                     b.ToTable("Products");
                 });
@@ -1005,15 +996,6 @@ namespace DbContextB.Migrations
                     b.Navigation("Order");
                 });
 
-            modelBuilder.Entity("ModelsB.Product_B.ProductB", b =>
-                {
-                    b.HasOne("ModelsB.Product_B.SellerB", "Seller")
-                        .WithMany("Products")
-                        .HasForeignKey("SellerId");
-
-                    b.Navigation("Seller");
-                });
-
             modelBuilder.Entity("ModelsB.Product_B.ProductImageB", b =>
                 {
                     b.HasOne("ModelsB.Product_B.ProductB", "Product")
@@ -1127,11 +1109,6 @@ namespace DbContextB.Migrations
             modelBuilder.Entity("ModelsB.Product_B.ProductSpecificationsB", b =>
                 {
                     b.Navigation("Translations");
-                });
-
-            modelBuilder.Entity("ModelsB.Product_B.SellerB", b =>
-                {
-                    b.Navigation("Products");
                 });
 #pragma warning restore 612, 618
         }
