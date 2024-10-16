@@ -1,4 +1,4 @@
-﻿using ApplicationB.Contracts_B.Product;
+﻿  using ApplicationB.Contracts_B.Product;
 using DbContextB;
 using InfrastructureB.General;
 using Microsoft.EntityFrameworkCore;

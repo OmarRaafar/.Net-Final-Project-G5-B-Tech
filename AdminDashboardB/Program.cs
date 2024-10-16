@@ -12,6 +12,9 @@ using ModelsB.Authentication_and_Authorization_B;
 using System.Globalization;
 using WebApplication1.Data;
 using InfrastructureB.Product;
+using ApplicationB.Contracts_B.Order;
+using InfrastructureB.Order;
+using ApplicationB.Services_B.Order;
 
 namespace WebApplication1
 {
@@ -50,6 +53,18 @@ namespace WebApplication1
             builder.Services.AddScoped<ProductSpecificationService>();
             builder.Services.AddScoped<IProductTranslationRepository, ProductTranslationRepository>();
             builder.Services.AddScoped<ProductTranslationService>();
+
+            builder.Services.AddScoped<IOrderRepository, OrderRepository>();
+            builder.Services.AddScoped<IOrderService, OrderService>();
+
+            builder.Services.AddScoped<IOrderItemRepository, OrderItemRepository>();
+            builder.Services.AddScoped<IOrderItemService, OrderItemService>();
+
+            builder.Services.AddScoped<IShippingRepository, ShippingRepository>();
+            builder.Services.AddScoped<IShippingService, ShippingService>();
+
+            builder.Services.AddScoped<IPaymentRepository, PaymentRepository>();
+            builder.Services.AddScoped<IPaymentService, PaymentService>();
 
             builder.Services.Configure<RequestLocalizationOptions>(options =>
             {

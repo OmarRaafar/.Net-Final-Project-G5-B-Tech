@@ -1,0 +1,170 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\CS\\Desktop\\new project\\.Net-Final-Project-G5-B-Tech\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\CS\\Desktop\\new project\\.Net-Final-Project-G5-B-Tech\\ModelsB\\Order B\\ShippingB.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:ModelsB\\Order B\\ShippingB.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\CS\\Desktop\\new project\\.Net-Final-Project-G5-B-Tech\\ModelsB\\Order B\\OrderB.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:ModelsB\\Order B\\OrderB.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\CS\\Desktop\\new project\\.Net-Final-Project-G5-B-Tech\\InfrastructureB\\Product\\ProductImageRepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:InfrastructureB\\Product\\ProductImageRepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\CS\\Desktop\\new project\\.Net-Final-Project-G5-B-Tech\\InfrastructureB\\General\\DataSeederB.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:InfrastructureB\\General\\DataSeederB.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\CS\\Desktop\\new project\\.Net-Final-Project-G5-B-Tech\\InfrastructureB\\General\\GenericRepositoryB.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:InfrastructureB\\General\\GenericRepositoryB.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\CS\\Desktop\\new project\\.Net-Final-Project-G5-B-Tech\\ModelsB\\Order B\\PaymentB.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:ModelsB\\Order B\\PaymentB.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\CS\\Desktop\\new project\\.Net-Final-Project-G5-B-Tech\\ModelsB\\Order B\\OrderItemB.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:ModelsB\\Order B\\OrderItemB.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\CS\\Desktop\\new project\\.Net-Final-Project-G5-B-Tech\\ModelsB\\Order B\\OrderDiscountB.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:ModelsB\\Order B\\OrderDiscountB.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\CS\\Desktop\\new project\\.Net-Final-Project-G5-B-Tech\\ModelsB\\Order B\\DiscountB.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:ModelsB\\Order B\\DiscountB.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 4,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{cce594b6-0c39-4442-ba28-10c64ac7e89f}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "ProductImageRepository.cs",
+              "DocumentMoniker": "C:\\Users\\CS\\Desktop\\new project\\.Net-Final-Project-G5-B-Tech\\InfrastructureB\\Product\\ProductImageRepository.cs",
+              "RelativeDocumentMoniker": "InfrastructureB\\Product\\ProductImageRepository.cs",
+              "ToolTip": "C:\\Users\\CS\\Desktop\\new project\\.Net-Final-Project-G5-B-Tech\\InfrastructureB\\Product\\ProductImageRepository.cs",
+              "RelativeToolTip": "InfrastructureB\\Product\\ProductImageRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-14T19:57:52.873Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "DataSeederB.cs",
+              "DocumentMoniker": "C:\\Users\\CS\\Desktop\\new project\\.Net-Final-Project-G5-B-Tech\\InfrastructureB\\General\\DataSeederB.cs",
+              "RelativeDocumentMoniker": "InfrastructureB\\General\\DataSeederB.cs",
+              "ToolTip": "C:\\Users\\CS\\Desktop\\new project\\.Net-Final-Project-G5-B-Tech\\InfrastructureB\\General\\DataSeederB.cs",
+              "RelativeToolTip": "InfrastructureB\\General\\DataSeederB.cs",
+              "ViewState": "AgIAABsAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-14T19:57:43.788Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "GenericRepositoryB.cs",
+              "DocumentMoniker": "C:\\Users\\CS\\Desktop\\new project\\.Net-Final-Project-G5-B-Tech\\InfrastructureB\\General\\GenericRepositoryB.cs",
+              "RelativeDocumentMoniker": "InfrastructureB\\General\\GenericRepositoryB.cs",
+              "ToolTip": "C:\\Users\\CS\\Desktop\\new project\\.Net-Final-Project-G5-B-Tech\\InfrastructureB\\General\\GenericRepositoryB.cs",
+              "RelativeToolTip": "InfrastructureB\\General\\GenericRepositoryB.cs",
+              "ViewState": "AgIAABYAAAAAAAAAAAAAACcAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-14T19:57:23.632Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "ShippingB.cs",
+              "DocumentMoniker": "C:\\Users\\CS\\Desktop\\new project\\.Net-Final-Project-G5-B-Tech\\ModelsB\\Order B\\ShippingB.cs",
+              "RelativeDocumentMoniker": "ModelsB\\Order B\\ShippingB.cs",
+              "ToolTip": "C:\\Users\\CS\\Desktop\\new project\\.Net-Final-Project-G5-B-Tech\\ModelsB\\Order B\\ShippingB.cs",
+              "RelativeToolTip": "ModelsB\\Order B\\ShippingB.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAZAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-14T14:55:45.18Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "PaymentB.cs",
+              "DocumentMoniker": "C:\\Users\\CS\\Desktop\\new project\\.Net-Final-Project-G5-B-Tech\\ModelsB\\Order B\\PaymentB.cs",
+              "RelativeDocumentMoniker": "ModelsB\\Order B\\PaymentB.cs",
+              "ToolTip": "C:\\Users\\CS\\Desktop\\new project\\.Net-Final-Project-G5-B-Tech\\ModelsB\\Order B\\PaymentB.cs",
+              "RelativeToolTip": "ModelsB\\Order B\\PaymentB.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAAxAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-14T14:54:55.394Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "OrderB.cs",
+              "DocumentMoniker": "C:\\Users\\CS\\Desktop\\new project\\.Net-Final-Project-G5-B-Tech\\ModelsB\\Order B\\OrderB.cs",
+              "RelativeDocumentMoniker": "ModelsB\\Order B\\OrderB.cs",
+              "ToolTip": "C:\\Users\\CS\\Desktop\\new project\\.Net-Final-Project-G5-B-Tech\\ModelsB\\Order B\\OrderB.cs",
+              "RelativeToolTip": "ModelsB\\Order B\\OrderB.cs",
+              "ViewState": "AgIAABEAAAAAAAAAAAAAACUAAAAPAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-14T14:46:53.21Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "OrderItemB.cs",
+              "DocumentMoniker": "C:\\Users\\CS\\Desktop\\new project\\.Net-Final-Project-G5-B-Tech\\ModelsB\\Order B\\OrderItemB.cs",
+              "RelativeDocumentMoniker": "ModelsB\\Order B\\OrderItemB.cs",
+              "ToolTip": "C:\\Users\\CS\\Desktop\\new project\\.Net-Final-Project-G5-B-Tech\\ModelsB\\Order B\\OrderItemB.cs",
+              "RelativeToolTip": "ModelsB\\Order B\\OrderItemB.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-14T14:53:21.39Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "OrderDiscountB.cs",
+              "DocumentMoniker": "C:\\Users\\CS\\Desktop\\new project\\.Net-Final-Project-G5-B-Tech\\ModelsB\\Order B\\OrderDiscountB.cs",
+              "RelativeDocumentMoniker": "ModelsB\\Order B\\OrderDiscountB.cs",
+              "ToolTip": "C:\\Users\\CS\\Desktop\\new project\\.Net-Final-Project-G5-B-Tech\\ModelsB\\Order B\\OrderDiscountB.cs",
+              "RelativeToolTip": "ModelsB\\Order B\\OrderDiscountB.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-14T14:53:05.693Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "DiscountB.cs",
+              "DocumentMoniker": "C:\\Users\\CS\\Desktop\\new project\\.Net-Final-Project-G5-B-Tech\\ModelsB\\Order B\\DiscountB.cs",
+              "RelativeDocumentMoniker": "ModelsB\\Order B\\DiscountB.cs",
+              "ToolTip": "C:\\Users\\CS\\Desktop\\new project\\.Net-Final-Project-G5-B-Tech\\ModelsB\\Order B\\DiscountB.cs",
+              "RelativeToolTip": "ModelsB\\Order B\\DiscountB.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAAYAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-14T14:40:23.438Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
