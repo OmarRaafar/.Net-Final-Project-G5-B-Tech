@@ -44,7 +44,7 @@ namespace ApplicationB.Services_B.Product
         public async Task<ResultView<ProductTranslationDto>> UpdateTranslationAsync(ProductTranslationDto translationDto)
         {
             var existingTranslation = await _translationRepository.GetByIdAsync(translationDto.Id);
-            if (existingTranslation == null)
+            if (existingTranslation == null || existingTranslation.Product.IsDeleted)
             {
                 return ResultView<ProductTranslationDto>.Failure("Translation not found.");
               

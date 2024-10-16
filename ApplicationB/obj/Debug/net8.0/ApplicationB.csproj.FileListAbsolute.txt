@@ -31,6 +31,12 @@ F:\الصالة الرياضية\books\DevOps\Project\.Net-Final-Project-G5-B-Te
 F:\الصالة الرياضية\books\DevOps\Project\.Net-Final-Project-G5-B-Tech\ApplicationB\bin\Debug\net8.0\ModelsB.pdb
 F:\الصالة الرياضية\books\DevOps\Project\.Net-Final-Project-G5-B-Tech\ApplicationB\obj\Debug\net8.0\Applicat.3B6645CA.Up2Date
 F:\الصالة الرياضية\books\DevOps\Project\.Net-Final-Project-G5-B-Tech\ApplicationB\obj\Debug\net8.0\ref\ApplicationB.dll
+D:\Programming\ITI .Net Full Stack Sohag\Final Project\FinalProjectG5\.Net-Final-Project-G5-B-Tech-\ApplicationB\obj\Debug\net8.0\ApplicationB.csproj.AssemblyReference.cache
+D:\Programming\ITI .Net Full Stack Sohag\Final Project\FinalProjectG5\.Net-Final-Project-G5-B-Tech-\ApplicationB\obj\Debug\net8.0\ApplicationB.GeneratedMSBuildEditorConfig.editorconfig
+D:\Programming\ITI .Net Full Stack Sohag\Final Project\FinalProjectG5\.Net-Final-Project-G5-B-Tech-\ApplicationB\obj\Debug\net8.0\ApplicationB.AssemblyInfoInputs.cache
+D:\Programming\ITI .Net Full Stack Sohag\Final Project\FinalProjectG5\.Net-Final-Project-G5-B-Tech-\ApplicationB\obj\Debug\net8.0\ApplicationB.AssemblyInfo.cs
+D:\Programming\ITI .Net Full Stack Sohag\Final Project\FinalProjectG5\.Net-Final-Project-G5-B-Tech-\ApplicationB\obj\Debug\net8.0\ApplicationB.csproj.CoreCompileInputs.cache
+D:\Programming\ITI .Net Full Stack Sohag\Final Project\FinalProjectG5\.Net-Final-Project-G5-B-Tech-\ApplicationB\obj\Debug\net8.0\ApplicationB.sourcelink.json
 D:\Programming\ITI .Net Full Stack Sohag\Final Project\FinalProjectG5\.Net-Final-Project-G5-B-Tech-\ApplicationB\bin\Debug\net8.0\ApplicationB.deps.json
 D:\Programming\ITI .Net Full Stack Sohag\Final Project\FinalProjectG5\.Net-Final-Project-G5-B-Tech-\ApplicationB\bin\Debug\net8.0\ApplicationB.dll
 D:\Programming\ITI .Net Full Stack Sohag\Final Project\FinalProjectG5\.Net-Final-Project-G5-B-Tech-\ApplicationB\bin\Debug\net8.0\ApplicationB.pdb
@@ -38,12 +44,6 @@ D:\Programming\ITI .Net Full Stack Sohag\Final Project\FinalProjectG5\.Net-Final
 D:\Programming\ITI .Net Full Stack Sohag\Final Project\FinalProjectG5\.Net-Final-Project-G5-B-Tech-\ApplicationB\bin\Debug\net8.0\ModelsB.dll
 D:\Programming\ITI .Net Full Stack Sohag\Final Project\FinalProjectG5\.Net-Final-Project-G5-B-Tech-\ApplicationB\bin\Debug\net8.0\DTOsB.pdb
 D:\Programming\ITI .Net Full Stack Sohag\Final Project\FinalProjectG5\.Net-Final-Project-G5-B-Tech-\ApplicationB\bin\Debug\net8.0\ModelsB.pdb
-D:\Programming\ITI .Net Full Stack Sohag\Final Project\FinalProjectG5\.Net-Final-Project-G5-B-Tech-\ApplicationB\obj\Debug\net8.0\ApplicationB.csproj.AssemblyReference.cache
-D:\Programming\ITI .Net Full Stack Sohag\Final Project\FinalProjectG5\.Net-Final-Project-G5-B-Tech-\ApplicationB\obj\Debug\net8.0\ApplicationB.GeneratedMSBuildEditorConfig.editorconfig
-D:\Programming\ITI .Net Full Stack Sohag\Final Project\FinalProjectG5\.Net-Final-Project-G5-B-Tech-\ApplicationB\obj\Debug\net8.0\ApplicationB.AssemblyInfoInputs.cache
-D:\Programming\ITI .Net Full Stack Sohag\Final Project\FinalProjectG5\.Net-Final-Project-G5-B-Tech-\ApplicationB\obj\Debug\net8.0\ApplicationB.AssemblyInfo.cs
-D:\Programming\ITI .Net Full Stack Sohag\Final Project\FinalProjectG5\.Net-Final-Project-G5-B-Tech-\ApplicationB\obj\Debug\net8.0\ApplicationB.csproj.CoreCompileInputs.cache
-D:\Programming\ITI .Net Full Stack Sohag\Final Project\FinalProjectG5\.Net-Final-Project-G5-B-Tech-\ApplicationB\obj\Debug\net8.0\ApplicationB.sourcelink.json
 D:\Programming\ITI .Net Full Stack Sohag\Final Project\FinalProjectG5\.Net-Final-Project-G5-B-Tech-\ApplicationB\obj\Debug\net8.0\Applicat.3B6645CA.Up2Date
 D:\Programming\ITI .Net Full Stack Sohag\Final Project\FinalProjectG5\.Net-Final-Project-G5-B-Tech-\ApplicationB\obj\Debug\net8.0\ApplicationB.dll
 D:\Programming\ITI .Net Full Stack Sohag\Final Project\FinalProjectG5\.Net-Final-Project-G5-B-Tech-\ApplicationB\obj\Debug\net8.0\refint\ApplicationB.dll

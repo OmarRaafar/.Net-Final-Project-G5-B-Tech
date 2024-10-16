@@ -56,10 +56,12 @@ namespace WebApplication1
             builder.Services.AddScoped<IProductImageRepository, ProductImageRepository>();
             builder.Services.AddScoped<IProductImageService,ProductImageService>();
 
-            //builder.Services.AddScoped<IProductSpecificationRepository, ProductSpecificationRepository>();
-            //builder.Services.AddScoped<ProductSpecificationService>();
+            builder.Services.AddScoped<IProductSpecificationRepository, ProductSpecificationRepository>();
+            builder.Services.AddScoped<IProductSpecificationService,ProductSpecificationService>();
             builder.Services.AddScoped<IProductTranslationRepository, ProductTranslationRepository>();
             builder.Services.AddScoped<IProductTranslationService,ProductTranslationService>();
+            builder.Services.AddScoped<IProductSpecificationTranslationRepository, ProductSpecificationTranslationRep>();
+            builder.Services.AddScoped<IProductSpecificationTransService, ProductSpecificationTransService>();
 
             builder.Services.AddScoped<IReviewRepository, ReviewRepository>();
             builder.Services.AddScoped<IReviewService, ReviewService>();

@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace ApplicationB.Contracts_B.Product
 {
-    public interface IProductSpecificationRepository : IGenericRepositoryB<ProductSpecificationsB>
+    public interface IProductSpecificationTranslationRepository: IGenericRepositoryB<ProductSpecificationTranslationB>
     {
-        Task<IQueryable<ProductSpecificationsB>> GetSpecificationsByProductId(int productId);
+      
     }
 }

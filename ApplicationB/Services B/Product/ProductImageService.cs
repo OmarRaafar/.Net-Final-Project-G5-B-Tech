@@ -39,7 +39,7 @@ namespace ApplicationB.Services_B.Product
         public async Task<ResultView<ProductImageDto>> UpdateImageAsync(ProductImageDto productImageDto)
         {
             var existingImage = await _productImageRepository.GetByIdAsync(productImageDto.Id);
-            if (existingImage == null)
+            if (existingImage == null || existingImage.Product.IsDeleted)
             {
                 return ResultView<ProductImageDto>.Failure("Image not found.");
               

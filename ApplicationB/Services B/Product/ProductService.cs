@@ -43,8 +43,8 @@ public class ProductService: IProductService
                 return ResultView<ProductDto>.Failure("Product Quantity must be a positive value.");
 
             var product = _mapper.Map<ProductB>(productDto);
-            _userService.GetCurrentUserId();
-            product.Created = DateTime.Now;
+           
+            product.CreatedBy = _userService.GetCurrentUserId();
 
             await _productRepository.AddAsync(product);
             return ResultView<ProductDto>.Success(productDto);
@@ -56,7 +56,7 @@ public class ProductService: IProductService
                 return ResultView<ProductDto>.Failure("Product must have data to be added");
 
             var existingProduct = await _productRepository.GetByIdAsync(productDto.Id);
-            if (existingProduct == null)
+            if (existingProduct == null || existingProduct.IsDeleted)
                 return ResultView<ProductDto>.Failure("Product not found. Unable to update.");
 
             if (productDto.Price < 0)
@@ -67,7 +67,7 @@ public class ProductService: IProductService
 
             _mapper.Map(productDto, existingProduct);
             _userService.GetCurrentUserId();
-            existingProduct.Updated = DateTime.Now;
+            existingProduct.UpdatedBy = _userService.GetCurrentUserId();
 
             await _productRepository.UpdateAsync(existingProduct);
             return ResultView<ProductDto>.Success(productDto);

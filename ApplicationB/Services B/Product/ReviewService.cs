@@ -37,7 +37,7 @@ namespace ApplicationB.Services_B.Product
         public async Task<ResultView<ReviewDto>> UpdateReviewAsync(ReviewDto reviewDto)
         {
             var existingReview = await _reviewRepository.GetByIdAsync(reviewDto.Id);
-            if (existingReview == null)
+            if (existingReview == null || existingReview.Product.IsDeleted)
                 return ResultView<ReviewDto>.Failure("Review not found.");
 
             _mapper.Map(reviewDto, existingReview);

@@ -101,7 +101,7 @@ namespace DbContextB
         /// <summary>
         /// Other DbSets
         /// </summary>
-        public virtual DbSet<SellerB> Sellers { get; set; }
+        //public virtual DbSet<SellerB> Sellers { get; set; }
         public virtual DbSet<LanguageB> Languages { get; set; }
         public virtual DbSet<LocalizationResourceB> LocalizationResources { get; set; }
 

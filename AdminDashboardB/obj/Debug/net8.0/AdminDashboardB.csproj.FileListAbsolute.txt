@@ -614,6 +614,15 @@ F:\الصالة الرياضية\books\DevOps\Project\.Net-Final-Project-G5-B-Te
 F:\الصالة الرياضية\books\DevOps\Project\.Net-Final-Project-G5-B-Tech\AdminDashboardB\obj\Debug\net8.0\ref\AdminDashboardB.dll
 F:\الصالة الرياضية\books\DevOps\Project\.Net-Final-Project-G5-B-Tech\AdminDashboardB\bin\Debug\net8.0\InfrastructureB.dll
 F:\الصالة الرياضية\books\DevOps\Project\.Net-Final-Project-G5-B-Tech\AdminDashboardB\bin\Debug\net8.0\InfrastructureB.pdb
+D:\Programming\ITI .Net Full Stack Sohag\Final Project\FinalProjectG5\.Net-Final-Project-G5-B-Tech-\AdminDashboardB\obj\Debug\net8.0\AdminDashboardB.csproj.AssemblyReference.cache
+D:\Programming\ITI .Net Full Stack Sohag\Final Project\FinalProjectG5\.Net-Final-Project-G5-B-Tech-\AdminDashboardB\obj\Debug\net8.0\AdminDashboardB.GeneratedMSBuildEditorConfig.editorconfig
+D:\Programming\ITI .Net Full Stack Sohag\Final Project\FinalProjectG5\.Net-Final-Project-G5-B-Tech-\AdminDashboardB\obj\Debug\net8.0\AdminDashboardB.AssemblyInfoInputs.cache
+D:\Programming\ITI .Net Full Stack Sohag\Final Project\FinalProjectG5\.Net-Final-Project-G5-B-Tech-\AdminDashboardB\obj\Debug\net8.0\AdminDashboardB.AssemblyInfo.cs
+D:\Programming\ITI .Net Full Stack Sohag\Final Project\FinalProjectG5\.Net-Final-Project-G5-B-Tech-\AdminDashboardB\obj\Debug\net8.0\AdminDashboardB.csproj.CoreCompileInputs.cache
+D:\Programming\ITI .Net Full Stack Sohag\Final Project\FinalProjectG5\.Net-Final-Project-G5-B-Tech-\AdminDashboardB\obj\Debug\net8.0\AdminDashboardB.MvcApplicationPartsAssemblyInfo.cache
+D:\Programming\ITI .Net Full Stack Sohag\Final Project\FinalProjectG5\.Net-Final-Project-G5-B-Tech-\AdminDashboardB\obj\Debug\net8.0\AdminDashboardB.RazorAssemblyInfo.cache
+D:\Programming\ITI .Net Full Stack Sohag\Final Project\FinalProjectG5\.Net-Final-Project-G5-B-Tech-\AdminDashboardB\obj\Debug\net8.0\AdminDashboardB.RazorAssemblyInfo.cs
+D:\Programming\ITI .Net Full Stack Sohag\Final Project\FinalProjectG5\.Net-Final-Project-G5-B-Tech-\AdminDashboardB\obj\Debug\net8.0\AdminDashboardB.sourcelink.json
 D:\Programming\ITI .Net Full Stack Sohag\Final Project\FinalProjectG5\.Net-Final-Project-G5-B-Tech-\AdminDashboardB\bin\Debug\net8.0\appsettings.Development.json
 D:\Programming\ITI .Net Full Stack Sohag\Final Project\FinalProjectG5\.Net-Final-Project-G5-B-Tech-\AdminDashboardB\bin\Debug\net8.0\appsettings.json
 D:\Programming\ITI .Net Full Stack Sohag\Final Project\FinalProjectG5\.Net-Final-Project-G5-B-Tech-\AdminDashboardB\bin\Debug\net8.0\AdminDashboardB.staticwebassets.runtime.json
@@ -893,16 +902,6 @@ D:\Programming\ITI .Net Full Stack Sohag\Final Project\FinalProjectG5\.Net-Final
 D:\Programming\ITI .Net Full Stack Sohag\Final Project\FinalProjectG5\.Net-Final-Project-G5-B-Tech-\AdminDashboardB\bin\Debug\net8.0\InfrastructureB.pdb
 D:\Programming\ITI .Net Full Stack Sohag\Final Project\FinalProjectG5\.Net-Final-Project-G5-B-Tech-\AdminDashboardB\bin\Debug\net8.0\DTOsB.pdb
 D:\Programming\ITI .Net Full Stack Sohag\Final Project\FinalProjectG5\.Net-Final-Project-G5-B-Tech-\AdminDashboardB\bin\Debug\net8.0\ModelsB.pdb
-D:\Programming\ITI .Net Full Stack Sohag\Final Project\FinalProjectG5\.Net-Final-Project-G5-B-Tech-\AdminDashboardB\obj\Debug\net8.0\AdminDashboardB.csproj.AssemblyReference.cache
-D:\Programming\ITI .Net Full Stack Sohag\Final Project\FinalProjectG5\.Net-Final-Project-G5-B-Tech-\AdminDashboardB\obj\Debug\net8.0\AdminDashboardB.GeneratedMSBuildEditorConfig.editorconfig
-D:\Programming\ITI .Net Full Stack Sohag\Final Project\FinalProjectG5\.Net-Final-Project-G5-B-Tech-\AdminDashboardB\obj\Debug\net8.0\AdminDashboardB.AssemblyInfoInputs.cache
-D:\Programming\ITI .Net Full Stack Sohag\Final Project\FinalProjectG5\.Net-Final-Project-G5-B-Tech-\AdminDashboardB\obj\Debug\net8.0\AdminDashboardB.AssemblyInfo.cs
-D:\Programming\ITI .Net Full Stack Sohag\Final Project\FinalProjectG5\.Net-Final-Project-G5-B-Tech-\AdminDashboardB\obj\Debug\net8.0\AdminDashboardB.csproj.CoreCompileInputs.cache
-D:\Programming\ITI .Net Full Stack Sohag\Final Project\FinalProjectG5\.Net-Final-Project-G5-B-Tech-\AdminDashboardB\obj\Debug\net8.0\AdminDashboardB.MvcApplicationPartsAssemblyInfo.cs
-D:\Programming\ITI .Net Full Stack Sohag\Final Project\FinalProjectG5\.Net-Final-Project-G5-B-Tech-\AdminDashboardB\obj\Debug\net8.0\AdminDashboardB.MvcApplicationPartsAssemblyInfo.cache
-D:\Programming\ITI .Net Full Stack Sohag\Final Project\FinalProjectG5\.Net-Final-Project-G5-B-Tech-\AdminDashboardB\obj\Debug\net8.0\AdminDashboardB.RazorAssemblyInfo.cache
-D:\Programming\ITI .Net Full Stack Sohag\Final Project\FinalProjectG5\.Net-Final-Project-G5-B-Tech-\AdminDashboardB\obj\Debug\net8.0\AdminDashboardB.RazorAssemblyInfo.cs
-D:\Programming\ITI .Net Full Stack Sohag\Final Project\FinalProjectG5\.Net-Final-Project-G5-B-Tech-\AdminDashboardB\obj\Debug\net8.0\AdminDashboardB.sourcelink.json
 D:\Programming\ITI .Net Full Stack Sohag\Final Project\FinalProjectG5\.Net-Final-Project-G5-B-Tech-\AdminDashboardB\obj\Debug\net8.0\staticwebassets.build.json
 D:\Programming\ITI .Net Full Stack Sohag\Final Project\FinalProjectG5\.Net-Final-Project-G5-B-Tech-\AdminDashboardB\obj\Debug\net8.0\staticwebassets.development.json
 D:\Programming\ITI .Net Full Stack Sohag\Final Project\FinalProjectG5\.Net-Final-Project-G5-B-Tech-\AdminDashboardB\obj\Debug\net8.0\staticwebassets\msbuild.AdminDashboardB.Microsoft.AspNetCore.StaticWebAssets.props
@@ -919,3 +918,4 @@ D:\Programming\ITI .Net Full Stack Sohag\Final Project\FinalProjectG5\.Net-Final
 D:\Programming\ITI .Net Full Stack Sohag\Final Project\FinalProjectG5\.Net-Final-Project-G5-B-Tech-\AdminDashboardB\obj\Debug\net8.0\AdminDashboardB.pdb
 D:\Programming\ITI .Net Full Stack Sohag\Final Project\FinalProjectG5\.Net-Final-Project-G5-B-Tech-\AdminDashboardB\obj\Debug\net8.0\AdminDashboardB.genruntimeconfig.cache
 D:\Programming\ITI .Net Full Stack Sohag\Final Project\FinalProjectG5\.Net-Final-Project-G5-B-Tech-\AdminDashboardB\obj\Debug\net8.0\ref\AdminDashboardB.dll
+D:\Programming\ITI .Net Full Stack Sohag\Final Project\FinalProjectG5\.Net-Final-Project-G5-B-Tech-\AdminDashboardB\obj\Debug\net8.0\AdminDashboardB.MvcApplicationPartsAssemblyInfo.cs

@@ -11,5 +11,7 @@ namespace DTOsB.Product
         public int Id { get; set; }
         public string TranslatedKey { get; set; }
         public string TranslatedValue { get; set; }
+
+        public int SpecificationId { get; set; }
     }
 }

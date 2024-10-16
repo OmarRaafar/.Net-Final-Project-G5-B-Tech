@@ -9,6 +9,7 @@ namespace DTOsB.Product
     public class ProductSpecificationDto
     {
         public int Id { get; set; }
+        public int ProductId { get; set; }
         public List<ProductSpecificationTranslationDto> Translations { get; set; }
     }
 }
