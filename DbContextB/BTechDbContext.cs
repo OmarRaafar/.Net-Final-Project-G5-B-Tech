@@ -75,7 +75,7 @@ namespace DbContextB
         public virtual DbSet<ProductTranslationB> ProductTranslations { get; set; }
         public virtual DbSet<ProductSpecificationsB> ProductSpecifications { get; set; }
         public virtual DbSet<ProductSpecificationTranslationB> ProductSpecificationTranslations { get; set; }
-
+        public virtual DbSet<SpecificationStore> SpecificationKeys { get; set; }
         public virtual DbSet<ReviewB> Reviews { get; set; }
 
         /// <summary>

@@ -66,11 +66,11 @@ namespace ApplicationB.Services_B.Product
         //    return  ResultView<ProductSpecificationDto>.Success(null);
         //}
 
-        public async Task<ResultView<IQueryable<ProductSpecificationDto>>> GetSpecificationsByProductIdAsync(int productId)
+        public async Task<ResultView<IEnumerable<ProductSpecificationDto>>> GetSpecificationsByProductIdAsync(int productId)
         {
             var specifications = await _specificationRepository.GetSpecificationsByProductId(productId);
             var specificationDtos = _mapper.Map<IEnumerable<ProductSpecificationDto>>(specifications);
-            return ResultView<IQueryable<ProductSpecificationDto>>.Success((IQueryable<ProductSpecificationDto>)specificationDtos);
+            return ResultView<IEnumerable<ProductSpecificationDto>>.Success(specificationDtos);
         }
 
         public async Task<ResultView<ProductSpecificationDto>> GetSpecificationByIdAsync(int id)

@@ -67,10 +67,10 @@ namespace ApplicationB.Services_B.Product
             return ResultView<ReviewDto>.Success(reviewDto);
         }
 
-        public async Task<IQueryable<ReviewDto>> GetAllReviewsAsync()
+        public async Task<IEnumerable<ReviewDto>> GetAllReviewsAsync()
         {
             var reviews = await _reviewRepository.GetAllAsync();
-            var reviewDtos = _mapper.Map<IQueryable<ReviewDto>>(reviews);
+            var reviewDtos = _mapper.Map<IEnumerable<ReviewDto>>(reviews);
             return reviewDtos;
         }
     }

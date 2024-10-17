@@ -10,11 +10,11 @@ namespace ApplicationB.Services_B.Product
 {
     public interface IProductSpecificationTransService
     {
-        Task<ResultView<IQueryable<ProductSpecificationTranslationDto>>> GetTranslationsBySpecificationIdAsync(int specificationId);
+        Task<ResultView<IEnumerable<ProductSpecificationTranslationDto>>> GetTranslationsBySpecificationIdAsync(int specificationId);
         Task<ResultView<ProductSpecificationTranslationDto>> AddTranslationAsync(ProductSpecificationTranslationDto translationDto);
         Task<ResultView<ProductSpecificationTranslationDto>> UpdateTranslationAsync(ProductSpecificationTranslationDto translationDto);
 
-        Task<ResultView<IQueryable<ProductSpecificationTranslationDto>>> GetSpecificationsTransByProductIdAsync(int productId);
+        Task<ResultView<IEnumerable<ProductSpecificationTranslationDto>>> GetSpecificationsTransByProductIdAsync(int productId);
         Task<ResultView<ProductSpecificationTranslationDto>> GetSpecificationByIdAsync(int id);
     }
 }

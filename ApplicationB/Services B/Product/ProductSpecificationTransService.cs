@@ -41,29 +41,29 @@ namespace ApplicationB.Services_B.Product
             return ResultView<ProductSpecificationTranslationDto>.Success(translationDto);
         }
 
-        public async Task<ResultView<IQueryable<ProductSpecificationTranslationDto>>> GetSpecificationsTransByProductIdAsync(int productId)
+        public async Task<ResultView<IEnumerable<ProductSpecificationTranslationDto>>> GetSpecificationsTransByProductIdAsync(int productId)
         {
             var translations = await _specTranslationRepository.GetTranslationsByProductId(productId);
             if (!translations.Any())
             {
-                return ResultView<IQueryable<ProductSpecificationTranslationDto>>.Failure("No Spec translations found for this product.");
+                return ResultView<IEnumerable<ProductSpecificationTranslationDto>>.Failure("No Spec translations found for this product.");
             }
 
-            var translationDtos = _mapper.Map<IQueryable<ProductSpecificationTranslationDto>>(translations);
-            return ResultView<IQueryable<ProductSpecificationTranslationDto>>.Success(translationDtos);
+            var translationDtos = _mapper.Map<IEnumerable<ProductSpecificationTranslationDto>>(translations);
+            return ResultView<IEnumerable<ProductSpecificationTranslationDto>>.Success(translationDtos);
         }
 
 
 
-        public async Task<ResultView<IQueryable<ProductSpecificationTranslationDto>>>
+        public async Task<ResultView<IEnumerable<ProductSpecificationTranslationDto>>>
         GetTranslationsBySpecificationIdAsync(int specificationId)
         {
             var translations = await _specTranslationRepository.GetByIdAsync(specificationId);
 
 
-            var translationDtos = _mapper.Map<IQueryable<ProductSpecificationTranslationDto>>(translations);
+            var translationDtos = _mapper.Map<IEnumerable<ProductSpecificationTranslationDto>>(translations);
 
-            return ResultView<IQueryable<ProductSpecificationTranslationDto>>.Success(translationDtos);
+            return ResultView<IEnumerable<ProductSpecificationTranslationDto>>.Success(translationDtos);
         }
 
 

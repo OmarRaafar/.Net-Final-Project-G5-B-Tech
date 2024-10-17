@@ -19,7 +19,9 @@ namespace ApplicationB.Mapper_B
             CreateMap<ProductTranslationB, ProductTranslationDto>().ReverseMap();
             CreateMap<ProductSpecificationsB, ProductSpecificationDto>().ReverseMap();
             CreateMap<ProductSpecificationTranslationB, ProductSpecificationTranslationDto>().ReverseMap();
+            CreateMap<SpecificationStore, SpecificationStoreDto>().ReverseMap();
             CreateMap<ReviewB, ReviewDto>().ReverseMap();
+          
         }
     
     }

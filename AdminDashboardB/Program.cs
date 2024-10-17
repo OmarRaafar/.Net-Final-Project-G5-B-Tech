@@ -87,6 +87,9 @@ namespace WebApplication1
            
             var app = builder.Build();
 
+
+            //RoleInitializer
+
             //using (var serviceScope = app.Services.GetService<IServiceScopeFactory>().CreateScope())
             //{
             //    var services = serviceScope.ServiceProvider;

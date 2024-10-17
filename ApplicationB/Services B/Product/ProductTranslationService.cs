@@ -61,23 +61,23 @@ namespace ApplicationB.Services_B.Product
 
 
 
-        public async Task<ResultView<IQueryable<ProductTranslationDto>>> GetTranslationsByProductIdAsync(int productId)
+        public async Task<ResultView<IEnumerable<ProductTranslationDto>>> GetTranslationsByProductIdAsync(int productId)
         {
             var translations = await _translationRepository.GetTranslationsByProductId(productId);
             if (!translations.Any())
             {
-                return ResultView<IQueryable<ProductTranslationDto>>.Failure("No translations found for this product.");
+                return ResultView<IEnumerable<ProductTranslationDto>>.Failure("No translations found for this product.");
             }
 
-            var translationDtos = _mapper.Map<IQueryable<ProductTranslationDto>>(translations);
-            return ResultView<IQueryable<ProductTranslationDto>>.Success(translationDtos);
+            var translationDtos = _mapper.Map<IEnumerable<ProductTranslationDto>>(translations);
+            return ResultView<IEnumerable<ProductTranslationDto>>.Success(translationDtos);
         }
 
-        public async Task<ResultView<IQueryable<ProductTranslationDto>>> GetAllTranslationsAsync()
+        public async Task<ResultView<IEnumerable<ProductTranslationDto>>> GetAllTranslationsAsync()
         {
             var translations = await _translationRepository.GetAllAsync();
             var translationDtos = _mapper.Map<IQueryable<ProductTranslationDto>>(translations);
-            return ResultView<IQueryable<ProductTranslationDto>>.Success(translationDtos);
+            return ResultView<IEnumerable<ProductTranslationDto>>.Success(translationDtos);
         }
 
 

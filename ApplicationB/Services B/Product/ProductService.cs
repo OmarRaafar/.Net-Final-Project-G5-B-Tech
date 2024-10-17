@@ -99,12 +99,12 @@ public class ProductService: IProductService
             return ResultView<ProductDto>.Success(productDto);
         }
 
-        public async Task<IQueryable<ProductDto>> GetAllProductsAsync()
+        public async Task<IEnumerable<ProductDto>> GetAllProductsAsync()
         {
             var languageCode = _languageService.GetCurrentLanguageCode();
             var products = await _productRepository.GetAllAsync();
             var filteredProducts = products.Where(p => p.Translations.Any(t => t.Language.Code == languageCode)).AsQueryable();
-            var productDtos = _mapper.Map<IQueryable<ProductDto>>(filteredProducts);
+            var productDtos = _mapper.Map<IEnumerable<ProductDto>>(filteredProducts);
             return productDtos;
            
         }

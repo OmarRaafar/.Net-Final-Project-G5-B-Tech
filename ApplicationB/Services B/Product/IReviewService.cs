@@ -14,6 +14,6 @@ namespace ApplicationB.Services_B.Product
         Task<ResultView<ReviewDto>> UpdateReviewAsync(ReviewDto reviewDto);
         Task<ResultView<ReviewDto>> DeleteReviewAsync(int id);
         Task<ResultView<ReviewDto>> GetReviewByIdAsync(int id);
-        Task<IQueryable<ReviewDto>> GetAllReviewsAsync();
+        Task<IEnumerable<ReviewDto>> GetAllReviewsAsync();
     }
 }

@@ -10,7 +10,7 @@ namespace ApplicationB.Services_B.Product
 {
     public interface IProductSpecificationService
     {
-        Task<ResultView<IQueryable<ProductSpecificationDto>>> GetSpecificationsByProductIdAsync(int productId);
+        Task<ResultView<IEnumerable<ProductSpecificationDto>>> GetSpecificationsByProductIdAsync(int productId);
         Task<ResultView<ProductSpecificationDto>> AddSpecificationAsync(ProductSpecificationDto specificationDto);
         Task<ResultView<ProductSpecificationDto>> UpdateSpecificationAsync(ProductSpecificationDto specificationDto);
        

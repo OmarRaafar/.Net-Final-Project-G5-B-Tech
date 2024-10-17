@@ -15,8 +15,8 @@ namespace ApplicationB.Services_B.Product
         Task<ResultView<ProductTranslationDto>> UpdateTranslationAsync(ProductTranslationDto translationDto);
         //Task<ResultView<ProductTranslationDto>> DeleteTranslationAsync(int id);
       
-        Task<ResultView<IQueryable<ProductTranslationDto>>> GetTranslationsByProductIdAsync(int productId);
+        Task<ResultView<IEnumerable<ProductTranslationDto>>> GetTranslationsByProductIdAsync(int productId);
 
-        Task<ResultView<IQueryable<ProductTranslationDto>>> GetAllTranslationsAsync();
+        Task<ResultView<IEnumerable<ProductTranslationDto>>> GetAllTranslationsAsync();
     }
 }
