@@ -16,6 +16,13 @@ namespace InfrastructureB.Product
     {
         public ProductSpecificationTranslationRep(BTechDbContext context) : base(context) { }
 
-       
+        public async Task<IQueryable<ProductSpecificationTranslationB>> GetTranslationsByProductId(int productId)
+        {
+            var translations = await GetAllAsync();
+            return (IQueryable<ProductSpecificationTranslationB>)translations
+                .Where(trans => trans.ProductSpecification.ProductId == productId
+                && trans.ProductSpecification.Product.IsDeleted == false);
+        }
+
     }
 }
