@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "wfYDNdPlsK9cWDeM+ge5SchyvJmfqfuZlf7nIWHwZJ8=",
+  "Hash": "oulj6RZYqSNmYXoWgAAo+svd0e5N/ht5dbhsTyeiXCQ=",
   "Source": "AdminDashboardB",
   "BasePath": "_content/AdminDashboardB",
   "Mode": "Default",
@@ -1214,6 +1214,25 @@
       "OriginalItemSpec": "wwwroot\\css\\site.css"
     },
     {
+      "Identity": "D:\\Programming\\ITI .Net Full Stack Sohag\\Final Project\\FinalProjectG5\\.Net-Final-Project-G5-B-Tech-\\AdminDashboardB\\wwwroot\\css\\styles.css",
+      "SourceId": "AdminDashboardB",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Programming\\ITI .Net Full Stack Sohag\\Final Project\\FinalProjectG5\\.Net-Final-Project-G5-B-Tech-\\AdminDashboardB\\wwwroot\\",
+      "BasePath": "_content/AdminDashboardB",
+      "RelativePath": "css/styles.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\styles.css"
+    },
+    {
       "Identity": "D:\\Programming\\ITI .Net Full Stack Sohag\\Final Project\\FinalProjectG5\\.Net-Final-Project-G5-B-Tech-\\AdminDashboardB\\wwwroot\\favicon.ico",
       "SourceId": "AdminDashboardB",
       "SourceType": "Discovered",
@@ -1231,6 +1250,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\favicon.ico"
+    },
+    {
+      "Identity": "D:\\Programming\\ITI .Net Full Stack Sohag\\Final Project\\FinalProjectG5\\.Net-Final-Project-G5-B-Tech-\\AdminDashboardB\\wwwroot\\js\\scripts.js",
+      "SourceId": "AdminDashboardB",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Programming\\ITI .Net Full Stack Sohag\\Final Project\\FinalProjectG5\\.Net-Final-Project-G5-B-Tech-\\AdminDashboardB\\wwwroot\\",
+      "BasePath": "_content/AdminDashboardB",
+      "RelativePath": "js/scripts.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\scripts.js"
     },
     {
       "Identity": "D:\\Programming\\ITI .Net Full Stack Sohag\\Final Project\\FinalProjectG5\\.Net-Final-Project-G5-B-Tech-\\AdminDashboardB\\wwwroot\\js\\site.js",

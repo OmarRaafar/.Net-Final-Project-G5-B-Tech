@@ -87,16 +87,16 @@ public class ProductService: IProductService
             return ResultView<ProductDto>.Success(null);
         }
 
-        public async Task<ResultView<ProductDto>> GetProductByIdAsync(int id)
+        public async Task<ProductDto> GetProductByIdAsync(int id)
         {
             
             var product = await _productRepository.GetByIdAsync(id);
 
-            if (product == null)
-                return ResultView<ProductDto>.Failure("Product not found.");
+            //if (product == null)
+            //    return ResultView<ProductDto>.Failure("Product not found.");
 
             var productDto = _mapper.Map<ProductDto>(product);
-            return ResultView<ProductDto>.Success(productDto);
+            return productDto;
         }
 
         public async Task<IEnumerable<ProductDto>> GetAllProductsAsync()
@@ -110,12 +110,12 @@ public class ProductService: IProductService
         }
 
 
-        public async Task<ResultView<IQueryable<ProductDto>>> SearchProductsByNameAsync(string name)
+        public async Task<ResultView<IEnumerable<ProductDto>>> SearchProductsByNameAsync(string name)
         {
             var products = await _productRepository.SearchByNameAsync(name); 
             var productDtos = _mapper.Map<IQueryable<ProductDto>>(products); 
 
-            return ResultView<IQueryable<ProductDto>>.Success(productDtos); 
+            return ResultView<IEnumerable<ProductDto>>.Success(productDtos); 
         }
 
 

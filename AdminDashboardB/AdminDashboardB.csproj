@@ -27,4 +27,8 @@
     <ProjectReference Include="..\InfrastructureB\InfrastructureB.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\ImageUrls\" />
+  </ItemGroup>
+
 </Project>
