@@ -25,23 +25,23 @@ namespace ApplicationB.Services_B.Product
             _userService = userService;
         }
 
-        public async Task<ResultView<ProductImageDto>> AddImageAsync(ProductImageDto productImageDto)
+        public async Task<ResultView<ProductImageCreateOrUpdateDto>> AddImageAsync(ProductImageCreateOrUpdateDto productImageDto)
         {
             var productImage = _mapper.Map<ProductImageB>(productImageDto);
             productImage.Product.CreatedBy = _userService.GetCurrentUserId();
            
 
             await _productImageRepository.AddAsync(productImage);
-            return ResultView<ProductImageDto>.Success(productImageDto);
+            return ResultView<ProductImageCreateOrUpdateDto>.Success(productImageDto);
           
         }
 
-        public async Task<ResultView<ProductImageDto>> UpdateImageAsync(ProductImageDto productImageDto)
+        public async Task<ResultView<ProductImageCreateOrUpdateDto>> UpdateImageAsync(ProductImageCreateOrUpdateDto productImageDto)
         {
             var existingImage = await _productImageRepository.GetByIdAsync(productImageDto.Id);
             if (existingImage == null || existingImage.Product.IsDeleted)
             {
-                return ResultView<ProductImageDto>.Failure("Image not found.");
+                return ResultView<ProductImageCreateOrUpdateDto>.Failure("Image not found.");
               
             }
             _mapper.Map(productImageDto, existingImage);
@@ -49,7 +49,7 @@ namespace ApplicationB.Services_B.Product
             existingImage.Product.UpdatedBy = _userService.GetCurrentUserId();
 
             await _productImageRepository.UpdateAsync(existingImage);
-            return ResultView<ProductImageDto>.Success(productImageDto);
+            return ResultView<ProductImageCreateOrUpdateDto>.Success(productImageDto);
        
         }
 

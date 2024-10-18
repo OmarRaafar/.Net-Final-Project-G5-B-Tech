@@ -253,6 +253,27 @@ namespace DbContextB.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("Users", "security");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "46b1ad51-48a1-4374-85e8-c7dc67afd054",
+                            AccessFailedCount = 0,
+                            Address = "Hamza St",
+                            City = "Sohag",
+                            ConcurrencyStamp = "1e3097e5-4049-4f81-bd15-570f2d255ed9",
+                            Country = "Egypt",
+                            Email = "moh.alnoby216@gmail.com",
+                            EmailConfirmed = false,
+                            LockoutEnabled = false,
+                            PasswordHash = "AQAAAAIAAYagAAAAEJSQS92AP7MwS6jo5OwUuEcw0rUM7EzzOB9Jk8MwXbFzkCWalDOfzUjy27f3OOvDbQ==",
+                            PhoneNumberConfirmed = false,
+                            PostalCode = "12345",
+                            SecurityStamp = "a0a324fb-ace2-4171-b063-44d9f97dddb5",
+                            TwoFactorEnabled = false,
+                            UserName = "Mohammed Abbas",
+                            UserType = "Admin"
+                        });
                 });
 
             modelBuilder.Entity("ModelsB.Category_B.CategoryB", b =>
@@ -655,9 +676,6 @@ namespace DbContextB.Migrations
                     b.Property<int>("LanguageId")
                         .HasColumnType("int");
 
-                    b.Property<int>("ProductSpecificationId")
-                        .HasColumnType("int");
-
                     b.Property<int>("SpecificationId")
                         .HasColumnType("int");
 
@@ -674,8 +692,6 @@ namespace DbContextB.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("LanguageId");
-
-                    b.HasIndex("ProductSpecificationId");
 
                     b.HasIndex("SpecificationId", "LanguageId")
                         .IsUnique();
@@ -975,7 +991,7 @@ namespace DbContextB.Migrations
 
                     b.HasOne("ModelsB.Product_B.ProductSpecificationsB", "ProductSpecification")
                         .WithMany("Translations")
-                        .HasForeignKey("ProductSpecificationId")
+                        .HasForeignKey("SpecificationId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

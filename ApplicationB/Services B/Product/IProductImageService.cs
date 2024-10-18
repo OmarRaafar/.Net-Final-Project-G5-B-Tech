@@ -11,8 +11,8 @@ namespace ApplicationB.Services_B.Product
 {
     public interface IProductImageService
     {
-        Task<ResultView<ProductImageDto>> AddImageAsync(ProductImageDto productImageDto);
-        Task<ResultView<ProductImageDto>> UpdateImageAsync(ProductImageDto productImageDto);
+        Task<ResultView<ProductImageCreateOrUpdateDto>> AddImageAsync(ProductImageCreateOrUpdateDto productImageDto);
+        Task<ResultView<ProductImageCreateOrUpdateDto>> UpdateImageAsync(ProductImageCreateOrUpdateDto productImageDto);
         Task<ResultView<ProductImageDto>> GetProductImageByIdAsync(int id);
         Task<ResultView<List<ProductImageDto>>> GetProductImagesByProductIdAsync(int productId);
     }

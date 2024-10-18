@@ -16,6 +16,9 @@ using ApplicationB.Services_B;
 using ApplicationB.Contracts_B.General;
 using ApplicationB.Services_B.General;
 using InfrastructureB.General;
+using ApplicationB.Contracts_B.Category;
+using ApplicationB.Services_B.Category;
+using InfrastructureB.Category;
 
 namespace WebApplication1
 {
@@ -48,9 +51,14 @@ namespace WebApplication1
 
 
             #region AddScoped
+
             builder.Services.AddScoped<ILanguageRepository, LanguageRepository>();
             builder.Services.AddScoped<ILanguageService, LanguageService>();
             builder.Services.AddScoped<IUserService, UserService>();
+
+
+            //==========Product==========
+
             builder.Services.AddScoped<IProductRepository, ProductRepository>();
             builder.Services.AddScoped<IProductService,ProductService>();
             builder.Services.AddScoped<IProductImageRepository, ProductImageRepository>();
@@ -62,9 +70,18 @@ namespace WebApplication1
             builder.Services.AddScoped<IProductTranslationService,ProductTranslationService>();
             builder.Services.AddScoped<IProductSpecificationTranslationRepository, ProductSpecificationTranslationRep>();
             builder.Services.AddScoped<IProductSpecificationTransService, ProductSpecificationTransService>();
+            builder.Services.AddScoped<ISpecificationStoreRepository, SpecificationStoreRepository>();
+            builder.Services.AddScoped<ISpecificationStoreService, SpecificationStoreService>();
+
 
             builder.Services.AddScoped<IReviewRepository, ReviewRepository>();
             builder.Services.AddScoped<IReviewService, ReviewService>();
+
+
+            //==========Category==========
+
+            builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+            builder.Services.AddScoped<ICategoryService, CategoryService>();
             #endregion
 
 
@@ -88,17 +105,12 @@ namespace WebApplication1
             var app = builder.Build();
 
 
-            //RoleInitializer
-
             //using (var serviceScope = app.Services.GetService<IServiceScopeFactory>().CreateScope())
             //{
             //    var services = serviceScope.ServiceProvider;
-            //    var context = services.GetRequiredService<BTechDbContext>();
-            //    var seeder = new DataSeeder(context);
             //    try
             //    {
             //        RoleInitializer.Initialize(services).Wait();
-            //        seeder.Seed();
             //    }
             //    catch (Exception ex)
             //    {

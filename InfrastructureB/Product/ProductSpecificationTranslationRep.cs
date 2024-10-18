@@ -2,6 +2,7 @@
 using ApplicationB.Contracts_B.Product;
 using DbContextB;
 using InfrastructureB.General;
+using ModelsB.Localization_B;
 using ModelsB.Product_B;
 using System;
 using System.Collections.Generic;
@@ -16,12 +17,12 @@ namespace InfrastructureB.Product
     {
         public ProductSpecificationTranslationRep(BTechDbContext context) : base(context) { }
 
-        public async Task<IQueryable<ProductSpecificationTranslationB>> GetTranslationsByProductId(int productId)
+        public async Task<IQueryable<ProductSpecificationTranslationB>> GetTranslationsByProductId(int productId, string language)
         {
             var translations = await GetAllAsync();
-            return (IQueryable<ProductSpecificationTranslationB>)translations
+            return (translations
                 .Where(trans => trans.ProductSpecification.ProductId == productId
-                && trans.ProductSpecification.Product.IsDeleted == false);
+                && trans.ProductSpecification.Product.IsDeleted == false && trans.Language.Code == language));
         }
 
     }

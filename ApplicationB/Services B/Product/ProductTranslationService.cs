@@ -63,7 +63,8 @@ namespace ApplicationB.Services_B.Product
 
         public async Task<ResultView<IEnumerable<ProductTranslationDto>>> GetTranslationsByProductIdAsync(int productId)
         {
-            var translations = await _translationRepository.GetTranslationsByProductId(productId);
+            string language = _languageService.GetCurrentLanguageCode();
+            var translations = await _translationRepository.GetTranslationsByProductId(productId, language);
             if (!translations.Any())
             {
                 return ResultView<IEnumerable<ProductTranslationDto>>.Failure("No translations found for this product.");
