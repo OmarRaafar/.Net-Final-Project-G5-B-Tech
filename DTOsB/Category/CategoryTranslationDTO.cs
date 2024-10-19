@@ -16,5 +16,6 @@ namespace DTOsB.Category
 
         [MaxLength(150)]
         public string? Description { get; set; }
+        public string Language { get; set; } // The language name or code
     }
 }

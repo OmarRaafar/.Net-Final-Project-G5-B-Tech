@@ -23,10 +23,10 @@ namespace InfrastructureB.Category
         public async Task<CategoryB> GetByNameAsync(string categoryName)
         {
             return await _dbContext.Categories
-                                 .Include(c => c.Translations)
-                                 .Include(c => c.ProductCategories)
-                                 .FirstOrDefaultAsync(c => c.Translations
-                                 .Any(t => t.CategoryName == categoryName));
+                                     .Include(c => c.Translations)
+                                     .Include(c => c.ProductCategories)
+                                     .FirstOrDefaultAsync(c => c.Translations
+                                     .Any(t => t.CategoryName.ToLower().StartsWith(categoryName.ToLower())));
         }
 
         public async Task AddAsync(CategoryB category)
@@ -48,6 +48,7 @@ namespace InfrastructureB.Category
             return await _dbContext.Categories
                                  .Include(c => c.Translations)
                                  .Include(c => c.ProductCategories)
+                                 .Where(c => !c.IsDeleted)
                                  .ToListAsync();
         }
 
