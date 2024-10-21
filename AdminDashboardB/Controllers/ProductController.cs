@@ -1,4 +1,6 @@
-﻿using ApplicationB.Services_B.General;
+﻿using ApplicationB.Contracts_B.General;
+using ApplicationB.Services_B;
+using ApplicationB.Services_B.General;
 using ApplicationB.Services_B.Product;
 using DTOsB.Product;
 using DTOsB.Shared;
@@ -12,15 +14,27 @@ namespace DTOsB.Controllers
     public class ProductController : Controller
     {
         private readonly IWebHostEnvironment webHostEnvironment;
-        private readonly IProductService productService;
+        private readonly IImageService _imageService;
         private readonly ILanguageService languageService;
+        private readonly IUserService _userService;
+        private readonly IProductService productService;
+        private readonly IProductImageService _productImageService;
+        private readonly IProductSpecificationService _productSpecificationService;
+        private readonly IProductTranslationService _productTranslationService;
+        private readonly IProductSpecificationTransService _productSpecificationTransService;
 
-        public ProductController(IProductService _productService, IWebHostEnvironment _webHostEnvironment,
-            ILanguageService _languageService)
+
+        public ProductController(IProductService _productService, IUserService userService,ILanguageService _languageService, IProductImageService productImageService,IProductSpecificationService productSpecificationService,
+            IProductTranslationService productTranslationService,IProductSpecificationTransService productSpecificationTransService)
         {
             productService = _productService;
-            webHostEnvironment = _webHostEnvironment;
+           
+            _userService = userService;
             languageService = _languageService;
+            _productImageService = productImageService;
+            _productSpecificationService = productSpecificationService;
+            _productTranslationService = productTranslationService;
+            _productSpecificationTransService = productSpecificationTransService;
         }
 
 
@@ -67,14 +81,14 @@ namespace DTOsB.Controllers
         //}
 
         // GET: Products/Create
-        public async Task<IActionResult> Create(int selectedLanguageId = 2)
+        public  IActionResult Create(/*int selectedLanguageId = 2*/)
         {
-            var availableLanguages = await languageService.GetAllLanguagesAsync();
-            ViewBag.AvailableLanguages = new SelectList(availableLanguages, "Id", "Code");
+            //var availableLanguages = await languageService.GetAllLanguagesAsync();
+            //ViewBag.AvailableLanguages = new SelectList(availableLanguages, "Id", "Code");
 
 
-            languageService.SetUserSelectedLanguageAsync(selectedLanguageId);
-            ViewBag.SelectedLanguageId = selectedLanguageId;
+            //languageService.SetUserSelectedLanguageAsync(selectedLanguageId);
+            //ViewBag.SelectedLanguageId = selectedLanguageId;
             return View();
         }
 
@@ -85,14 +99,83 @@ namespace DTOsB.Controllers
         {
             //if (ModelState.IsValid)
             //{
-                var result = await productService.CreateProductAsync(productDto);
-                if (result.IsSuccess)
-                {
-                    return RedirectToAction(nameof(Index));
-                }
+
+            productDto.CreatedBy = _userService.GetCurrentUserId();
+            productDto.UpdatedBy = _userService.GetCurrentUserId();
+
+            var result = await productService.CreateProductAsync(productDto);
+            if (!result.IsSuccess)
+            {
                 ModelState.AddModelError("", result.Msg);
+                return View(productDto);
+            }
+
+
+            //Images
+            if (productDto.ImageFiles != null && productDto.ImageFiles.Count > 0)
+            {
+                productDto.Images = productDto.Images ?? new List<ProductImageCreateOrUpdateDto>();
+                var errorMessages = new List<string>();
+
+                foreach (var imageFile in productDto.ImageFiles)
+                {
+                    var imageUrl = await _imageService.SaveImageAsync(imageFile, "ImageUrls");
+                    ProductImageCreateOrUpdateDto imageDto = new ProductImageCreateOrUpdateDto
+                    {
+                        Url = imageUrl,
+                    };
+
+                    productDto.Images.Add(imageDto);
+
+                    var imageResult = await _productImageService.AddImageAsync(imageDto);
+                    if (!imageResult.IsSuccess)
+                    {
+                        errorMessages.Add(imageResult.Msg);
+                    }
+                }
+
+                if (errorMessages.Any())
+                {
+                    ModelState.AddModelError("", string.Join(";", errorMessages));
+                    return View(productDto);
+                }
+            }
+
+            //Translations
+            foreach (var trans in productDto.Translations)
+            {
+                var transResult = await _productTranslationService.AddTranslationAsync(trans);
+                if (!transResult.IsSuccess)
+                {
+                    ModelState.AddModelError("", transResult.Msg);
+                    return View(productDto);
+                }
+            }
+
+
+            //Specifications
+            foreach (var spec in productDto.Specifications)
+            {
+                var specResult = await _productSpecificationService.AddSpecificationAsync(spec);
+                if (!specResult.IsSuccess)
+                {
+                    ModelState.AddModelError("", specResult.Msg);
+                    return View(productDto);
+                }
+
+                foreach (var specTrans in spec.Translations)
+                {
+                    var specTransResult = await _productSpecificationTransService.AddTranslationAsync(specTrans);
+                    if (!specTransResult.IsSuccess)
+                    {
+                        ModelState.AddModelError("", specTransResult.Msg);
+                        return View(productDto);
+                    }
+                }
+            }
+
             //}
-            return View(productDto);
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: Products/Edit/5

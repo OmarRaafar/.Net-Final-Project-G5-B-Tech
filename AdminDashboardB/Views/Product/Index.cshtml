@@ -1,4 +1,4 @@
-﻿@model  DTOsB.Shared.ResultView< List<DTOsB.Product.ProductDto>>
+﻿@model  DTOsB.Shared.ResultView< IEnumerable<DTOsB.Product.ProductDto>>
 @* @model DTOsB.Shared.EntityPaginatedB<DTOsB.Product.ProductDto> *@
 @*     @model DTOsB.Product.ProductViewModelWithLang *@
 @{
@@ -7,7 +7,7 @@
 }
 
 <div class="container my-5 shadow p-4 rounded">
-    <form asp-action="Index" method="get">
+   @*  <form asp-action="Index" method="get">
     <select name="selectedLanguageId" onchange="this.form.submit()">
         <option value="">Select Language</option>
         @foreach (var lang in ViewBag.AvailableLanguages)
@@ -17,7 +17,7 @@
             </option>
         }
     </select>
-    </form>
+    </form> *@
 
 
   

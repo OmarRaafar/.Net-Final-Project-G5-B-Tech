@@ -7,8 +7,8 @@
 @{
     ViewData["Title"] = "Create";
 }
-<div class="container my-5 p-4  shadow rounded col-md-8">
-    <form asp-action="Index" method="get">
+<div class="container my-5 p-4  shadow rounded col-md-12">
+   @*  <form asp-action="Index" method="get">
         <select name="selectedLanguageId" onchange="this.form.submit()">
             <option value="">Select Language</option>
             @foreach (var lang in ViewBag.AvailableLanguages)
@@ -18,7 +18,7 @@
                 </option>
             }
         </select>
-    </form>
+    </form> *@
     <div class="row justify-content-center mt-5">
         <h2 class="text-center mb-4 bg-light fw-bold text-primary p-4 shadow rounded" style="margin-top: -100px">Create Product</h2>
         <form asp-action="Create" method="post" enctype="multipart/form-data">
@@ -99,6 +99,13 @@
                 <span asp-validation-for="CategoryId" class="text-danger"></span>
             </div> *@
 
+
+            <div class="mb-4">
+                <label class="form-label fs-5 fw-bold" for="ImageFiles">Product Images</label>
+                <input type="file" class="form-control shadow-sm" id="ImageFiles" name="ImageFiles" multiple>
+                <span asp-validation-for="Images.FirstOrDefault().ImageFile" class="text-danger"></span>
+            </div>
+
             <div class="mb-4">
                 <label class="form-label fs-5 fw-bold" for="SpecificationId">Specification</label>
                 <select class="form-select shadow-sm" id="SpecificationId" name="SpecificationId">
@@ -113,11 +120,7 @@
                 @* <span asp-validation-for="SpecificationId" class="text-danger"></span> *@
             </div>
 
-            <div class="mb-4">
-                <label class="form-label fs-5 fw-bold" for="ImageFiles">Product Images</label>
-                <input type="file" class="form-control shadow-sm" id="ImageFiles" name="ImageFiles" multiple>
-                <span asp-validation-for="Images.FirstOrDefault().ImageFile" class="text-danger"></span>
-            </div>
+          
 
             @* <div id="specifications-container">
             <h4>Specifications</h4>

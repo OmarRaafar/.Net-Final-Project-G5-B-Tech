@@ -19,29 +19,24 @@ namespace ApplicationB.Services_B.Product
 {
 public class ProductService: IProductService
     {
-        
+       
+
         private readonly IProductRepository _productRepository;
         private readonly IMapper _mapper;
         private readonly ILanguageService _languageService;
-        //private readonly ILogger<ProductService> _logger; If need to logg attributes
+        
         private readonly IUserService _userService;
-        private readonly IProductImageService _productImageService;
-        private readonly IProductSpecificationService _productSpecificationService;
-        private readonly IProductTranslationService _productTranslationService;
-        private readonly IProductSpecificationTransService _productSpecificationTransService;
+       
+        
 
      public ProductService(IProductRepository productRepository, IMapper mapper, IUserService userService,
-            ILanguageService languageService, IProductImageService productImageService, IProductSpecificationService productSpecificationService,
-            IProductTranslationService productTranslationService, IProductSpecificationTransService productSpecificationTransService)
+            ILanguageService languageService)
         {
             _productRepository = productRepository;
             _mapper = mapper;
             _userService = userService;
             _languageService = languageService;
-            _productImageService = productImageService;
-            _productSpecificationService = productSpecificationService;
-            _productTranslationService = productTranslationService;
-            _productSpecificationTransService = productSpecificationTransService;
+          
         }
 
         public async Task<ResultView<ProductCreateOrUpdateDto>> CreateProductAsync(ProductCreateOrUpdateDto productDto)
@@ -55,13 +50,12 @@ public class ProductService: IProductService
             if (productDto.StockQuantity < 0)
                 return ResultView<ProductCreateOrUpdateDto>.Failure("Product Quantity must be a positive value.");
 
-            var product = _mapper.Map<ProductB>(productDto);
-           
-            product.CreatedBy = _userService.GetCurrentUserId();
-            product.UpdatedBy = _userService.GetCurrentUserId();
-
-            await _productRepository.AddAsync(product);
           
+
+            var product = _mapper.Map<ProductB>(productDto);
+            await _productRepository.AddAsync(product);
+
+
             return ResultView<ProductCreateOrUpdateDto>.Success(productDto);
         }
 
@@ -82,7 +76,7 @@ public class ProductService: IProductService
 
             _mapper.Map(productDto, existingProduct);
             
-            existingProduct.UpdatedBy = _userService.GetCurrentUserId();
+            //existingProduct.UpdatedBy = _userService.GetCurrentUserId();
 
             await _productRepository.UpdateAsync(existingProduct);
             return ResultView<ProductDto>.Success(productDto);
@@ -95,8 +89,8 @@ public class ProductService: IProductService
                 return ResultView<ProductDto>.Failure("Product not found. Unable to delete.");
 
             existingProduct.IsDeleted = true;
-            _userService.GetCurrentUserId();
-            existingProduct.Updated = DateTime.Now;
+            //_userService.GetCurrentUserId();
+            //existingProduct.Updated = DateTime.Now;
 
             await _productRepository.UpdateAsync(existingProduct);
             return ResultView<ProductDto>.Success(null);
@@ -114,7 +108,7 @@ public class ProductService: IProductService
             return ResultView<ProductDto>.Success(productDto);
         }
 
-        public async Task<ResultView<List<ProductDto>>> GetAllProductsAsync()
+        public async Task<ResultView<IEnumerable<ProductDto>>> GetAllProductsAsync()
         {
             var languageId = _languageService.GetCurrentLanguageCode();
 
@@ -123,8 +117,8 @@ public class ProductService: IProductService
             var filteredProducts = await _productRepository.GetFilteredProductsAsync(languageId);
 
             //var filteredProducts =  products.Where(p => p.Translations.Any(t => t.Language.Id == languageId));
-            var productDtos = _mapper.Map<List<ProductDto>>(filteredProducts);
-            return ResultView<List<ProductDto>>.Success(productDtos);
+            var productDtos = _mapper.Map<IEnumerable<ProductDto>>(filteredProducts);
+            return ResultView<IEnumerable<ProductDto>>.Success(productDtos);
 
         }
 

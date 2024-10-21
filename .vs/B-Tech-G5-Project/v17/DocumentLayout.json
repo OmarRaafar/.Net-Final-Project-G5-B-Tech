@@ -1,16 +1,7 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "D:\\Programming\\ITI .Net Full Stack Sohag\\Final Project\\FinalProjectG5\\.Net-Final-Project-G5-B-Tech-\\",
-  "Documents": [
-    {
-      "AbsoluteMoniker": "D:0:0:{18F197EB-5DC2-4AC6-B8FA-FBA6E5BF9ACE}|AdminDashboardB\\AdminDashboardB.csproj|d:\\programming\\iti .net full stack sohag\\final project\\finalprojectg5\\.net-final-project-g5-b-tech-\\admindashboardb\\views\\product\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{18F197EB-5DC2-4AC6-B8FA-FBA6E5BF9ACE}|AdminDashboardB\\AdminDashboardB.csproj|solutionrelative:admindashboardb\\views\\product\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6E966295-A567-418D-9BC4-EE3373F752F0}|ApplicationB\\ApplicationB.csproj|d:\\programming\\iti .net full stack sohag\\final project\\finalprojectg5\\.net-final-project-g5-b-tech-\\applicationb\\services b\\product\\productservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6E966295-A567-418D-9BC4-EE3373F752F0}|ApplicationB\\ApplicationB.csproj|solutionrelative:applicationb\\services b\\product\\productservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    }
-  ],
+  "Documents": [],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -18,7 +9,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": -1,
           "Children": [
             {
               "$type": "Bookmark",
@@ -31,32 +22,6 @@
             {
               "$type": "Bookmark",
               "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "Index.cshtml",
-              "DocumentMoniker": "D:\\Programming\\ITI .Net Full Stack Sohag\\Final Project\\FinalProjectG5\\.Net-Final-Project-G5-B-Tech-\\AdminDashboardB\\Views\\Product\\Index.cshtml",
-              "RelativeDocumentMoniker": "AdminDashboardB\\Views\\Product\\Index.cshtml",
-              "ToolTip": "D:\\Programming\\ITI .Net Full Stack Sohag\\Final Project\\FinalProjectG5\\.Net-Final-Project-G5-B-Tech-\\AdminDashboardB\\Views\\Product\\Index.cshtml",
-              "RelativeToolTip": "AdminDashboardB\\Views\\Product\\Index.cshtml",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-10-21T19:55:24.373Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "ProductService.cs",
-              "DocumentMoniker": "D:\\Programming\\ITI .Net Full Stack Sohag\\Final Project\\FinalProjectG5\\.Net-Final-Project-G5-B-Tech-\\ApplicationB\\Services B\\Product\\ProductService.cs",
-              "RelativeDocumentMoniker": "ApplicationB\\Services B\\Product\\ProductService.cs",
-              "ToolTip": "D:\\Programming\\ITI .Net Full Stack Sohag\\Final Project\\FinalProjectG5\\.Net-Final-Project-G5-B-Tech-\\ApplicationB\\Services B\\Product\\ProductService.cs",
-              "RelativeToolTip": "ApplicationB\\Services B\\Product\\ProductService.cs",
-              "ViewState": "AQIAAD8AAAAAAAAAAAAYwAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-21T19:55:00.828Z",
-              "EditorCaption": ""
             }
           ]
         }

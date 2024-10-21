@@ -14,7 +14,7 @@ namespace ApplicationB.Services_B.Product
         Task<ResultView<ProductDto>> UpdateProductAsync(ProductDto productDto);
         Task<ResultView<ProductDto>> DeleteProductAsync(int id);
         Task<ResultView<ProductDto>> GetProductByIdAsync(int id);
-        Task<ResultView<List<ProductDto>>> GetAllProductsAsync();
+        Task<ResultView<IEnumerable<ProductDto>>> GetAllProductsAsync();
         Task<ResultView<IEnumerable<ProductDto>>> SearchProductsByNameAsync(string name);
         public Task<EntityPaginatedB<ProductDto>> GetAllPaginatedAsync(int pageNumber, int Count);
 
