@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using ModelsB.Authentication_and_Authorization_B;
 
-namespace AdminDashboardB.Controllers
+namespace DTOsB.Controllers
 {
     [AllowAnonymous]
     public class AdminController : Controller

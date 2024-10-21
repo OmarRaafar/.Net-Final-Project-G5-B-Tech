@@ -9,7 +9,7 @@ using DbContextB;
 using ModelsB.Product_B;
 using ApplicationB.Services_B.Product;
 
-namespace AdminDashboardB.Controllers
+namespace DTOsB.Controllers
 {
     public class ProductBsController : Controller
     {

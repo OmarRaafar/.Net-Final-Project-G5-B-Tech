@@ -29,5 +29,10 @@ namespace InfrastructureB.General
         {
             return await _context.Languages.ToListAsync();
         }
+
+        public async Task<LanguageB> GetByIdAsync(int Id)
+        {
+            return await _context.Languages.FirstOrDefaultAsync(l => l.Id == Id);
+        }
     }
 }

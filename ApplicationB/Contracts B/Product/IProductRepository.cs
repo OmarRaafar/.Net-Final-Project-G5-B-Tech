@@ -1,4 +1,5 @@
-﻿using ModelsB.Product_B;
+﻿using DTOsB.Shared;
+using ModelsB.Product_B;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,17 +12,19 @@ namespace ApplicationB.Contracts_B
     {
         public Task<IQueryable<ProductB>> SearchByNameAsync(string name);
 
-       
 
-      
-
-        //Task AddImagesAsync(int productId, IEnumerable<ProductImageB> images);
-        //Task RemoveImageAsync(int productId, int imageId);
-        //Task AddTranslationsAsync(int productId, IEnumerable<ProductTranslationB> translations);
-        //Task RemoveTranslationAsync(int productId, int translationId);
-
-        //Task AddSpecificationsAsync(int productId, IEnumerable<ProductSpecificationsB> specifications);
-        //Task RemoveSpecificationAsync(int productId, int specificationId);
-        //IQueryable<ProductSpecificationsB> GetSpecificationsByProductId(int productId);
+        Task<EntityPaginatedB<ProductB>> GetAllPaginatedAsync(int pageNumber, int count);
+        Task<IQueryable<ProductB>> GetFilteredProductsAsync(int languageId);
     }
+
+
+    //Task AddImagesAsync(int productId, IEnumerable<ProductImageB> images);
+    //Task RemoveImageAsync(int productId, int imageId);
+    //Task AddTranslationsAsync(int productId, IEnumerable<ProductTranslationB> translations);
+    //Task RemoveTranslationAsync(int productId, int translationId);
+
+    //Task AddSpecificationsAsync(int productId, IEnumerable<ProductSpecificationsB> specifications);
+    //Task RemoveSpecificationAsync(int productId, int specificationId);
+    //IQueryable<ProductSpecificationsB> GetSpecificationsByProductId(int productId);
 }
+

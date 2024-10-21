@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace AdminDashboardB.Controllers
+namespace DTOsB.Controllers
 {
     public class CategoryController : Controller
     {

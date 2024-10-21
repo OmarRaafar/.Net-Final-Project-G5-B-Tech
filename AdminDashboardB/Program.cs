@@ -19,6 +19,7 @@ using InfrastructureB.General;
 using ApplicationB.Contracts_B.Category;
 using ApplicationB.Services_B.Category;
 using InfrastructureB.Category;
+using AutoMapper;
 
 namespace WebApplication1
 {
@@ -47,6 +48,10 @@ namespace WebApplication1
                 .AddDataAnnotationsLocalization();
 
             builder.Services.AddAutoMapper(typeof(MappingProfile));
+            var serviceProvider = builder.Services.BuildServiceProvider();
+            var mapper = serviceProvider.GetService<IMapper>();
+            mapper.ConfigurationProvider.AssertConfigurationIsValid();
+
             builder.Services.AddHttpContextAccessor();
 
 
@@ -143,7 +148,7 @@ namespace WebApplication1
 
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Admin}/{action=Login}/{id?}");
+                pattern: "{controller=Product}/{action=Index}/{id?}");
             app.MapRazorPages();
 
             app.Run();
