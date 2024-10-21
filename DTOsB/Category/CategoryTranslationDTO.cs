@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DTOsB.Shared;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -16,6 +17,7 @@ namespace DTOsB.Category
 
         [MaxLength(150)]
         public string? Description { get; set; }
-        public string Language { get; set; } // The language name or code
+        public LanguageDto Language { get; set; }
+        
     }
 }

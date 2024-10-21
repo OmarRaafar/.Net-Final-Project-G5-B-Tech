@@ -11,5 +11,7 @@ namespace ApplicationB.Contracts_B.General
     {
         Task<LanguageB> GetByCodeAsync(string code);
         Task<List<LanguageB>> GetAllAsync();
+        public Task<bool> AnyAsync(Func<LanguageB, bool> predicate);
+
     }
 }

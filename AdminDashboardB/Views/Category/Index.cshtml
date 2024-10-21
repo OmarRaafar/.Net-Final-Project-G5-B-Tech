@@ -1,5 +1,5 @@
-﻿@* @model IEnumerable<DTOsB.CategoryDTOs.GetCategoryDTO>
- *@
+﻿@model IEnumerable<DTOsB.Category.GetAllCategoriesDTO>
+
 @{
     ViewData["Title"] = "Index";
 }
@@ -11,11 +11,11 @@
         </div>
         <div class="col-md-5 col-12">
             <form class="d-flex" role="search" asp-action="Search" asp-controller="Category" method="get">
-                <input class=" shadow form-control me-2" id="search" type="search" name="name" placeholder="Search Category" aria-label="Search">
-                <button class=" shadow btn btn-primary" type="submit">Search</button>
+                <input class="shadow form-control me-2" id="search" type="search" name="name" placeholder="Search Category" aria-label="Search">
+                <button class="shadow btn btn-primary" type="submit">Search</button>
             </form>
         </div>
-        <div class="col-12 col-md-3  text-center mt-3 mt-md-0 ">
+        <div class="col-12 col-md-3 text-center mt-3 mt-md-0">
             <a asp-controller="Category" asp-action="Create" class="shadow btn btn-success">
                 <i class="fa-solid fa-plus me-2"></i> Add New Category
             </a>
@@ -28,41 +28,69 @@
                 <tr>
                     <th>Image</th>
                     <th>Name</th>
-                    <th>Arabic Name</th>
+                    <th>Description</th>
+                    <th>Language</th>
                     <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
-                @*
                 @foreach (var item in Model)
                 {
-                *@
+                    @foreach (var translation in item.Translations)
+                    {
+                        <tr>
+                            <!-- Image -->
+                            <td class="text-center" style="width: 200px; height: 100px;">
+                                @if (!string.IsNullOrEmpty(item.ImageUrl))
+                                {
 
-                <tr>
-                    <td class="text-center" style="width: 200px; height: 100px;">
-                        @*
+                                    <img class="img-fluid" style="max-width: 100px;" src="@item.ImageUrl" alt="Category Image">
+                                    <p>@item.ImageUrl</p>
+@*                                     <img class="img-fluid" style="max-width: 100px;" src="@item.ImageUrl" alt="Category Image">
+ *@                                }
+                                else
+                                {
+                                    <span>No Image</span>
+                                }
+                            </td>
 
-                        <img class="img-fluid" style="max-width: 100px;" src="~/Categories/@item.ImagePath" alt="@item.Name">
+                            <!-- Category Name -->
+                            <td>
+                                @translation.CategoryName
+                            </td>
 
-                        *@
-                    </td>
-                    <td>Name</td>
-                    <td>ArabicName</td>
-                    <td>
-                        <div class="d-flex justify-content-center gap-2">
-                            <a class="btn btn-warning text-white" asp-action="Edit" asp-route-id="Id">
-                                <i class="fa-solid fa-pen-to-square"></i> Edit
-                            </a>
+                            <!-- Category Description -->
+                            <td>
+                                @if (!string.IsNullOrEmpty(translation.Description))
+                                {
+                                    @translation.Description
+                                }
+                                else
+                                {
+                                    <span>No Description</span>
+                                }
+                            </td>
 
-                            <a asp-action="Delete" asp-route-id="Id" class="btn btn-danger">
-                                <i class="fa-solid fa-trash-can"></i> Delete
-                            </a>
-                        </div>
-                    </td>
-                </tr>
-                @*
+                            <!-- Language -->
+
+                            <td>
+                                @translation.Language.Code 
+                            </td>
+                           
+                            <!-- Actions -->
+                            <td>
+                                <div class="d-flex justify-content-center gap-2">
+                                    <a class="btn btn-warning text-white" asp-action="Edit" asp-route-id="@item.Id">
+                                        <i class="fa-solid fa-pen-to-square"></i> Edit
+                                    </a>
+                                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">
+                                        <i class="fa-solid fa-trash-can"></i> Delete
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    }
                 }
-                *@
             </tbody>
         </table>
     </div>

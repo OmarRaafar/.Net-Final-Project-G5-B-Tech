@@ -13,7 +13,7 @@ namespace ApplicationB.Services_B.Category
     {
         public Task<IEnumerable<GetAllCategoriesDTO>> GetAllCategoriesAsync();
         public Task<CategoryB> GetCategoryByIdAsync(int id);
-        public Task<GetAllCategoriesDTO> GetCategoryByNameAsync(string categoryName);
+        public Task<IEnumerable<GetAllCategoriesDTO>> GetCategoryByNameAsync(string categoryName);
         public Task AddCategoryAsync(CreateOrUpdateCategoriesDTO createCategoryDto, IFormFile imageFile);
         public Task UpdateCategoryAsync(int id, CreateOrUpdateCategoriesDTO categoryDto, IFormFile imageFile);
         public Task DeleteCategoryAsync(int id);

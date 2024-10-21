@@ -80,6 +80,7 @@ namespace ApplicationB.Services_B.General
             var languages = await _languageRepository.GetAllAsync();
             return languages.Select(l => new LanguageDto
             {
+                Id= l.Id,
                 Code = l.Code,
                 Name = l.Name
             }).ToList();

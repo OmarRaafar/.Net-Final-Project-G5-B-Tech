@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace InfrastructureB.General
 {
-    public class LanguageRepository :ILanguageRepository
+    public class LanguageRepository : ILanguageRepository
     {
         private readonly BTechDbContext _context;
 
@@ -29,5 +29,11 @@ namespace InfrastructureB.General
         {
             return await _context.Languages.ToListAsync();
         }
+
+        public async Task<bool> AnyAsync(Func<LanguageB, bool> predicate)
+        {
+            return await Task.FromResult(_context.Languages.Any(predicate));
+        }
+
     }
 }
