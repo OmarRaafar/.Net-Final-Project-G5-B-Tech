@@ -2303,7 +2303,10 @@
           "ModelsB": "1.0.0"
         },
         "runtime": {
-          "ApplicationB.dll": {}
+          "ApplicationB.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
         }
       },
       "DbContextB/1.0.0": {
@@ -2316,7 +2319,10 @@
           "ModelsB": "1.0.0"
         },
         "runtime": {
-          "DbContextB.dll": {}
+          "DbContextB.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
         }
       },
       "DTOsB/1.0.0": {
@@ -2324,7 +2330,10 @@
           "Microsoft.AspNetCore.Http": "2.2.2"
         },
         "runtime": {
-          "DTOsB.dll": {}
+          "DTOsB.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
         }
       },
       "InfrastructureB/1.0.0": {
@@ -2334,7 +2343,10 @@
           "ModelsB": "1.0.0"
         },
         "runtime": {
-          "InfrastructureB.dll": {}
+          "InfrastructureB.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
         }
       },
       "ModelsB/1.0.0": {
@@ -2342,7 +2354,10 @@
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "8.0.10"
         },
         "runtime": {
-          "ModelsB.dll": {}
+          "ModelsB.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
         }
       }
     }
