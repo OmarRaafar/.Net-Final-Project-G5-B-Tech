@@ -1,6 +1,7 @@
 ﻿using ApplicationB.Contracts_B.Order;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
+using DTOsB.OrderBDTOs.OrderItemDTO;
 using DTOsB.OrderBDTOs.ShippingDTO;
 using DTOsB.OrderDTO;
 using DTOsB.Shared;
@@ -17,20 +18,24 @@ namespace ApplicationB.Services_B.Order
     {
         private readonly IOrderRepository orderRepository;
         private readonly IMapper mapper;
-        private readonly int currentUserId;
+        private readonly IUserService userService;
+        private readonly IOrderItemService orderItemService;
+        private readonly IShippingService shippingService;
 
-        public OrderService(IOrderRepository _orderRepository, IMapper _mapper, int _currentUserId)
+        public OrderService(IOrderRepository _orderRepository, IMapper _mapper, IUserService _userService, 
+                            IOrderItemService _orderItemService, IShippingService _shippingService)
         {
             orderRepository = _orderRepository;
             mapper = _mapper;
-            currentUserId = _currentUserId;
-
+            userService = _userService;
+            orderItemService = _orderItemService;
+            shippingService = _shippingService;
         }
         public async Task<ResultView<AddOrUpdateOrderBDTO>> CreateOrderAsync(AddOrUpdateOrderBDTO orderBDTO)
         {
             var order = mapper.Map<OrderB>(orderBDTO);
 
-            order.CreatedBy = currentUserId;
+            order.CreatedBy = userService.GetCurrentUserId();
             order.Created = DateTime.Now;
 
             await orderRepository.AddAsync(order);
@@ -44,27 +49,38 @@ namespace ApplicationB.Services_B.Order
                 return ResultView<SelectOrderBDTO>.Failure("Shipping not found. Unable to delete.");
 
             existingOrder.IsDeleted = true;
-            existingOrder.UpdatedBy = currentUserId;
+            existingOrder.UpdatedBy = userService.GetCurrentUserId();
             existingOrder.Updated = DateTime.Now;
 
             await orderRepository.UpdateAsync(existingOrder);
             return ResultView<SelectOrderBDTO>.Success(null);
         }
 
-        public IQueryable<SelectOrderBDTO> GetAllOrdersAsync()
+        public async Task<IEnumerable<SelectOrderBDTO>> GetAllOrdersAsync()
         {
-            var orders = orderRepository.GetAll();
+            var orders = await orderRepository.GetAllAsync();
             return orders.ProjectTo<SelectOrderBDTO>(mapper.ConfigurationProvider);
         }
-
-        public async Task<ResultView<SelectOrderBDTO>> GetOrderByIdAsync(int id)
+        public async Task<SelectOrderBDTO> GetOrderByIdAsync(int id)
         {
             var order = await orderRepository.GetByIdAsync(id);
-            if (order == null)
-                return ResultView<SelectOrderBDTO>.Failure("Order not found.");
+            //if (order == null)
+            //    return ResultView<SelectOrderBDTO>.Failure("Order not found.");
 
             var orderDto = mapper.Map<SelectOrderBDTO>(order);
-            return ResultView<SelectOrderBDTO>.Success(orderDto);
+            var test =  new SelectOrderBDTO();
+            if (orderDto == null) return test;
+            var items = await orderItemService.GetAllItemsOfOrderAsync(orderDto.Id);
+            if(items == null) items = new List<SelectOrderItemBDTO>();
+            orderDto.OrderItems = items;
+
+            //need modification
+            orderDto.ApplicationUserName = "Nourhan";
+            var shippingResulView  = await shippingService.GetShippingByIdAsync(orderDto.Id);
+            if (shippingResulView.Entity == null) orderDto.ShippingCost = 0;
+            else orderDto.ShippingCost = shippingResulView.Entity.ShippingCost;
+            orderDto.PaymentStatus = "pending";
+            return orderDto;
         }
 
         public async Task<ResultView<AddOrUpdateOrderBDTO>> UpdateOrderAsync(AddOrUpdateOrderBDTO orderBDTO)
@@ -77,7 +93,7 @@ namespace ApplicationB.Services_B.Order
                 return ResultView<AddOrUpdateOrderBDTO>.Failure("Order not found. Unable to update.");
 
             mapper.Map(orderBDTO, existingOrder);
-            existingOrder.UpdatedBy = currentUserId;
+            existingOrder.UpdatedBy = userService.GetCurrentUserId();
             existingOrder.Updated = DateTime.Now;
 
             await orderRepository.UpdateAsync(existingOrder);

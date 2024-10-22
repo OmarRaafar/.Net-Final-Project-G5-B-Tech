@@ -1,12 +1,16 @@
-﻿using ApplicationB.Contracts_B.Order;
+﻿using ApplicationB.Contracts_B;
+using ApplicationB.Contracts_B.Order;
+using ApplicationB.Services_B.Product;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using DTOsB.OrderBDTOs.OrderItemDTO;
 using DTOsB.OrderBDTOs.ShippingDTO;
+using DTOsB.OrderDTO;
 using DTOsB.Shared;
 using ModelsB.Order_B;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,20 +21,24 @@ namespace ApplicationB.Services_B.Order
     {
         private readonly IOrderItemRepository orderItemRepository;
         private readonly IMapper mapper;
-        private readonly int currentUserId;
+        private readonly IUserService userService;
+        IProductTranslationService productRepository;
 
-        public OrderItemService(IOrderItemRepository _orderItemRepository, IMapper _mapper, int _currentUserId)
+
+        public OrderItemService(IOrderItemRepository _orderItemRepository, IMapper _mapper, IUserService _userService,
+            IProductTranslationService _productRepository
+            )
         {
             orderItemRepository = _orderItemRepository;
             mapper = _mapper;
-            currentUserId = _currentUserId;
-
+            userService = _userService;
+            productRepository = _productRepository;
         }
         public async Task<ResultView<AddOrUpdateOrderItemBDTO>> CreateOrderItemAsync(AddOrUpdateOrderItemBDTO orderItemBDTO)
         {
-            var orderItem = mapper.Map<OrderB>(orderItemBDTO);
+            var orderItem = mapper.Map<OrderItemB>(orderItemBDTO);
 
-            orderItem.CreatedBy = currentUserId;
+            orderItem.CreatedBy = userService.GetCurrentUserId();
             orderItem.Created = DateTime.Now;
 
             await orderItemRepository.AddAsync(orderItem);
@@ -44,19 +52,35 @@ namespace ApplicationB.Services_B.Order
                 return ResultView<SelectOrderItemBDTO>.Failure("Order not found. Unable to delete.");
 
             existingOrderItem.IsDeleted = true;
-            existingOrderItem.UpdatedBy = currentUserId;
+            existingOrderItem.UpdatedBy = userService.GetCurrentUserId();
             existingOrderItem.Updated = DateTime.Now;
 
             await orderItemRepository.UpdateAsync(existingOrderItem);
             return ResultView<SelectOrderItemBDTO>.Success(null);
         }
 
-        public IQueryable<SelectOrderItemBDTO> GetAllOrderItemsAsync()
+        public async Task<IEnumerable<SelectOrderItemBDTO>> GetAllOrderItemsAsync()
         {
-            var OrderItems = orderItemRepository.GetAll();
+            var OrderItems = await orderItemRepository.GetAllAsync();
+
+            var orders = new List<SelectOrderItemBDTO>();
+            //foreach (var orderItem in OrderItems)
+            //{
+            //    var product = (await productRepository.GetTranslationsByProductIdAsync(orderItem.ProductId)).Entity;
+            //    var item = new SelectOrderItemBDTO()
+            //    {
+            //        ProductName = product.Name,
+            //        Quantity = orderItem.Quantity,
+            //        Price = product.Price,
+            //        TotalPrice = product.Price * orderItem.Quantity,
+            //        StockQuantity = product.StockQuantity
+
+            //    };
+            //    orders.Add(item);
+            //}
             return OrderItems.ProjectTo<SelectOrderItemBDTO>(mapper.ConfigurationProvider);
         }
-
+      
         public async Task<ResultView<SelectOrderItemBDTO>> GetOrderItemByIdAsync(int id)
         {
             var order = await orderItemRepository.GetByIdAsync(id);
@@ -77,11 +101,17 @@ namespace ApplicationB.Services_B.Order
                 return ResultView<AddOrUpdateOrderItemBDTO>.Failure("Order item not found. Unable to update.");
 
             mapper.Map(orderItemBDTO, existingOrderItem);
-            existingOrderItem.UpdatedBy = currentUserId;
+            existingOrderItem.UpdatedBy = userService.GetCurrentUserId();
             existingOrderItem.Updated = DateTime.Now;
 
             await orderItemRepository.UpdateAsync(existingOrderItem);
             return ResultView<AddOrUpdateOrderItemBDTO>.Success(orderItemBDTO);
+        }
+
+        public async Task<IEnumerable<SelectOrderItemBDTO>> GetAllItemsOfOrderAsync(int id)
+        {
+            var OrderItems = await orderItemRepository.ItemsOfOrder(id);
+            return OrderItems.ProjectTo<SelectOrderItemBDTO>(mapper.ConfigurationProvider);
         }
     }
 }

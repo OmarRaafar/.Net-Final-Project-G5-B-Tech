@@ -6,15 +6,15 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DTOsB.OrderBDTOs.OrderItemDTO;
 
 namespace DTOsB.OrderDTO
 {
     public class SelectOrderBDTO
     {
+        public int Id { get; set; }
         public DateTime OrderDate { get; set; }
 
-        [Column(TypeName = "money")]
-        [Range(0, double.MaxValue, ErrorMessage = "Total price must be a positive value.")]
         public decimal TotalPrice { get; set; }
 
         public Status CurrentStatus { get; set; } = Status.InCart;
@@ -24,5 +24,20 @@ namespace DTOsB.OrderDTO
         public decimal ShippingCost { get; set; }
 
         public string PaymentStatus { get; set; }
+
+        public IEnumerable<SelectOrderItemBDTO> OrderItems { get; set; }
     }
 }
+//public enum Status
+//{
+//    [Display(Name = "In Cart")]
+//    InCart,
+//    [Display(Name = "Pending")]
+//    Pending,
+//    [Display(Name = "Shipped")]
+//    Shipped,
+//    [Display(Name = "Delivered")]
+//    Delivered,
+//    [Display(Name = "Cancelled")]
+//    Cancelled
+//}

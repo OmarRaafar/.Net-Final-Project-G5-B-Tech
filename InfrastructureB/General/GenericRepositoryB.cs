@@ -1,17 +1,18 @@
-﻿using System;
+﻿using ApplicationB.Contracts_B;
+using DbContextB;
+using Microsoft.EntityFrameworkCore;
+using ModelsB.Shared;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ApplicationB.Contracts_B;
-using DbContextB;
-using Microsoft.EntityFrameworkCore;
 
 namespace InfrastructureB.General
 {
-    public class GenericRepositoryB<T>: IGenericRepositoryB<T> where T : class
+    public class GenericRepositoryB<T> : IGenericRepositoryB<T> where T : class
     {
-        private readonly BTechDbContext _context;
+        protected readonly BTechDbContext _context;
         private readonly DbSet<T> _dbSet;
 
         public GenericRepositoryB(BTechDbContext context)
@@ -20,15 +21,9 @@ namespace InfrastructureB.General
             _dbSet = context.Set<T>();
         }
 
-        public IQueryable<T> GetAll()
-        {
-            return _dbSet.AsQueryable();
-        }
+        public virtual Task<IQueryable<T>> GetAllAsync() => Task.FromResult(_dbSet.Select(p => p));
 
-        public async Task<T> GetByIdAsync(int id)
-        {
-            return await _dbSet.FindAsync(id);
-        }
+        public virtual async Task<T> GetByIdAsync(int id) => await _dbSet.FindAsync(id);
 
         public async Task AddAsync(T entity)
         {
@@ -47,9 +42,10 @@ namespace InfrastructureB.General
             var entity = await GetByIdAsync(id);
             if (entity != null)
             {
-                _dbSet.Remove(entity);
+                _context.Remove(entity);
                 await _context.SaveChangesAsync();
             }
         }
     }
 }
+

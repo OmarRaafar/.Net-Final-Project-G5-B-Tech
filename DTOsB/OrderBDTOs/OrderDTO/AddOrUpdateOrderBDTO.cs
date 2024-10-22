@@ -6,6 +6,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ModelsB.Order_B;
+using ModelsB.Authentication_and_Authorization_B;
+using DTOsB.OrderBDTOs.ShippingDTO;
+using DTOsB.OrderBDTOs.OrderItemDTO;
 
 namespace DTOsB.OrderDTO
 {
@@ -19,6 +22,11 @@ namespace DTOsB.OrderDTO
         public decimal TotalPrice { get; set; }
 
         public Status CurrentStatus { get; set; } = Status.InCart;
+
+
+        public IEnumerable<ApplicationUserB>? Users { get; set; }
+        public List<AddOrUpdateOrderItemBDTO>?derItems { get; set; } = new List<AddOrUpdateOrderItemBDTO>();
+
 
         public string ApplicationUserId { get; set; }
 

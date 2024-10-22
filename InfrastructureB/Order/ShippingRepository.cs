@@ -1,4 +1,5 @@
-﻿using ApplicationB.Contracts_B.Order;
+﻿using ApplicationB.Contracts_B;
+using ApplicationB.Contracts_B.Order;
 using DbContextB;
 using InfrastructureB.General;
 using ModelsB.Order_B;
@@ -10,10 +11,11 @@ using System.Threading.Tasks;
 
 namespace InfrastructureB.Order
 {
-    public class ShippingRepository : GenericRepositoryB<OrderB>, IShippingRepository
+    public class ShippingRepository : GenericRepositoryB<ShippingB>, IShippingRepository
     {
         public ShippingRepository(BTechDbContext context) : base(context)
         {
         }
+
     }
 }

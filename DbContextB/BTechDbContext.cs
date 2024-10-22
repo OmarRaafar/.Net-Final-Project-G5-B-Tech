@@ -44,6 +44,8 @@ namespace DbContextB
             builder.Entity<ProductB>().HasMany(c => c.Translations).WithOne(ct => ct.Product).HasForeignKey(ct => ct.ProductId)
                 .OnDelete(DeleteBehavior.Cascade);
             builder.Entity<ProductTranslationB>().HasIndex(pt => new { pt.ProductId, pt.LanguageId }).IsUnique();
+            builder.Entity<ProductSpecificationsB>().HasMany(c => c.Translations).WithOne(ct => ct.ProductSpecification)
+                .HasForeignKey(ct => ct.SpecificationId).OnDelete(DeleteBehavior.Cascade);
             builder.Entity<ProductSpecificationTranslationB>().HasIndex(pst => new { pst.SpecificationId, pst.LanguageId })
                 .IsUnique();
 
@@ -65,6 +67,21 @@ namespace DbContextB
 
             builder.Entity<ReviewB>().HasIndex(r => new { r.ProductId, r.ApplicationUserId }).IsUnique();
             builder.Entity<ReviewB>().HasOne(r => r.ApplicationUser).WithMany().HasForeignKey(r => r.ApplicationUserId);
+
+            var hasher = new PasswordHasher<ApplicationUserB>();
+            var adminUser = new ApplicationUserB
+            {
+                UserName = "Mohammed Abbas",
+                Email = "moh.alnoby216@gmail.com",
+                Address = "Hamza St",
+                City = "Sohag",
+                PostalCode = "12345",
+                Country = "Egypt",
+                UserType = "Admin"
+            };
+            adminUser.PasswordHash = hasher.HashPassword(adminUser, "Btech@g5");
+
+            builder.Entity<ApplicationUserB>().HasData(adminUser);
         }
 
         /// <summary>
@@ -75,7 +92,7 @@ namespace DbContextB
         public virtual DbSet<ProductTranslationB> ProductTranslations { get; set; }
         public virtual DbSet<ProductSpecificationsB> ProductSpecifications { get; set; }
         public virtual DbSet<ProductSpecificationTranslationB> ProductSpecificationTranslations { get; set; }
-
+        public virtual DbSet<SpecificationStore> SpecificationKeys { get; set; }
         public virtual DbSet<ReviewB> Reviews { get; set; }
 
         /// <summary>
@@ -101,7 +118,7 @@ namespace DbContextB
         /// <summary>
         /// Other DbSets
         /// </summary>
-        public virtual DbSet<SellerB> Sellers { get; set; }
+        //public virtual DbSet<SellerB> Sellers { get; set; }
         public virtual DbSet<LanguageB> Languages { get; set; }
         public virtual DbSet<LocalizationResourceB> LocalizationResources { get; set; }
 

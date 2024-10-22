@@ -15,5 +15,11 @@ namespace InfrastructureB.Order
         public OrderRepository(BTechDbContext context) : base(context)
         {
         }
+
+        public override async Task<IQueryable<OrderB>> GetAllAsync()
+        {
+            var orders  = (await base.GetAllAsync()).Where(p => p.IsDeleted == false);
+            return orders;
+        }
     }
 }

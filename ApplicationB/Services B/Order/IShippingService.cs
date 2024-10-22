@@ -10,6 +10,6 @@ namespace ApplicationB.Services_B.Order
         Task<ResultView<AddOrUpdateShippingBDTO>> UpdateShippingAsync(AddOrUpdateShippingBDTO shippingBDTO);
         Task<ResultView<SelectShippingBDTO>> DeleteShippingAsync(int id);
         Task<ResultView<SelectShippingBDTO>> GetShippingByIdAsync(int id);
-        public IQueryable<SelectShippingBDTO> GetAllShippingsAsync();
+        Task<IEnumerable<SelectShippingBDTO>> GetAllShippingsAsync();
     }
 }

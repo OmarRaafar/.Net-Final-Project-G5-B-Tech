@@ -13,7 +13,7 @@ namespace ModelsB.Product_B
 {
     public class ProductB : BaseEntityB
     {
-        public int Id { get; set; }
+        
         [Column(TypeName = "money")]
         [Range(0, double.MaxValue, ErrorMessage = "Product price must be a positive value.")]
         public decimal Price { get; set; }

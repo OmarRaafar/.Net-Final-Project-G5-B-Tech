@@ -12,9 +12,16 @@ using ModelsB.Authentication_and_Authorization_B;
 using System.Globalization;
 using WebApplication1.Data;
 using InfrastructureB.Product;
+using ApplicationB.Services_B;
+using ApplicationB.Contracts_B.General;
+using ApplicationB.Services_B.General;
+using InfrastructureB.General;
+using ApplicationB.Contracts_B.Category;
+using ApplicationB.Services_B.Category;
+using InfrastructureB.Category;
 using ApplicationB.Contracts_B.Order;
-using InfrastructureB.Order;
 using ApplicationB.Services_B.Order;
+using InfrastructureB.Order;
 
 namespace WebApplication1
 {
@@ -43,17 +50,43 @@ namespace WebApplication1
                 .AddDataAnnotationsLocalization();
 
             builder.Services.AddAutoMapper(typeof(MappingProfile));
+            builder.Services.AddHttpContextAccessor();
+
+
+            #region AddScoped
+
+            builder.Services.AddScoped<ILanguageRepository, LanguageRepository>();
+            builder.Services.AddScoped<ILanguageService, LanguageService>();
+            builder.Services.AddScoped<IUserService, UserService>();
+
+
+            //==========Product==========
 
             builder.Services.AddScoped<IProductRepository, ProductRepository>();
-            builder.Services.AddScoped<ProductService>();
+            builder.Services.AddScoped<IProductService,ProductService>();
             builder.Services.AddScoped<IProductImageRepository, ProductImageRepository>();
-            builder.Services.AddScoped<ProductImageService>();
+            builder.Services.AddScoped<IProductImageService,ProductImageService>();
 
             builder.Services.AddScoped<IProductSpecificationRepository, ProductSpecificationRepository>();
-            builder.Services.AddScoped<ProductSpecificationService>();
+            builder.Services.AddScoped<IProductSpecificationService,ProductSpecificationService>();
             builder.Services.AddScoped<IProductTranslationRepository, ProductTranslationRepository>();
-            builder.Services.AddScoped<ProductTranslationService>();
+            builder.Services.AddScoped<IProductTranslationService,ProductTranslationService>();
+            builder.Services.AddScoped<IProductSpecificationTranslationRepository, ProductSpecificationTranslationRep>();
+            builder.Services.AddScoped<IProductSpecificationTransService, ProductSpecificationTransService>();
+            builder.Services.AddScoped<ISpecificationStoreRepository, SpecificationStoreRepository>();
+            builder.Services.AddScoped<ISpecificationStoreService, SpecificationStoreService>();
 
+
+            builder.Services.AddScoped<IReviewRepository, ReviewRepository>();
+            builder.Services.AddScoped<IReviewService, ReviewService>();
+
+
+            //==========Category==========
+
+            builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+            builder.Services.AddScoped<ICategoryService, CategoryService>();
+
+            //===========Order==============
             builder.Services.AddScoped<IOrderRepository, OrderRepository>();
             builder.Services.AddScoped<IOrderService, OrderService>();
 
@@ -64,7 +97,10 @@ namespace WebApplication1
             builder.Services.AddScoped<IShippingService, ShippingService>();
 
             builder.Services.AddScoped<IPaymentRepository, PaymentRepository>();
-            builder.Services.AddScoped<IPaymentService, PaymentService>();
+            builder.Services.AddScoped<PaymentService>();
+            #endregion
+
+
 
             builder.Services.Configure<RequestLocalizationOptions>(options =>
             {
@@ -84,15 +120,13 @@ namespace WebApplication1
            
             var app = builder.Build();
 
+
             //using (var serviceScope = app.Services.GetService<IServiceScopeFactory>().CreateScope())
             //{
             //    var services = serviceScope.ServiceProvider;
-            //    var context = services.GetRequiredService<BTechDbContext>();
-            //    var seeder = new DataSeeder(context);
             //    try
             //    {
             //        RoleInitializer.Initialize(services).Wait();
-            //        seeder.Seed();
             //    }
             //    catch (Exception ex)
             //    {

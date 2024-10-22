@@ -1,4 +1,5 @@
 ﻿using ApplicationB.Contracts_B;
+using ApplicationB.Services_B.General;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using DTOsB.Product;
@@ -13,19 +14,21 @@ using System.Threading.Tasks;
 
 namespace ApplicationB.Services_B.Product
 {
-public class ProductService//:IProductService
+public class ProductService: IProductService
     {
         private readonly IProductRepository _productRepository;
         private readonly IMapper _mapper;
-        private readonly ILogger<ProductService> _logger;
-        private readonly int _currentUserId;
+        private readonly ILanguageService _languageService;
+        //private readonly ILogger<ProductService> _logger; If need to logg attributes
+        private readonly IUserService _userService;
 
-        public ProductService(IProductRepository productRepository, IMapper mapper, ILogger<ProductService> logger, int currentUserId)
+        public ProductService(IProductRepository productRepository, IMapper mapper, IUserService userService,
+            ILanguageService languageService)
         {
             _productRepository = productRepository;
             _mapper = mapper;
-            _logger = logger;
-            _currentUserId = currentUserId;
+            _userService = userService;
+            _languageService = languageService;
         }
 
         public async Task<ResultView<ProductDto>> CreateProductAsync(ProductDto productDto)
@@ -36,9 +39,12 @@ public class ProductService//:IProductService
             if (productDto.Price < 0)
                 return ResultView<ProductDto>.Failure("Product price must be a positive value.");
 
+            if (productDto.StockQuantity < 0)
+                return ResultView<ProductDto>.Failure("Product Quantity must be a positive value.");
+
             var product = _mapper.Map<ProductB>(productDto);
-            product.CreatedBy = _currentUserId;
-            product.Created = DateTime.Now;
+           
+            product.CreatedBy = _userService.GetCurrentUserId();
 
             await _productRepository.AddAsync(product);
             return ResultView<ProductDto>.Success(productDto);
@@ -47,18 +53,21 @@ public class ProductService//:IProductService
         public async Task<ResultView<ProductDto>> UpdateProductAsync(ProductDto productDto)
         {
             if (productDto == null)
-                return ResultView<ProductDto>.Failure("Product data cannot be null.");
+                return ResultView<ProductDto>.Failure("Product must have data to be added");
 
             var existingProduct = await _productRepository.GetByIdAsync(productDto.Id);
-            if (existingProduct == null)
+            if (existingProduct == null || existingProduct.IsDeleted)
                 return ResultView<ProductDto>.Failure("Product not found. Unable to update.");
 
             if (productDto.Price < 0)
                 return ResultView<ProductDto>.Failure("Product price must be a positive value.");
 
+            if (productDto.StockQuantity < 0)
+                return ResultView<ProductDto>.Failure("Product Quantity must be a positive value.");
+
             _mapper.Map(productDto, existingProduct);
-            existingProduct.UpdatedBy = _currentUserId;
-            existingProduct.Updated = DateTime.Now;
+            _userService.GetCurrentUserId();
+            existingProduct.UpdatedBy = _userService.GetCurrentUserId();
 
             await _productRepository.UpdateAsync(existingProduct);
             return ResultView<ProductDto>.Success(productDto);
@@ -71,7 +80,7 @@ public class ProductService//:IProductService
                 return ResultView<ProductDto>.Failure("Product not found. Unable to delete.");
 
             existingProduct.IsDeleted = true;
-            existingProduct.UpdatedBy = _currentUserId;
+            _userService.GetCurrentUserId();
             existingProduct.Updated = DateTime.Now;
 
             await _productRepository.UpdateAsync(existingProduct);
@@ -80,7 +89,9 @@ public class ProductService//:IProductService
 
         public async Task<ResultView<ProductDto>> GetProductByIdAsync(int id)
         {
+            
             var product = await _productRepository.GetByIdAsync(id);
+
             if (product == null)
                 return ResultView<ProductDto>.Failure("Product not found.");
 
@@ -88,17 +99,84 @@ public class ProductService//:IProductService
             return ResultView<ProductDto>.Success(productDto);
         }
 
-        public IQueryable<ProductDto> GetAllProducts()
+        public async Task<IEnumerable<ProductDto>> GetAllProductsAsync()
         {
-            var products = _productRepository.GetAll();
-            return products.ProjectTo<ProductDto>(_mapper.ConfigurationProvider);
+            var languageCode = _languageService.GetCurrentLanguageCode();
+            var products = await _productRepository.GetAllAsync();
+            var filteredProducts = products.Where(p => p.Translations.Any(t => t.Language.Code == languageCode)).AsQueryable();
+            var productDtos = _mapper.Map<IEnumerable<ProductDto>>(filteredProducts);
+            return productDtos;
+           
         }
 
-        public IQueryable<ProductDto> SearchProductsByName(string name)
+
+        public async Task<ResultView<IQueryable<ProductDto>>> SearchProductsByNameAsync(string name)
         {
-            var products = _productRepository.SearchByName(name);
-            return products.ProjectTo<ProductDto>(_mapper.ConfigurationProvider);
+            var products = await _productRepository.SearchByNameAsync(name); 
+            var productDtos = _mapper.Map<IQueryable<ProductDto>>(products); 
+
+            return ResultView<IQueryable<ProductDto>>.Success(productDtos); 
         }
+
+
+        public async Task<EntityPaginatedB<ProductDto>> GetAllPaginatedAsync(int pageNumber, int Count)
+        {
+            var languageCode = _languageService.GetCurrentLanguageCode(); // Get current language
+            var products = await _productRepository.GetAllAsync();
+            var productsQuery = products.Where(p => p.Translations.Any(t => t.Language.Code == languageCode)).AsQueryable();
+            //var productsQuery = await _productRepository.GetAllAsync(); 
+
+            var totalCount = productsQuery.Count(); 
+
+            var Resultproducts = productsQuery
+                .Skip(Count * (pageNumber - 1))
+                .Take(Count)
+                .Select(p => new ProductDto
+                {
+                    Id = p.Id,
+                    Price = p.Price,
+                    StockQuantity = p.StockQuantity,
+                    CreatedBy = p.CreatedBy,
+                    Created = p.Created,
+                    UpdatedBy = p.UpdatedBy,
+                    Updated = p.Updated,
+                    IsDeleted = p.IsDeleted,
+                    Images = p.Images.Select(img => new ProductImageDto
+                    {
+                        Id = img.Id, 
+                        Url = img.Url, 
+                                       
+                    }).ToList(),
+                    Translations = p.Translations
+                    .Select(t => new ProductTranslationDto
+                    {
+                        Id = t.Id, 
+                        Name = t.Name, 
+                        BrandName = t.BrandName, 
+                        Description =t.Description                       
+                    }).ToList(),
+                    Specifications = p.Specifications.Select(s => new ProductSpecificationDto
+                    {
+                        Id = s.Id,
+                        Translations = s.Translations
+                        .Select( t=> new ProductSpecificationTranslationDto { 
+                        Id = t.Id,
+                        TranslatedKey = t.TranslatedKey, 
+                        TranslatedValue = t.TranslatedValue 
+                        })  .ToList(),               
+                    }).ToList(),
+                }).ToList(); 
+
+            return new EntityPaginatedB<ProductDto>
+            {
+                Data = Resultproducts,
+                CountAllItems = totalCount
+            };
+          
+        }
+
+
+
 
         // Handling Related Entities
 

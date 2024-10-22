@@ -8,6 +8,7 @@ namespace ModelsB.Shared
 {
     public class BaseEntityB
     {
+        public int Id { get; set; }
         public int CreatedBy { get; set; }
         public DateTime Created { get; set; } = DateTime.Now;
         public int UpdatedBy { get; set; }

@@ -19,20 +19,20 @@ namespace ApplicationB.Services_B.Order
     {
         private readonly IShippingRepository shippingRepository;
         private readonly IMapper mapper;
-        private readonly int currentUserId;
+        private readonly IUserService userService;
 
-        public ShippingService(IShippingRepository _shippingRepository, IMapper _mapper, int _currentUserId)
+        public ShippingService(IShippingRepository _shippingRepository, IMapper _mapper, IUserService _userService)
         {
             shippingRepository = _shippingRepository;
             mapper = _mapper;
-            currentUserId = _currentUserId;
+            userService = _userService;
 
         }
         public async Task<ResultView<AddOrUpdateShippingBDTO>> CreateShippingAsync(AddOrUpdateShippingBDTO shippingBDTO)
         {
             var shipping = mapper.Map<ShippingB>(shippingBDTO);
 
-            shipping.CreatedBy = currentUserId;
+            shipping.CreatedBy = userService.GetCurrentUserId();
             shipping.Created = DateTime.Now;
 
             await shippingRepository.AddAsync(shipping);
@@ -46,16 +46,16 @@ namespace ApplicationB.Services_B.Order
                 return ResultView<SelectShippingBDTO>.Failure("Shipping not found. Unable to delete.");
 
             existingShipping.IsDeleted = true;
-            existingShipping.UpdatedBy = currentUserId;
+            existingShipping.UpdatedBy = userService.GetCurrentUserId();
             existingShipping.Updated = DateTime.Now;
 
             await shippingRepository.UpdateAsync(existingShipping);
             return ResultView<SelectShippingBDTO>.Success(null);
         }
 
-        public IQueryable<SelectShippingBDTO> GetAllShippingsAsync()
+        public async Task<IEnumerable<SelectShippingBDTO>> GetAllShippingsAsync()
         {
-            var shippings = shippingRepository.GetAll();
+            var shippings = await shippingRepository.GetAllAsync();
             return shippings.ProjectTo<SelectShippingBDTO>(mapper.ConfigurationProvider);
         }
 
@@ -83,7 +83,7 @@ namespace ApplicationB.Services_B.Order
                 return ResultView<AddOrUpdateShippingBDTO>.Failure("Shipping Cost must be a positive value.");
 
             mapper.Map(shippingBDTO, existingShipping);
-            existingShipping.UpdatedBy = currentUserId;
+            existingShipping.UpdatedBy = userService.GetCurrentUserId();
             existingShipping.Updated = DateTime.Now;
 
             await shippingRepository.UpdateAsync(existingShipping);

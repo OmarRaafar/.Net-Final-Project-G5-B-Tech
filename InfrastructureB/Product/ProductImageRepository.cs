@@ -17,7 +17,10 @@ namespace InfrastructureB.Product
 
         public IQueryable<ProductImageB> GetImagesByProductId(int productId)
         {
-            return GetAll().Where(img => img.ProductId == productId);
+            return _context.ProductImages
+             .Where(pi => pi.ProductId == productId);
         }
+
+        
     }
 }

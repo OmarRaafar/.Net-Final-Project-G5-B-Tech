@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace ModelsB.Order_B
 {
-    public class OrderItemB : BaseEntityB
+    public class OrderItemB: BaseEntityB
     {
         public int Id { get; set; }
 

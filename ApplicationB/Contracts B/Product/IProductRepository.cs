@@ -9,18 +9,11 @@ namespace ApplicationB.Contracts_B
 {
     public interface IProductRepository: IGenericRepositoryB<ProductB>
     {
-        IQueryable<ProductB> SearchByName(string name);
+        public Task<IQueryable<ProductB>> SearchByNameAsync(string name);
 
+       
 
-
-
-
-        //Task<ProductB> GetByIdAsync(int id);
-        //IQueryable<ProductB> GetAll();
-        //IQueryable<ProductB> SearchByName(string name);
-        //Task AddAsync(ProductB product);
-        //Task UpdateAsync(ProductB product);
-        //Task DeleteAsync(int id);
+      
 
         //Task AddImagesAsync(int productId, IEnumerable<ProductImageB> images);
         //Task RemoveImageAsync(int productId, int imageId);

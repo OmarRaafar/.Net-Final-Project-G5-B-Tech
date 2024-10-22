@@ -2,6 +2,7 @@
 using AutoMapper;
 using DTOsB.Product;
 using DTOsB.Shared;
+using Microsoft.EntityFrameworkCore;
 using ModelsB.Product_B;
 using System;
 using System.Collections.Generic;
@@ -15,51 +16,73 @@ namespace ApplicationB.Services_B.Product
     {
         private readonly IProductImageRepository _productImageRepository;
         private readonly IMapper _mapper;
+        private readonly IUserService _userService;
 
-        public ProductImageService(IProductImageRepository productImageRepository, IMapper mapper)
+        public ProductImageService(IProductImageRepository productImageRepository, IMapper mapper, IUserService userService)
         {
             _productImageRepository = productImageRepository;
             _mapper = mapper;
+            _userService = userService;
         }
 
-        public async Task<ResultView<ProductImageDto>> AddImageAsync(ProductImageDto productImageDto, int userId)
+        public async Task<ResultView<ProductImageCreateOrUpdateDto>> AddImageAsync(ProductImageCreateOrUpdateDto productImageDto)
         {
             var productImage = _mapper.Map<ProductImageB>(productImageDto);
-            //productImage.CreatedBy = userId;
+            productImage.Product.CreatedBy = _userService.GetCurrentUserId();
+           
 
             await _productImageRepository.AddAsync(productImage);
-            return ResultView<ProductImageDto>.Success(productImageDto);
+            return ResultView<ProductImageCreateOrUpdateDto>.Success(productImageDto);
           
         }
 
-        public async Task<ResultView<ProductImageDto>> UpdateImageAsync(ProductImageDto productImageDto, int userId)
+        public async Task<ResultView<ProductImageCreateOrUpdateDto>> UpdateImageAsync(ProductImageCreateOrUpdateDto productImageDto)
         {
             var existingImage = await _productImageRepository.GetByIdAsync(productImageDto.Id);
-            if (existingImage == null)
+            if (existingImage == null || existingImage.Product.IsDeleted)
             {
-                return ResultView<ProductImageDto>.Failure("Image not found.");
+                return ResultView<ProductImageCreateOrUpdateDto>.Failure("Image not found.");
               
             }
-
-            //existingImage.UpdatedBy = userId;
-
             _mapper.Map(productImageDto, existingImage);
 
+            existingImage.Product.UpdatedBy = _userService.GetCurrentUserId();
+
             await _productImageRepository.UpdateAsync(existingImage);
-            return ResultView<ProductImageDto>.Success(productImageDto);
+            return ResultView<ProductImageCreateOrUpdateDto>.Success(productImageDto);
        
         }
 
-        public async Task<ResultView<ProductImageDto>> DeleteImageAsync(int id)
+
+        //No need with Product Soft delete
+        //public async Task<ResultView<ProductImageDto>> DeleteImageAsync(int id)
+        //{
+        //    await _productImageRepository.DeleteAsync(id);
+
+        //    return ResultView<ProductImageDto>.Success(null);
+        //}
+
+        public async Task<ResultView<ProductImageDto>> GetProductImageByIdAsync(int id)
         {
-            await _productImageRepository.DeleteAsync(id);
-           
-            return ResultView<ProductImageDto>.Success(null);
+            var productImage = await _productImageRepository.GetByIdAsync(id);
+            if (productImage == null)
+            {
+                return ResultView<ProductImageDto>.Failure("Product image not found.");
+            }
+
+            var productImageDto = _mapper.Map<ProductImageDto>(productImage);
+            return ResultView<ProductImageDto>.Success(productImageDto);
         }
 
-        public IQueryable<ProductImageB> GetImagesByProductId(int productId)
+        public async Task<ResultView<List<ProductImageDto>>> GetProductImagesByProductIdAsync(int productId)
         {
-            return _productImageRepository.GetImagesByProductId(productId);
+           
+            var productImages = await _productImageRepository.GetImagesByProductId(productId).ToListAsync();
+            var productImageDtos = _mapper.Map<List<ProductImageDto>>(productImages);
+
+            return ResultView<List<ProductImageDto>>.Success(productImageDtos);
         }
+
+
     }
 }

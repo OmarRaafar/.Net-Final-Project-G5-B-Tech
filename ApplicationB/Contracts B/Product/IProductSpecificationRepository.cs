@@ -9,6 +9,6 @@ namespace ApplicationB.Contracts_B.Product
 {
     public interface IProductSpecificationRepository : IGenericRepositoryB<ProductSpecificationsB>
     {
-        IQueryable<ProductSpecificationsB> GetSpecificationsByProductId(int productId);
+        Task<IQueryable<ProductSpecificationsB>> GetSpecificationsByProductId(int productId);
     }
 }

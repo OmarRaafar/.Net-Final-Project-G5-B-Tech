@@ -11,73 +11,51 @@ using System.Threading.Tasks;
 
 namespace InfrastructureB.Product
 {
-    public class ProductRepository : GenericRepositoryB<ProductB>, IProductRepository
+    public class ProductRepository : GenericRepositoryWithLogging<ProductB>, IProductRepository
     {
 
 
         public ProductRepository(BTechDbContext context) : base(context)
         {
-            {
-
-            }
+            
         }
 
-        public IQueryable<ProductB> SearchByName(string name)
+
+        public async Task<IQueryable<ProductB>> SearchByNameAsync(string name)
         {
-            return GetAll().Where(p => p.Translations.Any(t => t.Name.Contains(name)));
+            var products = await GetAllAsync();  
+            return products.Where(p => p.Translations.Any(t => t.Name.Contains(name, StringComparison.OrdinalIgnoreCase) ||
+                 p.Translations.Any(t => t.BrandName.Contains(name, StringComparison.OrdinalIgnoreCase))));
         }
+
+        public override async Task<ProductB> GetByIdAsync(int id)
+        {
+            return await _context.Products.Where(p => !p.IsDeleted).Include(p => p.Translations).Include(p => p.Images)
+                .Include(p => p.Specifications).ThenInclude(s => s.Translations)
+                .FirstOrDefaultAsync(p => p.Id == id);
+        }
+
+        public override Task<IQueryable<ProductB>> GetAllAsync()
+        {
+            return Task.FromResult(_context.Products.Where(p => !p.IsDeleted).Include(p => p.Translations)
+                .Include(p => p.Images).Include(p => p.Specifications).ThenInclude(s => s.Translations)
+                .AsQueryable());
+              
+        }
+
+    
 
         ///// <summary>
         ///// Product
         ///// </summary>
-        //public async Task<ProductB> GetByIdAsync(int id)
-        //{
-        //    return await _context.Products
-        //        .Include(p => p.Images)
-        //        .Include(p => p.Translations)
-        //        .Include(p => p.Specifications) // Include specifications
-        //        .FirstOrDefaultAsync(p => p.Id == id && !p.IsDeleted);
-        //}
+       
 
-        //public IQueryable<ProductB> GetAllAsync()
-        //{
-        //    return _context.Products
-        //        .Include(p => p.Images)
-        //        .Include(p => p.Translations)
-        //        .Where(p => !p.IsDeleted);
-        //}
 
-        //public IQueryable<ProductB> SearchByName(string name)
-        //{
-        //    return _context.Products
-        //        .Include(p => p.Images)
-        //        .Include(p => p.Translations)
-        //        .Where(p => !p.IsDeleted &&
-        //                     (p.Translations.Any(t => t.Name.Contains(name)) ||
-        //                      p.Translations.Any(t => t.BrandName.Contains(name))));
-        //}
+   
 
-        //public async Task AddAsync(ProductB product)
-        //{
-        //    await _context.Products.AddAsync(product);
-        //    await _context.SaveChangesAsync();
-        //}
+    
 
-        //public async Task UpdateAsync(ProductB product)
-        //{
-        //    _context.Products.Update(product);
-        //    await _context.SaveChangesAsync();
-        //}
-
-        //public async Task DeleteAsync(int id)
-        //{
-        //    var product = await GetByIdAsync(id);
-        //    if (product != null)
-        //    {
-        //        product.IsDeleted = true;
-        //        await UpdateAsync(product);
-        //    }
-        //}
+   
 
 
         ///// <summary>

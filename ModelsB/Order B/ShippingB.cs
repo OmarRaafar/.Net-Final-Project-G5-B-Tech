@@ -9,7 +9,7 @@ using ModelsB.Shared;
 
 namespace ModelsB.Order_B
 {
-    public class ShippingB : BaseEntityB
+    public class ShippingB: BaseEntityB
     {
         public int Id { get; set; }
         [MaxLength(250)]

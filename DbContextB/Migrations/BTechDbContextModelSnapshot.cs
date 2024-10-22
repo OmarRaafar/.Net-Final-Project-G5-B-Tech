@@ -117,12 +117,10 @@ namespace DbContextB.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
                     b.Property<string>("LoginProvider")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ProviderKey")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ProviderDisplayName")
                         .HasColumnType("nvarchar(max)");
@@ -159,12 +157,10 @@ namespace DbContextB.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("LoginProvider")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Name")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Value")
                         .HasColumnType("nvarchar(max)");
@@ -257,6 +253,27 @@ namespace DbContextB.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("Users", "security");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "db0a8336-7f0f-416c-90c8-a8dfd01d97f7",
+                            AccessFailedCount = 0,
+                            Address = "Hamza St",
+                            City = "Sohag",
+                            ConcurrencyStamp = "c01306f1-52cb-4b0b-9c61-1d7f1bb5f0ab",
+                            Country = "Egypt",
+                            Email = "moh.alnoby216@gmail.com",
+                            EmailConfirmed = false,
+                            LockoutEnabled = false,
+                            PasswordHash = "AQAAAAIAAYagAAAAEAjmK+7KaJ8Xzq0vjwXQEO0sSbA714aUNoph+ypf+E2bi4yDvQuVT+dh7gRBBKzNAA==",
+                            PhoneNumberConfirmed = false,
+                            PostalCode = "12345",
+                            SecurityStamp = "abaec207-ba55-4a6e-b440-69ef02f43b40",
+                            TwoFactorEnabled = false,
+                            UserName = "Mohammed Abbas",
+                            UserType = "Admin"
+                        });
                 });
 
             modelBuilder.Entity("ModelsB.Category_B.CategoryB", b =>
@@ -460,8 +477,17 @@ namespace DbContextB.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("CreatedBy")
+                        .HasColumnType("int");
+
                     b.Property<int>("CurrentStatus")
                         .HasColumnType("int");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
 
                     b.Property<DateTime>("OrderDate")
                         .HasColumnType("datetime2");
@@ -474,6 +500,12 @@ namespace DbContextB.Migrations
 
                     b.Property<decimal>("TotalPrice")
                         .HasColumnType("money");
+
+                    b.Property<DateTime>("Updated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("UpdatedBy")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -490,6 +522,15 @@ namespace DbContextB.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("CreatedBy")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
                     b.Property<int>("OrderId")
                         .HasColumnType("int");
 
@@ -497,6 +538,12 @@ namespace DbContextB.Migrations
                         .HasColumnType("int");
 
                     b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("Updated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("UpdatedBy")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -519,10 +566,19 @@ namespace DbContextB.Migrations
                     b.Property<decimal>("Amount")
                         .HasColumnType("money");
 
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("CreatedBy")
+                        .HasColumnType("int");
+
                     b.Property<string>("GatewayResponse")
                         .IsRequired()
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
 
                     b.Property<int>("OrderId")
                         .HasColumnType("int");
@@ -545,6 +601,12 @@ namespace DbContextB.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
+                    b.Property<DateTime>("Updated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("UpdatedBy")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("OrderId")
@@ -561,8 +623,17 @@ namespace DbContextB.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("CreatedBy")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("EstimatedDeliveryDate")
                         .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
 
                     b.Property<int>("OrderId")
                         .HasColumnType("int");
@@ -582,6 +653,12 @@ namespace DbContextB.Migrations
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
+
+                    b.Property<DateTime>("Updated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("UpdatedBy")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -611,9 +688,6 @@ namespace DbContextB.Migrations
                     b.Property<decimal>("Price")
                         .HasColumnType("money");
 
-                    b.Property<int?>("SellerId")
-                        .HasColumnType("int");
-
                     b.Property<int>("StockQuantity")
                         .HasColumnType("int");
 
@@ -624,8 +698,6 @@ namespace DbContextB.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("SellerId");
 
                     b.ToTable("Products");
                 });
@@ -664,9 +736,6 @@ namespace DbContextB.Migrations
                     b.Property<int>("LanguageId")
                         .HasColumnType("int");
 
-                    b.Property<int>("ProductSpecificationId")
-                        .HasColumnType("int");
-
                     b.Property<int>("SpecificationId")
                         .HasColumnType("int");
 
@@ -683,8 +752,6 @@ namespace DbContextB.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("LanguageId");
-
-                    b.HasIndex("ProductSpecificationId");
 
                     b.HasIndex("SpecificationId", "LanguageId")
                         .IsUnique();
@@ -784,7 +851,7 @@ namespace DbContextB.Migrations
                     b.ToTable("Reviews");
                 });
 
-            modelBuilder.Entity("ModelsB.Product_B.SellerB", b =>
+            modelBuilder.Entity("ModelsB.Product_B.SpecificationStore", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -792,61 +859,19 @@ namespace DbContextB.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Address")
+                    b.Property<int>("LanguageId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("SpecKeys")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
-
-                    b.Property<string>("CommercialRegister")
-                        .IsRequired()
-                        .HasMaxLength(75)
-                        .HasColumnType("nvarchar(75)");
-
-                    b.Property<string>("Description")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<string>("Phone")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ProfileImageUrl")
-                        .HasMaxLength(250)
-                        .HasColumnType("nvarchar(250)");
-
-                    b.Property<DateTime>("RegisteredDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("StoreName")
-                        .HasMaxLength(75)
-                        .HasColumnType("nvarchar(75)");
-
-                    b.Property<string>("TaxCard")
-                        .IsRequired()
-                        .HasMaxLength(75)
-                        .HasColumnType("nvarchar(75)");
-
-                    b.Property<string>("VATRegistrationCertificate")
-                        .IsRequired()
-                        .HasMaxLength(75)
-                        .HasColumnType("nvarchar(75)");
-
-                    b.Property<string>("WebsiteUrl")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Sellers");
+                    b.HasIndex("LanguageId");
+
+                    b.ToTable("SpecificationKeys");
                 });
 
             modelBuilder.Entity("DiscountBOrderB", b =>
@@ -1005,15 +1030,6 @@ namespace DbContextB.Migrations
                     b.Navigation("Order");
                 });
 
-            modelBuilder.Entity("ModelsB.Product_B.ProductB", b =>
-                {
-                    b.HasOne("ModelsB.Product_B.SellerB", "Seller")
-                        .WithMany("Products")
-                        .HasForeignKey("SellerId");
-
-                    b.Navigation("Seller");
-                });
-
             modelBuilder.Entity("ModelsB.Product_B.ProductImageB", b =>
                 {
                     b.HasOne("ModelsB.Product_B.ProductB", "Product")
@@ -1035,7 +1051,7 @@ namespace DbContextB.Migrations
 
                     b.HasOne("ModelsB.Product_B.ProductSpecificationsB", "ProductSpecification")
                         .WithMany("Translations")
-                        .HasForeignKey("ProductSpecificationId")
+                        .HasForeignKey("SpecificationId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -1093,6 +1109,17 @@ namespace DbContextB.Migrations
                     b.Navigation("Product");
                 });
 
+            modelBuilder.Entity("ModelsB.Product_B.SpecificationStore", b =>
+                {
+                    b.HasOne("ModelsB.Localization_B.LanguageB", "Language")
+                        .WithMany()
+                        .HasForeignKey("LanguageId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Language");
+                });
+
             modelBuilder.Entity("ModelsB.Category_B.CategoryB", b =>
                 {
                     b.Navigation("ProductCategories");
@@ -1127,11 +1154,6 @@ namespace DbContextB.Migrations
             modelBuilder.Entity("ModelsB.Product_B.ProductSpecificationsB", b =>
                 {
                     b.Navigation("Translations");
-                });
-
-            modelBuilder.Entity("ModelsB.Product_B.SellerB", b =>
-                {
-                    b.Navigation("Products");
                 });
 #pragma warning restore 612, 618
         }

@@ -1,4 +1,4 @@
-﻿  using ApplicationB.Contracts_B.Product;
+﻿using ApplicationB.Contracts_B.Product;
 using DbContextB;
 using InfrastructureB.General;
 using Microsoft.EntityFrameworkCore;
@@ -15,10 +15,12 @@ namespace InfrastructureB.Product
     {
         public ProductSpecificationRepository(BTechDbContext context) : base(context) { }
 
-        public IQueryable<ProductSpecificationsB> GetSpecificationsByProductId(int productId)
+        public async Task<IQueryable<ProductSpecificationsB>> GetSpecificationsByProductId(int productId)
         {
-            return GetAll().Where(spec => spec.ProductId == productId);
+            var specifications = await GetAllAsync();
+            return specifications.Include(spec => spec.Translations)
+                .Where(specs => specs.ProductId == productId && specs.Product.IsDeleted == false);
         }
-    
+
     }
 }

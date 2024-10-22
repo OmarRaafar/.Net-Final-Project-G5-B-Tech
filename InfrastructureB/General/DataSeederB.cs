@@ -8,6 +8,7 @@ using DbContextB;
 using Microsoft.Extensions.DependencyInjection;
 using Bogus;
 using ModelsB.Product_B;
+using ModelsB.Authentication_and_Authorization_B;
 
 namespace InfrastructureB.General
 {
@@ -20,30 +21,33 @@ namespace InfrastructureB.General
             _context = context;
         }
 
-        //public void Seed()
-        //{
-           
-        //    _context.Database.EnsureCreated();
+        public void Seed()
+        {
 
-        //    var categoryFaker = new Faker<CategoryB>()
-        //        .RuleFor(c => c.ImageUrl, f => f.Commerce.Categories(1)[0]);
-               
+            _context.Database.EnsureCreated();
 
-        //    var categories = categoryFaker.Generate(10);  // Generate 10 fake categories
+            //var categoryFaker = new Faker<ApplicationUserB>()
+            //    .RuleFor(c => c.Email, f => f.);
 
-        //    // Add categories to the context
-        //    _context.Categories.AddRange(categories);
-        //    _context.SaveChanges();
+            //var categoryFaker = new Faker<CategoryB>()
+            //    .RuleFor(c => c.ImageUrl, f => f.Commerce.Categories(1)[0]);
 
-        //    // Similarly, you can generate fake data for other entities like ProductB, OrderB, etc.
-        //    var productFaker = new Faker<ProductB>()
-        //    .RuleFor(p => p., f => f.Commerce.ProductName())
-        //    .RuleFor(p => p.Price, f => decimal.Parse(f.Commerce.Price()))
-        //    .RuleFor(p => p.Description, f => f.Commerce.ProductDescription());
 
-        //    var products = productFaker.Generate(20);  // Generate 20 fake products
-        //    _context.Products.AddRange(products);
-        //    _context.SaveChanges();
-        //}
+            //var categories = categoryFaker.Generate(10);  // Generate 10 fake categories
+
+            //// Add categories to the context
+            //_context.Categories.AddRange(categories);
+            //_context.SaveChanges();
+
+            //// Similarly, you can generate fake data for other entities like ProductB, OrderB, etc.
+            //var productFaker = new Faker<ProductB>()
+            //.RuleFor(p => p., f => f.Commerce.ProductName())
+            //.RuleFor(p => p.Price, f => decimal.Parse(f.Commerce.Price()))
+            //.RuleFor(p => p.Description, f => f.Commerce.ProductDescription());
+
+            //var products = productFaker.Generate(20);  // Generate 20 fake products
+            //_context.Products.AddRange(products);
+            _context.SaveChanges();
+        }
     }
 }

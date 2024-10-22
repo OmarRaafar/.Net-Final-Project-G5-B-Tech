@@ -11,13 +11,15 @@ using System.Threading.Tasks;
 
 namespace InfrastructureB.Product
 {
-    public class ProductTranslationRepository : GenericRepositoryB<ProductTranslationB>, IProductTranslationRepository
+    public  class ProductTranslationRepository : GenericRepositoryB<ProductTranslationB>, IProductTranslationRepository
     {
         public ProductTranslationRepository(BTechDbContext context) : base(context) { }
 
-        public IQueryable<ProductTranslationB> GetTranslationsByProductId(int productId)
+        public async Task<IQueryable<ProductTranslationB>> GetTranslationsByProductId(int productId, string language)
         {
-            return GetAll().Where(trans => trans.ProductId == productId);
+            var translations = await GetAllAsync();
+            return translations.Where(trans => trans.ProductId == productId && trans.Product.IsDeleted==false 
+            && trans.Language.Code==language);
         }
     }
 }

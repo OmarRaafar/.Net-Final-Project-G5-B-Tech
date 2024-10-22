@@ -9,7 +9,10 @@ namespace ApplicationB.Services_B.Order
         Task<ResultView<AddOrUpdateOrderBDTO>> CreateOrderAsync(AddOrUpdateOrderBDTO orderBDTO);
         Task<ResultView<AddOrUpdateOrderBDTO>> UpdateOrderAsync(AddOrUpdateOrderBDTO orderBDTO);
         Task<ResultView<SelectOrderBDTO>> DeleteOrderAsync(int id);
-        Task<ResultView<SelectOrderBDTO>> GetOrderByIdAsync(int id);
-        public IQueryable<SelectOrderBDTO> GetAllOrdersAsync();
+        Task<SelectOrderBDTO> GetOrderByIdAsync(int id);
+        Task<IEnumerable<SelectOrderBDTO>> GetAllOrdersAsync();
+        
+
+
     }
 }

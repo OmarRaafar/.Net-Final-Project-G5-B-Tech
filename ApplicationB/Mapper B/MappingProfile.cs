@@ -1,9 +1,11 @@
 ﻿using AutoMapper;
+using DTOsB.Category;
 using DTOsB.OrderBDTOs.OrderItemDTO;
 using DTOsB.OrderBDTOs.PaymentDTO;
 using DTOsB.OrderBDTOs.ShippingDTO;
 using DTOsB.OrderDTO;
 using DTOsB.Product;
+using ModelsB.Category_B;
 using ModelsB.Order_B;
 using ModelsB.Product_B;
 using System;
@@ -21,9 +23,18 @@ namespace ApplicationB.Mapper_B
         {
             CreateMap<ProductB, ProductDto>().ReverseMap(); 
             CreateMap<ProductImageB, ProductImageDto>().ReverseMap();
+            CreateMap<ProductImageB, ProductImageCreateOrUpdateDto>().ReverseMap();
             CreateMap<ProductTranslationB, ProductTranslationDto>().ReverseMap();
             CreateMap<ProductSpecificationsB, ProductSpecificationDto>().ReverseMap();
             CreateMap<ProductSpecificationTranslationB, ProductSpecificationTranslationDto>().ReverseMap();
+            CreateMap<SpecificationStore, SpecificationStoreDto>().ReverseMap();
+            CreateMap<ReviewB, ReviewDto>().ReverseMap();
+
+
+            CreateMap<CategoryB, GetAllCategoriesDTO>().ReverseMap();
+            CreateMap<CategoryB, CreateOrUpdateCategoriesDTO>().ReverseMap();
+            CreateMap<CategoryTranslationB, CategoryTranslationDTO>().ReverseMap();
+            CreateMap<CategoryTranslationB, CreateCategoryTranslationDto>().ReverseMap();
 
             CreateMap<OrderB, AddOrUpdateOrderBDTO>().ReverseMap();
             CreateMap<OrderB, SelectOrderBDTO>().ReverseMap();
@@ -36,6 +47,7 @@ namespace ApplicationB.Mapper_B
 
             CreateMap<ShippingB, AddOrUpdateShippingBDTO>().ReverseMap();
             CreateMap<ShippingB, SelectShippingBDTO>().ReverseMap();
+
         }
     
     }
