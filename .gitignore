@@ -5,12 +5,7 @@
 
 /.vs
 **/Migrations/
-*.dll
-*.pdb
-*.cache
-*.json
-bin/
-obj/
+
 
 # User-specific files
 *.rsuser
@@ -20,6 +15,15 @@ obj/
 *.sln.docstates
 bin
 obj
+bin/
+obj/
+Debug/
+Release/
+*.cache
+*.dll
+*.pdb
+*.json
+
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
