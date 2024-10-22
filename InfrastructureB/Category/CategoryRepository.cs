@@ -67,7 +67,11 @@ namespace InfrastructureB.Category
 
         public async Task UpdateAsync(CategoryB category)
         {
-            _dbContext.Categories.Update(category);
+
+            _dbContext.Attach(category);
+            _dbContext.Entry(category).State = EntityState.Modified;
+            //_dbContext.Categories.Update(category);
+            //await _dbContext.SaveChangesAsync();
         }
 
         public async Task<bool> AnyAsync(Expression<Func<CategoryB, bool>> predicate)

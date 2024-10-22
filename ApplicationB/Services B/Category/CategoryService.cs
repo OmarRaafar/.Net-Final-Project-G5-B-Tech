@@ -277,10 +277,18 @@ namespace ApplicationB.Services_B.Category
             // Handle image upload (convert IFormFile to a URL or save path)
             if (imageFile != null)
             {
-                string imageUrl = await HandleImageUploadAsync(imageFile);
-                categoryEntity.ImageUrl = imageUrl;
-            }
+                try
+                {
+                    string imageUrl = await HandleImageUploadAsync(imageFile);
+                    categoryEntity.ImageUrl = imageUrl;
+                }
+                catch (Exception ex)
+                {
+                    categoryEntity.ImageUrl = categoryEntity.ImageUrl;
 
+                }
+            }
+            categoryEntity.ImageUrl = categoryEntity.ImageUrl;
             // Update the user and updated date
             categoryEntity.UpdatedBy = _userService.GetCurrentUserId();
             categoryEntity.Updated = DateTime.Now;
@@ -364,8 +372,9 @@ namespace ApplicationB.Services_B.Category
                 {
                     await imageFile.CopyToAsync(stream);
                 }
-                //return filePath;
-               return $"/ImageUrls/categories/{newFileName}"; // Return the relative URL or path        
+            Console.WriteLine($"Image saved to: {filePath}"); 
+
+            return $"/ImageUrls/categories/{newFileName}"; // Return the relative URL or path        
             }
         }
     } 

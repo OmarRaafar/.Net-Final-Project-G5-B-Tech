@@ -13,24 +13,16 @@
               <!-- Language Dropdown -->
                 @Html.DropDownListFor(model => model.Translations[0].LanguageId, (IEnumerable<SelectListItem>)ViewBag.Languages, "-- Select Language --", new { @class = "form-select shadow-sm", required = "required" })
 
-
-@*  <select class="form-select shadow-sm" id="LanguageId" name="Translations[0].LanguageId" required>
-    <option value="">-- Select Language --</option>
-    @foreach (var language in ViewBag.Languages)
-    {
-        <option value="@language.Value" @(language.Value == Model.Translations[0].LanguageId.ToString() ? "selected" : "")>
-            @language.Text
-        </option>
-    }
-</select> *@
-
-
-
-
                 <!-- Category Image -->
                 <div class="mb-3">
-                    <label class="form-label fs-5 fw-bold" for="ImageFile">Category Image</label>
-                    <input type="file" class="form-control shadow-sm" id="ImageFile" name="ImageFile">
+
+                    @* <p>Image Path: @Model.ImageUrl</p> *@
+                    <img src="@Model.ImageUrl" alt="Category Image" />
+                    @* <img src="@Html.HiddenFor(model => model.ImageUrl)" alt="Category Image" /> *@
+                    @* @Html.HiddenFor(model => model.ImageUrl) *@
+
+                    <label class="form-label fs-5 fw-bold" for="imageFile">Category Image</label>
+                    <input type="file" class="form-control shadow-sm" id="imageFile" name="imageFile">
                 </div>
 
                 <!-- Category Name -->

@@ -112,11 +112,6 @@ namespace AdminDashboardB.Controllers
             }
             ViewBag.Languages = new SelectList(languages, "Id", "Name");
 
-            //ViewBag.Languages = languages.Select(l => new SelectListItem
-            //{
-            //    Value = l.Id.ToString(),
-            //    Text = l.Name
-            //}).ToList();
 
             return View(model);
         }
@@ -134,6 +129,8 @@ namespace AdminDashboardB.Controllers
                 }
                 catch (Exception ex)
                 {
+                    Console.WriteLine($"Error updating category: {ex.Message}");
+
                     ModelState.AddModelError("", ex.Message);
                 }
             }
@@ -148,32 +145,7 @@ namespace AdminDashboardB.Controllers
             return View(model);
         }
 
-        //[HttpPost]
-        //public async Task<IActionResult> Delete(int id)
-        //{
-        //    try
-        //    {
-        //        await _categoryService.DeleteCategoryAsync(id);
-        //        return RedirectToAction("Index"); // Redirect to the index or categories list after deletion
-        //    }
-        //    catch (KeyNotFoundException ex)
-        //    {
-        //        ModelState.AddModelError(string.Empty, ex.Message);
-        //        return View("Error"); // Return an error view if category not found
-        //    }
-        //    catch (InvalidOperationException ex)
-        //    {
-        //        ModelState.AddModelError(string.Empty, ex.Message);
-        //        return View("Error"); // Return an error view if there are products linked to the category
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        ModelState.AddModelError(string.Empty, "An unexpected error occurred.");
-        //        return View("Error"); // Handle unexpected errors
-        //    }
-        //}
-
-        // GET: Category/Delete/5
+        // GET: Category/Delete
         public async Task<IActionResult> Delete(int id)
         {
             var categoryEntity = await _categoryService.GetCategoryByIdAsync(id);
