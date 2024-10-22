@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
+using DTOsB.Account;
 using DTOsB.Category;
 using DTOsB.Product;
+using ModelsB.Authentication_and_Authorization_B;
 using ModelsB.Category_B;
 using ModelsB.Product_B;
 using System;
@@ -16,6 +18,10 @@ namespace ApplicationB.Mapper_B
     {
         public MappingProfile()
         {
+            CreateMap<RegisterDto, ApplicationUserB>().ReverseMap();
+            CreateMap<LoginDTO, ApplicationUserB>().ReverseMap();
+
+
             CreateMap<ProductB, ProductDto>().ReverseMap(); 
             CreateMap<ProductImageB, ProductImageDto>().ReverseMap();
             CreateMap<ProductImageB, ProductImageCreateOrUpdateDto>().ReverseMap();

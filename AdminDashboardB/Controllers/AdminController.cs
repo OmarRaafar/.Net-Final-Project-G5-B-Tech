@@ -1,4 +1,5 @@
 ﻿using AdminDashboardB.Models;
+using AutoMapper;
 using DTOsB.Account;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -13,11 +14,13 @@ namespace AdminDashboardB.Controllers
     {
         private UserManager<ApplicationUserB> _userManager;
         private SignInManager<ApplicationUserB> _signInManager;
+        private IMapper _mapper;
 
-        public AdminController(UserManager<ApplicationUserB> userManager, SignInManager<ApplicationUserB> signInManager)
+        public AdminController(UserManager<ApplicationUserB> userManager, SignInManager<ApplicationUserB> signInManager,IMapper mapper)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _mapper = mapper;
         }
         [HttpGet]
         [AllowAnonymous]
@@ -123,7 +126,6 @@ namespace AdminDashboardB.Controllers
                     return NotFound();
                 }
 
-                // Update user properties
                 existingUser.UserName = user.UserName;
                 existingUser.Email = user.Email;
                 existingUser.PhoneNumber = user.PhoneNumber;
@@ -133,9 +135,22 @@ namespace AdminDashboardB.Controllers
                 existingUser.PostalCode = user.PostalCode;
                 existingUser.UserType = user.UserType;
 
+                //_mapper.Map(user, existingUser);
+
+
                 var result = await _userManager.UpdateAsync(existingUser);
                 if (result.Succeeded)
                 {
+
+                    if (user.UserType == "Admin")
+                    {
+                        await _userManager.AddToRoleAsync(user, "Admin");
+                    }
+                    else
+                    {
+                        await _userManager.AddToRoleAsync(user, "User");
+                    }
+
                     return RedirectToAction("GetAllUsers"); // Redirect to user list after update
                 }
 
@@ -185,21 +200,22 @@ namespace AdminDashboardB.Controllers
         }
        
         [HttpPost]
-        public async Task<IActionResult> CreateUser(RegisterVM model)
+        public async Task<IActionResult> CreateUser(RegisterDto model)
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUserB
-                {
-                    UserName = model.UserName,
-                    Email = model.Email,
-                    PhoneNumber = model.PhoneNumber,
-                    Address = model.Address,
-                    City = model.City,
-                    Country = model.Country,
-                    PostalCode = model.PostalCode,
-                    UserType = model.UserType, 
-                };
+                //var user = new ApplicationUserB
+                //{
+                //    UserName = model.UserName,
+                //    Email = model.Email,
+                //    PhoneNumber = model.PhoneNumber,
+                //    Address = model.Address,
+                //    City = model.City,
+                //    Country = model.Country,
+                //    PostalCode = model.PostalCode,
+                //    UserType = model.UserType, 
+                //};
+                var user = _mapper.Map<ApplicationUserB>(model);
 
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
@@ -208,13 +224,13 @@ namespace AdminDashboardB.Controllers
                     {
                         await _userManager.AddToRoleAsync(user, "Admin");
                     }
-                    else
+                   else
                     {
                         await _userManager.AddToRoleAsync(user, "User");
                     }
 
                     await _signInManager.SignInAsync(user, isPersistent: false);
-                    return RedirectToAction("GetAllUsers", "Admin"); 
+                    return RedirectToAction("GetAllUsers"); 
                 }
 
                 foreach (var error in result.Errors)
