@@ -9,7 +9,7 @@ namespace DTOsB.Category
 {
     public class CreateOrUpdateCategoriesDTO
     {
-        public IFormFile? ImageUrl { get; set; }
+        public string? ImageUrl { get; set; }
         public List<CreateCategoryTranslationDto> Translations { get; set; } 
         public ICollection<int>? ProductIds { get; set; }
     }

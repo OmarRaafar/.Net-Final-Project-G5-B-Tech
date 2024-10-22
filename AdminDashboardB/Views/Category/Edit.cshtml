@@ -11,12 +11,13 @@
                 <h2 class="text-center mb-4 bg-light fw-bold text-primary p-4 shadow rounded">Edit Category</h2>
 
               <!-- Language Dropdown -->
-                @Html.DropDownListFor(model => model.Translations[0].LanguageId, (IEnumerable<SelectListItem>)ViewBag.Languages, "-- Select Language --", new { @class = "form-select shadow-sm", required = "required" })
+                @Html.DropDownListFor(model => model.Translations[0].LanguageId,
+                    (IEnumerable<SelectListItem>)ViewBag.Languages, "-- Select Language --", new { @class = "form-select shadow-sm", required = "required" })
 
                 <!-- Category Image -->
                 <div class="mb-3">
 
-                    @* <p>Image Path: @Model.ImageUrl</p> *@
+                    <p>Image Path: @Model.ImageUrl</p> 
                     <img src="@Model.ImageUrl" alt="Category Image" />
                     @* <img src="@Html.HiddenFor(model => model.ImageUrl)" alt="Category Image" /> *@
                     @* @Html.HiddenFor(model => model.ImageUrl) *@
