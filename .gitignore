@@ -5,7 +5,7 @@
 
 /.vs
 **/Migrations/
-/DubaiPhoneClone.sln
+/B-Tech-G5-Project.sln
 /AdminDashboardB/obj
 /AdminDashboardB/bin
 /B-Tech.API/obj
@@ -21,7 +21,7 @@
 
 AdminDashboardB/obj/Debug/
 
-DubaiPhoneClone.sln
+B-Tech-G5-Project.sln
 AdminDashboardB/obj
 AdminDashboardB/bin
 B-Tech.API/obj
