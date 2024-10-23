@@ -19,7 +19,9 @@ using InfrastructureB.General;
 using ApplicationB.Contracts_B.Category;
 using ApplicationB.Services_B.Category;
 using InfrastructureB.Category;
-using AutoMapper;
+using ApplicationB.Contracts_B.Order;
+using ApplicationB.Services_B.Order;
+using InfrastructureB.Order;
 
 namespace WebApplication1
 {
@@ -50,30 +52,15 @@ namespace WebApplication1
             builder.Services.AddAutoMapper(typeof(MappingProfile));
             var serviceProvider = builder.Services.BuildServiceProvider();
 
-            //var mapper = serviceProvider.GetService<IMapper>();
-            //mapper.ConfigurationProvider.AssertConfigurationIsValid();
-
-            builder.Services.AddHttpContextAccessor();
-
-
-            #region AddScoped
-
-            builder.Services.AddScoped<ILanguageRepository, LanguageRepository>();
-            builder.Services.AddScoped<ILanguageService, LanguageService>();
-            builder.Services.AddScoped<IUserService, UserService>();
-
-
-            //==========Product==========
-
             builder.Services.AddScoped<IProductRepository, ProductRepository>();
-            builder.Services.AddScoped<IProductService, ProductService>();
+            builder.Services.AddScoped<ProductService>();
             builder.Services.AddScoped<IProductImageRepository, ProductImageRepository>();
-            builder.Services.AddScoped<IProductImageService, ProductImageService>();
+            builder.Services.AddScoped<ProductImageService>();
 
             builder.Services.AddScoped<IProductSpecificationRepository, ProductSpecificationRepository>();
-            builder.Services.AddScoped<IProductSpecificationService, ProductSpecificationService>();
+            builder.Services.AddScoped<ProductSpecificationService>();
             builder.Services.AddScoped<IProductTranslationRepository, ProductTranslationRepository>();
-            builder.Services.AddScoped<IProductTranslationService, ProductTranslationService>();
+            builder.Services.AddScoped<IProductTranslationService,ProductTranslationService>();
             builder.Services.AddScoped<IProductSpecificationTranslationRepository, ProductSpecificationTranslationRep>();
             builder.Services.AddScoped<IProductSpecificationTransService, ProductSpecificationTransService>();
             builder.Services.AddScoped<ISpecificationStoreRepository, SpecificationStoreRepository>();
@@ -88,6 +75,19 @@ namespace WebApplication1
 
             builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
             builder.Services.AddScoped<ICategoryService, CategoryService>();
+
+            //===========Order==============
+            builder.Services.AddScoped<IOrderRepository, OrderRepository>();
+            builder.Services.AddScoped<IOrderService, OrderService>();
+
+            builder.Services.AddScoped<IOrderItemRepository, OrderItemRepository>();
+            builder.Services.AddScoped<IOrderItemService, OrderItemService>();
+
+            builder.Services.AddScoped<IShippingRepository, ShippingRepository>();
+            builder.Services.AddScoped<IShippingService, ShippingService>();
+
+            builder.Services.AddScoped<IPaymentRepository, PaymentRepository>();
+            builder.Services.AddScoped<PaymentService>();
             #endregion
 
 

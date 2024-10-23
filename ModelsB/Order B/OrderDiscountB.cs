@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ModelsB.Shared;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ModelsB.Order_B
 {
-    public class OrderDiscountB
+    public class OrderDiscountB: BaseEntityB
     {
         public int Id { get; set; }
         public int OrderId { get; set; }
