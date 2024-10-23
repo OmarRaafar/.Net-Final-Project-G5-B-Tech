@@ -4,7 +4,9 @@ using DTOsB.Category;
 using DTOsB.Product;
 using DTOsB.Shared;
 using Microsoft.AspNetCore.Http;
+using DTOsB.Shared;
 using ModelsB.Category_B;
+using ModelsB.Localization_B;
 using ModelsB.Product_B;
 using System;
 using System.Collections.Generic;
@@ -85,7 +87,15 @@ namespace ApplicationB.Mapper_B
             //CreateMap<CategoryTranslationB, CategoryTranslationDTO>().ReverseMap();
             //CreateMap<CategoryTranslationB, CreateCategoryTranslationDto>().ReverseMap();
             CreateMap<LanguageDto, LanguageDto>();
+            CreateMap<CategoryB, GetAllCategoriesDTO>().ReverseMap();
+            CreateMap<CategoryB, CreateOrUpdateCategoriesDTO>().ReverseMap();
+            CreateMap<CategoryB, CreateOrUpdateCategoriesDTO>()
+                                                      .ForMember(dest => dest.ImageUrl, opt => opt.Ignore()) 
+                                                     .ReverseMap();
+            CreateMap<CategoryTranslationB, CategoryTranslationDTO>().ReverseMap();
+            CreateMap<CategoryTranslationB, CreateCategoryTranslationDto>().ReverseMap();
 
+            CreateMap<LanguageB, LanguageDto>().ReverseMap();
         }
 
       
