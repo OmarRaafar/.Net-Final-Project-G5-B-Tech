@@ -70,11 +70,12 @@ namespace AdminDashboardB.Controllers
 
             return View(model);
         }
-
+       
 
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
+
             return RedirectToAction("Login", "Admin");
         }
 
@@ -110,6 +111,8 @@ namespace AdminDashboardB.Controllers
             }
             return View(user); // Return user for view
         }
+
+       //مربطهاش ب الservice بسبب مشاكل فى ال mapping 
 
         [HttpGet("{id}/edit")]
         public async Task<IActionResult> UpdateUser(string id)
