@@ -16,7 +16,7 @@ namespace AdminDashboardB.Controllers
         private readonly IMapper _mapper;
 
         public CategoryController(ICategoryService categoryService, ILanguageService languageService, IMapper mapper) { 
-            _categoryService =categoryService;
+            _categoryService = categoryService;
             _languageService = languageService;
             _mapper= mapper;
         }
@@ -157,7 +157,7 @@ namespace AdminDashboardB.Controllers
             return View(categoryDto);
         }
 
-        // POST: Category/Delete/5
+        // POST: Category/Delete
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
