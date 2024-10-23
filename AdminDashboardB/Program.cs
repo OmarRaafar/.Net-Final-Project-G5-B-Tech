@@ -52,6 +52,9 @@ namespace WebApplication1
             builder.Services.AddAutoMapper(typeof(MappingProfile));
             var serviceProvider = builder.Services.BuildServiceProvider();
 
+            #region AddScoped
+
+
             builder.Services.AddScoped<IProductRepository, ProductRepository>();
             builder.Services.AddScoped<ProductService>();
             builder.Services.AddScoped<IProductImageRepository, ProductImageRepository>();
@@ -60,7 +63,7 @@ namespace WebApplication1
             builder.Services.AddScoped<IProductSpecificationRepository, ProductSpecificationRepository>();
             builder.Services.AddScoped<ProductSpecificationService>();
             builder.Services.AddScoped<IProductTranslationRepository, ProductTranslationRepository>();
-            builder.Services.AddScoped<IProductTranslationService,ProductTranslationService>();
+            builder.Services.AddScoped<IProductTranslationService, ProductTranslationService>();
             builder.Services.AddScoped<IProductSpecificationTranslationRepository, ProductSpecificationTranslationRep>();
             builder.Services.AddScoped<IProductSpecificationTransService, ProductSpecificationTransService>();
             builder.Services.AddScoped<ISpecificationStoreRepository, SpecificationStoreRepository>();
