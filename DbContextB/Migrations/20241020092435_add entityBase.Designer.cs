@@ -4,6 +4,7 @@ using DbContextB;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DbContextB.Migrations
 {
     [DbContext(typeof(BTechDbContext))]
-    partial class BTechDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241020092435_add entityBase")]
+    partial class addentityBase
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -257,19 +260,19 @@ namespace DbContextB.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "b5a2e81e-a07d-4e26-8776-4ddb48ec4096",
+                            Id = "db0a8336-7f0f-416c-90c8-a8dfd01d97f7",
                             AccessFailedCount = 0,
                             Address = "Hamza St",
                             City = "Sohag",
-                            ConcurrencyStamp = "c89a5596-212f-4512-b538-78054bf8c524",
+                            ConcurrencyStamp = "c01306f1-52cb-4b0b-9c61-1d7f1bb5f0ab",
                             Country = "Egypt",
                             Email = "moh.alnoby216@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAIAAYagAAAAEJjpAHhO/w7sop9lsQM/lfcynvVL4YV3BMeG+oG6a14p5/NAAD8llnchD93i50NnkA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEAjmK+7KaJ8Xzq0vjwXQEO0sSbA714aUNoph+ypf+E2bi4yDvQuVT+dh7gRBBKzNAA==",
                             PhoneNumberConfirmed = false,
                             PostalCode = "12345",
-                            SecurityStamp = "be7da990-09fd-4033-bacd-2aedea12e79d",
+                            SecurityStamp = "abaec207-ba55-4a6e-b440-69ef02f43b40",
                             TwoFactorEnabled = false,
                             UserName = "Mohammed Abbas",
                             UserType = "Admin"
@@ -287,10 +290,8 @@ namespace DbContextB.Migrations
                     b.Property<DateTime>("Created")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("CreatedBy")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                    b.Property<int>("CreatedBy")
+                        .HasColumnType("int");
 
                     b.Property<string>("ImageUrl")
                         .HasMaxLength(250)
@@ -302,10 +303,8 @@ namespace DbContextB.Migrations
                     b.Property<DateTime>("Updated")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("UpdatedBy")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                    b.Property<int>("UpdatedBy")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -423,10 +422,8 @@ namespace DbContextB.Migrations
                     b.Property<DateTime>("Created")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("CreatedBy")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                    b.Property<int>("CreatedBy")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("EndDate")
                         .HasColumnType("datetime2");
@@ -459,10 +456,8 @@ namespace DbContextB.Migrations
                     b.Property<DateTime>("Updated")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("UpdatedBy")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                    b.Property<int>("UpdatedBy")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -687,10 +682,8 @@ namespace DbContextB.Migrations
                     b.Property<DateTime>("Created")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("CreatedBy")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                    b.Property<int>("CreatedBy")
+                        .HasColumnType("int");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
@@ -704,10 +697,8 @@ namespace DbContextB.Migrations
                     b.Property<DateTime>("Updated")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("UpdatedBy")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                    b.Property<int>("UpdatedBy")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 

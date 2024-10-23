@@ -32,7 +32,7 @@ namespace DTOsB.Controllers
         //public async Task<IActionResult> Details(int? id)
         //{
         //    if (id == null)
-        //    {
+    //    {
         //        return NotFound();
         //    }
 
@@ -41,120 +41,120 @@ namespace DTOsB.Controllers
         //    if (productB == null)
         //    {
         //        return NotFound();
-        //    }
+    //    }
 
         //    return View(productB);
         //}
 
-        //    // GET: ProductBs/Create
-        //    public IActionResult Create()
-        //    {
-        //        return View();
-        //    }
+    //    // GET: ProductBs/Create
+    //    public IActionResult Create()
+    //    {
+    //        return View();
+    //    }
 
-        //    // POST: ProductBs/Create
-        //    // To protect from overposting attacks, enable the specific properties you want to bind to.
-        //    // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        //    [HttpPost]
-        //    [ValidateAntiForgeryToken]
-        //    public async Task<IActionResult> Create([Bind("Price,StockQuantity,Id,CreatedBy,Created,UpdatedBy,Updated,IsDeleted")] ProductB productB)
-        //    {
-        //        if (ModelState.IsValid)
-        //        {
-        //            _context.Add(productB);
-        //            await _context.SaveChangesAsync();
-        //            return RedirectToAction(nameof(Index));
-        //        }
-        //        return View(productB);
-        //    }
+    //    // POST: ProductBs/Create
+    //    // To protect from overposting attacks, enable the specific properties you want to bind to.
+    //    // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+    //    [HttpPost]
+    //    [ValidateAntiForgeryToken]
+    //    public async Task<IActionResult> Create([Bind("Price,StockQuantity,Id,CreatedBy,Created,UpdatedBy,Updated,IsDeleted")] ProductB productB)
+    //    {
+    //        if (ModelState.IsValid)
+    //        {
+    //            _context.Add(productB);
+    //            await _context.SaveChangesAsync();
+    //            return RedirectToAction(nameof(Index));
+    //        }
+    //        return View(productB);
+    //    }
 
-        //    // GET: ProductBs/Edit/5
-        //    public async Task<IActionResult> Edit(int? id)
-        //    {
-        //        if (id == null)
-        //        {
-        //            return NotFound();
-        //        }
+    //    // GET: ProductBs/Edit/5
+    //    public async Task<IActionResult> Edit(int? id)
+    //    {
+    //        if (id == null)
+    //        {
+    //            return NotFound();
+    //        }
 
-        //        var productB = await _context.Products.FindAsync(id);
-        //        if (productB == null)
-        //        {
-        //            return NotFound();
-        //        }
-        //        return View(productB);
-        //    }
+    //        var productB = await _context.Products.FindAsync(id);
+    //        if (productB == null)
+    //        {
+    //            return NotFound();
+    //        }
+    //        return View(productB);
+    //    }
 
-        //    // POST: ProductBs/Edit/5
-        //    // To protect from overposting attacks, enable the specific properties you want to bind to.
-        //    // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        //    [HttpPost]
-        //    [ValidateAntiForgeryToken]
-        //    public async Task<IActionResult> Edit(int id, [Bind("Price,StockQuantity,Id,CreatedBy,Created,UpdatedBy,Updated,IsDeleted")] ProductB productB)
-        //    {
-        //        if (id != productB.Id)
-        //        {
-        //            return NotFound();
-        //        }
+    //    // POST: ProductBs/Edit/5
+    //    // To protect from overposting attacks, enable the specific properties you want to bind to.
+    //    // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+    //    [HttpPost]
+    //    [ValidateAntiForgeryToken]
+    //    public async Task<IActionResult> Edit(int id, [Bind("Price,StockQuantity,Id,CreatedBy,Created,UpdatedBy,Updated,IsDeleted")] ProductB productB)
+    //    {
+    //        if (id != productB.Id)
+    //        {
+    //            return NotFound();
+    //        }
 
-        //        if (ModelState.IsValid)
-        //        {
-        //            try
-        //            {
-        //                _context.Update(productB);
-        //                await _context.SaveChangesAsync();
-        //            }
-        //            catch (DbUpdateConcurrencyException)
-        //            {
-        //                if (!ProductBExists(productB.Id))
-        //                {
-        //                    return NotFound();
-        //                }
-        //                else
-        //                {
-        //                    throw;
-        //                }
-        //            }
-        //            return RedirectToAction(nameof(Index));
-        //        }
-        //        return View(productB);
-        //    }
+    //        if (ModelState.IsValid)
+    //        {
+    //            try
+    //            {
+    //                _context.Update(productB);
+    //                await _context.SaveChangesAsync();
+    //            }
+    //            catch (DbUpdateConcurrencyException)
+    //            {
+    //                if (!ProductBExists(productB.Id))
+    //                {
+    //                    return NotFound();
+    //                }
+    //                else
+    //                {
+    //                    throw;
+    //                }
+    //            }
+    //            return RedirectToAction(nameof(Index));
+    //        }
+    //        return View(productB);
+    //    }
 
-        //    // GET: ProductBs/Delete/5
-        //    public async Task<IActionResult> Delete(int? id)
-        //    {
-        //        if (id == null)
-        //        {
-        //            return NotFound();
-        //        }
+    //    // GET: ProductBs/Delete/5
+    //    public async Task<IActionResult> Delete(int? id)
+    //    {
+    //        if (id == null)
+    //        {
+    //            return NotFound();
+    //        }
 
-        //        var productB = await _context.Products
-        //            .FirstOrDefaultAsync(m => m.Id == id);
-        //        if (productB == null)
-        //        {
-        //            return NotFound();
-        //        }
+    //        var productB = await _context.Products
+    //            .FirstOrDefaultAsync(m => m.Id == id);
+    //        if (productB == null)
+    //        {
+    //            return NotFound();
+    //        }
 
-        //        return View(productB);
-        //    }
+    //        return View(productB);
+    //    }
 
-        //    // POST: ProductBs/Delete/5
-        //    [HttpPost, ActionName("Delete")]
-        //    [ValidateAntiForgeryToken]
-        //    public async Task<IActionResult> DeleteConfirmed(int id)
-        //    {
-        //        var productB = await _context.Products.FindAsync(id);
-        //        if (productB != null)
-        //        {
-        //            _context.Products.Remove(productB);
-        //        }
+    //    // POST: ProductBs/Delete/5
+    //    [HttpPost, ActionName("Delete")]
+    //    [ValidateAntiForgeryToken]
+    //    public async Task<IActionResult> DeleteConfirmed(int id)
+    //    {
+    //        var productB = await _context.Products.FindAsync(id);
+    //        if (productB != null)
+    //        {
+    //            _context.Products.Remove(productB);
+    //        }
 
-        //        await _context.SaveChangesAsync();
-        //        return RedirectToAction(nameof(Index));
-        //    }
+    //        await _context.SaveChangesAsync();
+    //        return RedirectToAction(nameof(Index));
+    //    }
 
-        //    private bool ProductBExists(int id)
-        //    {
-        //        return _context.Products.Any(e => e.Id == id);
-        //    }
+    //    private bool ProductBExists(int id)
+    //    {
+    //        return _context.Products.Any(e => e.Id == id);
+    //    }
     }
 }

@@ -22,6 +22,12 @@ namespace ApplicationB.Contracts_B
     //Task RemoveImageAsync(int productId, int imageId);
     //Task AddTranslationsAsync(int productId, IEnumerable<ProductTranslationB> translations);
     //Task RemoveTranslationAsync(int productId, int translationId);
+        //Task DeleteAsync(int id);
+
+        //Task AddImagesAsync(int productId, IEnumerable<ProductImageB> images);
+        //Task RemoveImageAsync(int productId, int imageId);
+        //Task AddTranslationsAsync(int productId, IEnumerable<ProductTranslationB> translations);
+        //Task RemoveTranslationAsync(int productId, int translationId);
 
     //Task AddSpecificationsAsync(int productId, IEnumerable<ProductSpecificationsB> specifications);
     //Task RemoveSpecificationAsync(int productId, int specificationId);
