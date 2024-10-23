@@ -5,7 +5,19 @@
 
 /.vs
 **/Migrations/
-
+/DubaiPhoneClone.sln
+/AdminDashboardB/obj
+/AdminDashboardB/bin
+/B-Tech.API/obj
+/B-Tech.API/bin
+/DTOsB/obj
+/DTOsB/bin
+/DbContextB/obj
+/DbContextB/bin
+/InfrastructureB/obj
+/InfrastructureB/bin
+/ModelsB/obj
+/ModelsB/bin
 
 # User-specific files
 *.rsuser
