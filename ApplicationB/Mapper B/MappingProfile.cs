@@ -2,6 +2,7 @@
 using DTOsB.Account;
 using DTOsB.Category;
 using DTOsB.Product;
+using DTOsB.User;
 using ModelsB.Authentication_and_Authorization_B;
 using ModelsB.Category_B;
 using ModelsB.Product_B;
@@ -20,6 +21,8 @@ namespace ApplicationB.Mapper_B
         {
             CreateMap<RegisterDto, ApplicationUserB>().ReverseMap();
             CreateMap<LoginDTO, ApplicationUserB>().ReverseMap();
+            CreateMap<UserDto, ApplicationUserB>().ReverseMap();
+
 
 
             CreateMap<ProductB, ProductDto>().ReverseMap(); 

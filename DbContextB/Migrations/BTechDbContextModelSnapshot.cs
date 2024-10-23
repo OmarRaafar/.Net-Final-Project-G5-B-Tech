@@ -34,7 +34,7 @@ namespace DbContextB.Migrations
 
                     b.HasIndex("OrdersId");
 
-                    b.ToTable("DiscountBOrderB");
+                    b.ToTable("DiscountBOrderB", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -309,7 +309,7 @@ namespace DbContextB.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Categories");
+                    b.ToTable("Categories", (string)null);
                 });
 
             modelBuilder.Entity("ModelsB.Category_B.CategoryTranslationB", b =>
@@ -342,7 +342,7 @@ namespace DbContextB.Migrations
                     b.HasIndex("CategoryId", "LanguageId")
                         .IsUnique();
 
-                    b.ToTable("CategoryTranslations");
+                    b.ToTable("CategoryTranslations", (string)null);
                 });
 
             modelBuilder.Entity("ModelsB.Category_B.ProductCategoryB", b =>
@@ -360,7 +360,7 @@ namespace DbContextB.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.ToTable("ProductCategories");
+                    b.ToTable("ProductCategories", (string)null);
                 });
 
             modelBuilder.Entity("ModelsB.Localization_B.LanguageB", b =>
@@ -381,7 +381,7 @@ namespace DbContextB.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Languages");
+                    b.ToTable("Languages", (string)null);
                 });
 
             modelBuilder.Entity("ModelsB.Localization_B.LocalizationResourceB", b =>
@@ -399,7 +399,7 @@ namespace DbContextB.Migrations
 
                     b.HasKey("Key");
 
-                    b.ToTable("LocalizationResources");
+                    b.ToTable("LocalizationResources", (string)null);
                 });
 
             modelBuilder.Entity("ModelsB.Order_B.DiscountB", b =>
@@ -470,7 +470,7 @@ namespace DbContextB.Migrations
                         .IsUnique()
                         .HasFilter("[Code] IS NOT NULL");
 
-                    b.ToTable("Discounts");
+                    b.ToTable("Discounts", (string)null);
                 });
 
             modelBuilder.Entity("ModelsB.Order_B.OrderB", b =>
@@ -504,7 +504,7 @@ namespace DbContextB.Migrations
 
                     b.HasIndex("ApplicationUserId");
 
-                    b.ToTable("Orders");
+                    b.ToTable("Orders", (string)null);
                 });
 
             modelBuilder.Entity("ModelsB.Order_B.OrderItemB", b =>
@@ -530,7 +530,7 @@ namespace DbContextB.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("OrderItems");
+                    b.ToTable("OrderItems", (string)null);
                 });
 
             modelBuilder.Entity("ModelsB.Order_B.PaymentB", b =>
@@ -575,7 +575,7 @@ namespace DbContextB.Migrations
                     b.HasIndex("OrderId")
                         .IsUnique();
 
-                    b.ToTable("Payments");
+                    b.ToTable("Payments", (string)null);
                 });
 
             modelBuilder.Entity("ModelsB.Order_B.ShippingB", b =>
@@ -613,7 +613,7 @@ namespace DbContextB.Migrations
                     b.HasIndex("OrderId")
                         .IsUnique();
 
-                    b.ToTable("Shippings");
+                    b.ToTable("Shippings", (string)null);
                 });
 
             modelBuilder.Entity("ModelsB.Product_B.ProductB", b =>
@@ -651,7 +651,7 @@ namespace DbContextB.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Products");
+                    b.ToTable("Products", (string)null);
                 });
 
             modelBuilder.Entity("ModelsB.Product_B.ProductImageB", b =>
@@ -674,7 +674,7 @@ namespace DbContextB.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("ProductImages");
+                    b.ToTable("ProductImages", (string)null);
                 });
 
             modelBuilder.Entity("ModelsB.Product_B.ProductSpecificationTranslationB", b =>
@@ -708,7 +708,7 @@ namespace DbContextB.Migrations
                     b.HasIndex("SpecificationId", "LanguageId")
                         .IsUnique();
 
-                    b.ToTable("ProductSpecificationTranslations");
+                    b.ToTable("ProductSpecificationTranslations", (string)null);
                 });
 
             modelBuilder.Entity("ModelsB.Product_B.ProductSpecificationsB", b =>
@@ -726,7 +726,7 @@ namespace DbContextB.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("ProductSpecifications");
+                    b.ToTable("ProductSpecifications", (string)null);
                 });
 
             modelBuilder.Entity("ModelsB.Product_B.ProductTranslationB", b =>
@@ -765,7 +765,7 @@ namespace DbContextB.Migrations
                     b.HasIndex("ProductId", "LanguageId")
                         .IsUnique();
 
-                    b.ToTable("ProductTranslations");
+                    b.ToTable("ProductTranslations", (string)null);
                 });
 
             modelBuilder.Entity("ModelsB.Product_B.ReviewB", b =>
@@ -800,7 +800,7 @@ namespace DbContextB.Migrations
                     b.HasIndex("ProductId", "ApplicationUserId")
                         .IsUnique();
 
-                    b.ToTable("Reviews");
+                    b.ToTable("Reviews", (string)null);
                 });
 
             modelBuilder.Entity("ModelsB.Product_B.SpecificationStore", b =>
@@ -823,7 +823,7 @@ namespace DbContextB.Migrations
 
                     b.HasIndex("LanguageId");
 
-                    b.ToTable("SpecificationKeys");
+                    b.ToTable("SpecificationKeys", (string)null);
                 });
 
             modelBuilder.Entity("DiscountBOrderB", b =>

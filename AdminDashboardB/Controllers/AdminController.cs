@@ -1,4 +1,5 @@
 ﻿using AdminDashboardB.Models;
+using ApplicationB.Services_B;
 using AutoMapper;
 using DTOsB.Account;
 using Microsoft.AspNetCore.Authorization;
@@ -15,17 +16,23 @@ namespace AdminDashboardB.Controllers
         private UserManager<ApplicationUserB> _userManager;
         private SignInManager<ApplicationUserB> _signInManager;
         private IMapper _mapper;
+        private IUserService _userService;
 
-        public AdminController(UserManager<ApplicationUserB> userManager, SignInManager<ApplicationUserB> signInManager,IMapper mapper)
+        public AdminController(UserManager<ApplicationUserB> userManager, SignInManager<ApplicationUserB> signInManager,IMapper mapper , IUserService userService)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _mapper = mapper;
+            _userService = userService;
         }
         [HttpGet]
         [AllowAnonymous]
         public async Task<IActionResult> Login()
         {
+            if (User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Index", "Home");
+            }
             return View();
         }
         [HttpPost]
@@ -74,8 +81,8 @@ namespace AdminDashboardB.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetAllUsers()
         {
-            var users = await _userManager.Users.ToListAsync();
-            return View("users", users);
+            var UserDto=await _userService.GetAllAppUsersAsync();
+            return View("users", UserDto);
         }
 
         public IActionResult LockUnlock(string? id)
@@ -85,12 +92,13 @@ namespace AdminDashboardB.Controllers
 
         public async Task<IActionResult> GetUserById(string id)
         {
-            var user = await _userManager.FindByIdAsync(id);
-            if (user == null)
+            var userDto = await _userService.GetAppUserByIdAsync(id);
+
+            if (userDto == null)
             {
                 return NotFound();
             }
-            return View("GetOne", user);
+            return View("GetOne", userDto);
         }
 
         public async Task<IActionResult> GetUserByEmail(string email)
@@ -112,7 +120,7 @@ namespace AdminDashboardB.Controllers
                 return NotFound();
             }
 
-            return View("Update", user); // Return user for editing
+            return View("UpdateUser", user); // Return user for editing
         }
 
         [HttpPost("{id}/edit")]
@@ -128,8 +136,8 @@ namespace AdminDashboardB.Controllers
 
                 existingUser.UserName = user.UserName;
                 existingUser.Email = user.Email;
-                existingUser.PhoneNumber = user.PhoneNumber;
                 existingUser.Address = user.Address;
+                existingUser.PhoneNumber = user.PhoneNumber;
                 existingUser.City = user.City;
                 existingUser.Country = user.Country;
                 existingUser.PostalCode = user.PostalCode;

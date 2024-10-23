@@ -20,6 +20,8 @@ using ApplicationB.Contracts_B.Category;
 using ApplicationB.Services_B.Category;
 using InfrastructureB.Category;
 using Microsoft.AspNetCore.Mvc.Authorization;
+using ApplicationB.Contracts_B.User;
+using InfrastructureB.User;
 
 namespace WebApplication1
 {
@@ -41,6 +43,9 @@ namespace WebApplication1
 
           
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+
+      
+
 
             //builder.Services.AddControllersWithViews(options =>
             //{
@@ -70,6 +75,9 @@ namespace WebApplication1
 
             builder.Services.AddScoped<ILanguageRepository, LanguageRepository>();
             builder.Services.AddScoped<ILanguageService, LanguageService>();
+
+
+            builder.Services.AddScoped<IUserRepository, UserRepository>();
             builder.Services.AddScoped<IUserService, UserService>();
 
 
