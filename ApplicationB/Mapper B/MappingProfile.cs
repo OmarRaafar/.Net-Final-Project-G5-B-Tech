@@ -1,19 +1,13 @@
-<<<<<<< HEAD
-﻿using AutoMapper;
+
+using Microsoft.AspNetCore.Hosting;
+using AutoMapper;
 using DTOsB.Account;
 using DTOsB.Category;
 using DTOsB.Product;
 using DTOsB.User;
-using ModelsB.Authentication_and_Authorization_B;
-=======
-﻿using Microsoft.AspNetCore.Hosting;
-using AutoMapper;
-using DTOsB.Category;
-using DTOsB.Product;
 using DTOsB.Shared;
 using Microsoft.AspNetCore.Http;
-using DTOsB.Shared;
->>>>>>> 8ef9b70ef9be35676cdcbd089ea74f74554e0e35
+using ModelsB.Authentication_and_Authorization_B;
 using ModelsB.Category_B;
 using ModelsB.Localization_B;
 using ModelsB.Product_B;
@@ -31,15 +25,13 @@ namespace ApplicationB.Mapper_B
        
         public MappingProfile()
         {
-<<<<<<< HEAD
             CreateMap<RegisterDto, ApplicationUserB>().ReverseMap();
             CreateMap<LoginDTO, ApplicationUserB>().ReverseMap();
             CreateMap<UserDto, ApplicationUserB>().ReverseMap();
 
 
 
-            CreateMap<ProductB, ProductDto>().ReverseMap(); 
-=======
+
 
 
 
@@ -53,7 +45,6 @@ namespace ApplicationB.Mapper_B
                 //.ForMember(dest => dest.Images, opt => opt.MapFrom(src => src.Images))
 
                 .ReverseMap();
->>>>>>> 8ef9b70ef9be35676cdcbd089ea74f74554e0e35
             CreateMap<ProductImageB, ProductImageDto>().ReverseMap();
             CreateMap<ProductImageB,ProductImageCreateOrUpdateDto >()
             //.ForMember(dest => dest.Url, opt => opt.Ignore()) // We can ignore URL during mapping

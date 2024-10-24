@@ -19,16 +19,12 @@ using InfrastructureB.General;
 using ApplicationB.Contracts_B.Category;
 using ApplicationB.Services_B.Category;
 using InfrastructureB.Category;
-<<<<<<< HEAD
 using Microsoft.AspNetCore.Mvc.Authorization;
 using ApplicationB.Contracts_B.User;
 using InfrastructureB.User;
-=======
-using AutoMapper;
 using ApplicationB.Contracts_B.Order;
 using ApplicationB.Services_B.Order;
 using InfrastructureB.Order;
->>>>>>> 8ef9b70ef9be35676cdcbd089ea74f74554e0e35
 
 namespace WebApplication1
 {
@@ -51,7 +47,6 @@ namespace WebApplication1
 
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-<<<<<<< HEAD
       
 
 
@@ -70,8 +65,7 @@ namespace WebApplication1
                 options.Cookie.IsEssential = true;
             });
 
-=======
->>>>>>> 8ef9b70ef9be35676cdcbd089ea74f74554e0e35
+
 
             builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
             builder.Services.AddMvc().AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
@@ -152,14 +146,11 @@ namespace WebApplication1
             });
 
 
-<<<<<<< HEAD
             builder.Services.AddControllersWithViews(options =>
             {
                 options.Filters.Add(new AuthorizeFilter());
             });
-=======
-            builder.Services.AddControllersWithViews();
->>>>>>> 8ef9b70ef9be35676cdcbd089ea74f74554e0e35
+
 
             var app = builder.Build();
 

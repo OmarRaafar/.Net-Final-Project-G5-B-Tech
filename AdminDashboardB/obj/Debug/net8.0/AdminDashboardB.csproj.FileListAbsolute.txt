@@ -1225,3 +1225,5 @@ C:\Users\SanTomas\Desktop\lastversion\.Net-Final-Project-G5-B-Tech\AdminDashboar
 C:\Users\SanTomas\Desktop\lastversion\.Net-Final-Project-G5-B-Tech\AdminDashboardB\obj\Debug\net8.0\AdminDashboardB.pdb
 C:\Users\SanTomas\Desktop\lastversion\.Net-Final-Project-G5-B-Tech\AdminDashboardB\obj\Debug\net8.0\AdminDashboardB.genruntimeconfig.cache
 C:\Users\SanTomas\Desktop\lastversion\.Net-Final-Project-G5-B-Tech\AdminDashboardB\obj\Debug\net8.0\ref\AdminDashboardB.dll
+C:\Users\SanTomas\Desktop\lastversion\.Net-Final-Project-G5-B-Tech\AdminDashboardB\bin\Debug\net8.0\PayPalCheckoutSdk.dll
+C:\Users\SanTomas\Desktop\lastversion\.Net-Final-Project-G5-B-Tech\AdminDashboardB\bin\Debug\net8.0\PayPalHttp-Dotnet.dll

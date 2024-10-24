@@ -1,16 +1,13 @@
-<<<<<<< HEAD
+
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-=======
 ﻿using ApplicationB.Contracts_B.Category;
 using ApplicationB.Services_B.Category;
 using ApplicationB.Services_B.General;
 using AutoMapper;
 using DTOsB.Category;
 using InfrastructureB.Category;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
->>>>>>> 8ef9b70ef9be35676cdcbd089ea74f74554e0e35
 
 namespace AdminDashboardB.Controllers
 {
