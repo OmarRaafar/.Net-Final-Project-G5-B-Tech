@@ -5,10 +5,11 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ModelsB.Shared;
 
 namespace ModelsB.Order_B
 {
-    public class ShippingB
+    public class ShippingB: BaseEntityB
     {
         public int Id { get; set; }
         [MaxLength(250)]

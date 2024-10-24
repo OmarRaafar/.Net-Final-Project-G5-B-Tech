@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages;
 using ModelsB.Authentication_and_Authorization_B;
 
-namespace AdminDashboardB.Controllers
+namespace DTOsB.Controllers
 {
     public class AdminController : Controller
     {

@@ -34,8 +34,14 @@
               "C:\\Users\\SanTomas\\Desktop\\lastversion\\.Net-Final-Project-G5-B-Tech\\DbContextB\\DbContextB.csproj": {
                 "projectPath": "C:\\Users\\SanTomas\\Desktop\\lastversion\\.Net-Final-Project-G5-B-Tech\\DbContextB\\DbContextB.csproj"
               },
+              "C:\\Users\\SanTomas\\Desktop\\lastversion\\.Net-Final-Project-G5-B-Tech\\DTOsB\\DTOsB.csproj": {
+                "projectPath": "C:\\Users\\SanTomas\\Desktop\\lastversion\\.Net-Final-Project-G5-B-Tech\\DTOsB\\DTOsB.csproj"
+              },
               "C:\\Users\\SanTomas\\Desktop\\lastversion\\.Net-Final-Project-G5-B-Tech\\InfrastructureB\\InfrastructureB.csproj": {
                 "projectPath": "C:\\Users\\SanTomas\\Desktop\\lastversion\\.Net-Final-Project-G5-B-Tech\\InfrastructureB\\InfrastructureB.csproj"
+              },
+              "C:\\Users\\SanTomas\\Desktop\\lastversion\\.Net-Final-Project-G5-B-Tech\\ModelsB\\ModelsB.csproj": {
+                "projectPath": "C:\\Users\\SanTomas\\Desktop\\lastversion\\.Net-Final-Project-G5-B-Tech\\ModelsB\\ModelsB.csproj"
               }
             }
           }
@@ -132,6 +138,9 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
+              "C:\\Users\\SanTomas\\Desktop\\lastversion\\.Net-Final-Project-G5-B-Tech\\DbContextB\\DbContextB.csproj": {
+                "projectPath": "C:\\Users\\SanTomas\\Desktop\\lastversion\\.Net-Final-Project-G5-B-Tech\\DbContextB\\DbContextB.csproj"
+              },
               "C:\\Users\\SanTomas\\Desktop\\lastversion\\.Net-Final-Project-G5-B-Tech\\DTOsB\\DTOsB.csproj": {
                 "projectPath": "C:\\Users\\SanTomas\\Desktop\\lastversion\\.Net-Final-Project-G5-B-Tech\\DTOsB\\DTOsB.csproj"
               },
@@ -155,9 +164,17 @@
               "target": "Package",
               "version": "[13.0.1, )"
             },
+            "Microsoft.AspNetCore.Hosting": {
+              "target": "Package",
+              "version": "[2.2.7, )"
+            },
             "Microsoft.AspNetCore.Http.Abstractions": {
               "target": "Package",
               "version": "[2.2.0, )"
+            },
+            "PayPalCheckoutSdk": {
+              "target": "Package",
+              "version": "[1.0.4, )"
             }
           },
           "imports": [
@@ -296,7 +313,11 @@
         "frameworks": {
           "net8.0": {
             "targetAlias": "net8.0",
-            "projectReferences": {}
+            "projectReferences": {
+              "C:\\Users\\SanTomas\\Desktop\\lastversion\\.Net-Final-Project-G5-B-Tech\\ModelsB\\ModelsB.csproj": {
+                "projectPath": "C:\\Users\\SanTomas\\Desktop\\lastversion\\.Net-Final-Project-G5-B-Tech\\ModelsB\\ModelsB.csproj"
+              }
+            }
           }
         },
         "warningProperties": {

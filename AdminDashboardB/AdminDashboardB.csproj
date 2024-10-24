@@ -22,13 +22,15 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ApplicationB\ApplicationB.csproj" />
-    <ProjectReference Include="..\DbContextB\DbContextB.csproj" />
-    <ProjectReference Include="..\InfrastructureB\InfrastructureB.csproj" />
+    <Folder Include="wwwroot\ImageUrls\categories\" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\ImageUrls\" />
+    <ProjectReference Include="..\ApplicationB\ApplicationB.csproj" />
+    <ProjectReference Include="..\DbContextB\DbContextB.csproj" />
+    <ProjectReference Include="..\DTOsB\DTOsB.csproj" />
+    <ProjectReference Include="..\InfrastructureB\InfrastructureB.csproj" />
+    <ProjectReference Include="..\ModelsB\ModelsB.csproj" />
   </ItemGroup>
 
 </Project>

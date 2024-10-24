@@ -19,9 +19,16 @@ using InfrastructureB.General;
 using ApplicationB.Contracts_B.Category;
 using ApplicationB.Services_B.Category;
 using InfrastructureB.Category;
+<<<<<<< HEAD
 using Microsoft.AspNetCore.Mvc.Authorization;
 using ApplicationB.Contracts_B.User;
 using InfrastructureB.User;
+=======
+using AutoMapper;
+using ApplicationB.Contracts_B.Order;
+using ApplicationB.Services_B.Order;
+using InfrastructureB.Order;
+>>>>>>> 8ef9b70ef9be35676cdcbd089ea74f74554e0e35
 
 namespace WebApplication1
 {
@@ -33,7 +40,7 @@ namespace WebApplication1
 
 
             // Add services to the container.
-            
+
             builder.Services.AddDbContext<BTechDbContext>(options =>
            options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
@@ -41,9 +48,10 @@ namespace WebApplication1
                    .AddDefaultTokenProviders().AddDefaultUI();
 
 
-          
+
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
+<<<<<<< HEAD
       
 
 
@@ -62,12 +70,19 @@ namespace WebApplication1
                 options.Cookie.IsEssential = true;
             });
 
+=======
+>>>>>>> 8ef9b70ef9be35676cdcbd089ea74f74554e0e35
 
             builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
             builder.Services.AddMvc().AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
                 .AddDataAnnotationsLocalization();
 
             builder.Services.AddAutoMapper(typeof(MappingProfile));
+            var serviceProvider = builder.Services.BuildServiceProvider();
+
+            //var mapper = serviceProvider.GetService<IMapper>();
+            //mapper.ConfigurationProvider.AssertConfigurationIsValid();
+
             builder.Services.AddHttpContextAccessor();
 
 
@@ -84,14 +99,14 @@ namespace WebApplication1
             //==========Product==========
 
             builder.Services.AddScoped<IProductRepository, ProductRepository>();
-            builder.Services.AddScoped<IProductService,ProductService>();
+            builder.Services.AddScoped<IProductService, ProductService>();
             builder.Services.AddScoped<IProductImageRepository, ProductImageRepository>();
-            builder.Services.AddScoped<IProductImageService,ProductImageService>();
+            builder.Services.AddScoped<IProductImageService, ProductImageService>();
 
             builder.Services.AddScoped<IProductSpecificationRepository, ProductSpecificationRepository>();
-            builder.Services.AddScoped<IProductSpecificationService,ProductSpecificationService>();
+            builder.Services.AddScoped<IProductSpecificationService, ProductSpecificationService>();
             builder.Services.AddScoped<IProductTranslationRepository, ProductTranslationRepository>();
-            builder.Services.AddScoped<IProductTranslationService,ProductTranslationService>();
+            builder.Services.AddScoped<IProductTranslationService, ProductTranslationService>();
             builder.Services.AddScoped<IProductSpecificationTranslationRepository, ProductSpecificationTranslationRep>();
             builder.Services.AddScoped<IProductSpecificationTransService, ProductSpecificationTransService>();
             builder.Services.AddScoped<ISpecificationStoreRepository, SpecificationStoreRepository>();
@@ -106,6 +121,19 @@ namespace WebApplication1
 
             builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
             builder.Services.AddScoped<ICategoryService, CategoryService>();
+
+            //===========Order==============
+            builder.Services.AddScoped<IOrderRepository, OrderRepository>();
+            builder.Services.AddScoped<IOrderService, OrderService>();
+
+            builder.Services.AddScoped<IOrderItemRepository, OrderItemRepository>();
+            builder.Services.AddScoped<IOrderItemService, OrderItemService>();
+
+            builder.Services.AddScoped<IShippingRepository, ShippingRepository>();
+            builder.Services.AddScoped<IShippingService, ShippingService>();
+
+            builder.Services.AddScoped<IPaymentRepository, PaymentRepository>();
+            builder.Services.AddScoped<PaymentService>();
             #endregion
 
 
@@ -124,10 +152,14 @@ namespace WebApplication1
             });
 
 
+<<<<<<< HEAD
             builder.Services.AddControllersWithViews(options =>
             {
                 options.Filters.Add(new AuthorizeFilter());
             });
+=======
+            builder.Services.AddControllersWithViews();
+>>>>>>> 8ef9b70ef9be35676cdcbd089ea74f74554e0e35
 
             var app = builder.Build();
 
@@ -170,7 +202,7 @@ namespace WebApplication1
 
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Admin}/{action=Login}/{id?}");
+                pattern: "{controller=Home}/{action=Index}/{id?}");
             app.MapRazorPages();
 
             app.Run();
