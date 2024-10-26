@@ -21,6 +21,8 @@ using AutoMapper;
 using ApplicationB.Contracts_B.Order;
 using ApplicationB.Services_B.Order;
 using InfrastructureB.Order;
+using ApplicationB.Contracts_B.User;
+using InfrastructureB.User;
 
 namespace B_Tech.API
 {
@@ -41,9 +43,9 @@ namespace B_Tech.API
             builder.Services.AddAutoMapper(typeof(MappingProfile));
             builder.Services.AddHttpContextAccessor();
 
+
             #region AddScoped
-            builder.Services.AddScoped<ILanguageRepository, LanguageRepository>();
-            builder.Services.AddScoped<ILanguageService, LanguageService>();
+            builder.Services.AddScoped<IUserRepository, UserRepository>(); // ????? ??? ????? ?????? IUserRepository
             builder.Services.AddScoped<IUserService, UserService>();
 
             //==========Product==========
@@ -67,6 +69,12 @@ namespace B_Tech.API
             //==========Category==========
             builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
             builder.Services.AddScoped<ICategoryService, CategoryService>();
+            builder.Services.AddScoped<IProductCategoryRepository, ProductCategoryRepository>();
+            builder.Services.AddScoped<IProductCategoryService, ProductCategoryService>();
+
+            //==========Language==========
+            builder.Services.AddScoped<ILanguageRepository,LanguageRepository>();
+            builder.Services.AddScoped<ILanguageService,  LanguageService>();
 
             //===========Order==============
             builder.Services.AddScoped<IOrderRepository, OrderRepository>();

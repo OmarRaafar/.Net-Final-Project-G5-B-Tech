@@ -70,7 +70,7 @@ namespace DTOsB.Controllers
 
             return View(model);
         }
-       
+
 
         public async Task<IActionResult> Logout()
         {
@@ -204,13 +204,16 @@ namespace DTOsB.Controllers
             return RedirectToAction("GetAllUsers");
         }
 
-
+        [HttpGet]
+        [AllowAnonymous]
         public IActionResult CreateUser()
         {
             return View();
         }
        
         [HttpPost]
+        [AllowAnonymous]
+
         public async Task<IActionResult> CreateUser(RegisterDto model)
         {
             if (ModelState.IsValid)
@@ -224,9 +227,9 @@ namespace DTOsB.Controllers
                 //    City = model.City,
                 //    Country = model.Country,
                 //    PostalCode = model.PostalCode,
-                //    UserType = model.UserType, 
+                //    UserType = model.UserType,
                 //};
-                var user = _mapper.Map<ApplicationUserB>(model);
+               var  user = _mapper.Map<ApplicationUserB>(model);
 
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)

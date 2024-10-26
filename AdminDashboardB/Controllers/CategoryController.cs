@@ -27,36 +27,61 @@ namespace AdminDashboardB.Controllers
         }
         public async Task<IActionResult> Index()
         {
-            var categories = await _categoryService.GetAllCategoriesAsync();
-            ViewBag.Languages = await _languageService.GetAllLanguagesAsync(); 
+            var result = await _categoryService.GetAllCategoriesAsync();
 
+            if (!result.IsSuccess)
+            {
+                return View("Error", result.Msg);
+            }
+
+            var categories = result.Entity;
+
+            ViewBag.Languages = await _languageService.GetAllLanguagesAsync();
             return View(categories);
         }
         public async Task<IActionResult> Search(string name)
         {
-            var categories = await _categoryService.GetCategoryByNameAsync(name);
-            ViewBag.Languages = await _languageService.GetAllLanguagesAsync(); // Populate languages
+            //var categories = await _categoryService.GetCategoryByNameAsync(name);
+            //ViewBag.Languages = await _languageService.GetAllLanguagesAsync(); // Populate languages
+            //return View("Index", categories);
+            var result = await _categoryService.GetCategoryByNameAsync(name);
+
+            if (!result.IsSuccess)
+            {
+                ViewBag.ErrorMessage = result.Msg;
+                ViewBag.Languages = await _languageService.GetAllLanguagesAsync();
+                return View("Index", new List<GetAllCategoriesDTO>()); 
+            }
+
+            var categories = result.Entity;
+            ViewBag.Languages = await _languageService.GetAllLanguagesAsync();
             return View("Index", categories);
         }
         public async Task<IActionResult> FilterByLanguage(int languageId)
         {
-            //var categories = await _categoryService.GetCategoriesByLanguageAsync(languageId);
-            //return View("Index", categories); // Adjust as needed to return the correct view
             IEnumerable<GetAllCategoriesDTO> categories;
-
 
             if (languageId > 0)
             {
-                categories = await _categoryService.GetCategoriesByLanguageAsync(languageId);
+                var result = await _categoryService.GetCategoriesByLanguageAsync(languageId);
+                if (!result.IsSuccess)
+                {
+                    return NotFound(result.Msg);
+                }
+                categories = result.Entity;
             }
             else
             {
-                categories = await _categoryService.GetAllCategoriesAsync(); // استرجع جميع الفئات
+                var allCategoriesResult = await _categoryService.GetAllCategoriesAsync();
+                if (!allCategoriesResult.IsSuccess)
+                {
+                    return NotFound(allCategoriesResult.Msg);
+                }
+                categories = allCategoriesResult.Entity; 
             }
 
-            ViewBag.Languages = await _languageService.GetAllLanguagesAsync(); // Populate languages
-            return View("Index", categories);
-
+            ViewBag.Languages = await _languageService.GetAllLanguagesAsync(); 
+            return View("Index", categories); 
         }
 
 
@@ -70,6 +95,7 @@ namespace AdminDashboardB.Controllers
                 Value = l.Id.ToString(), 
                 Text = l.Name
             }).ToList();
+
             return View();
         }
         [HttpPost]
@@ -185,6 +211,7 @@ namespace AdminDashboardB.Controllers
                 return NotFound();
             }
             var categoryDto = _mapper.Map<GetAllCategoriesDTO>(categoryEntity);
+           
             return View(categoryDto);
         }
 
@@ -193,7 +220,17 @@ namespace AdminDashboardB.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            await _categoryService.DeleteCategoryAsync(id);
+            //await _categoryService.DeleteCategoryAsync(id);
+            //return RedirectToAction(nameof(Index));
+            var result = await _categoryService.DeleteCategoryAsync(id);
+
+            if (!result.IsSuccess)
+            {
+                // Optionally, return the user back to the delete view with an error message
+                TempData["ErrorMessage"] = result.Msg;
+                return RedirectToAction(nameof(Delete), new { id });
+            }
+
             return RedirectToAction(nameof(Index));
         }
     }

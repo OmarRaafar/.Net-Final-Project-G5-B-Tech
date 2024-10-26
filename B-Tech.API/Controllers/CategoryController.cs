@@ -3,6 +3,7 @@ using ApplicationB.Services_B.General;
 using ApplicationB.Services_B.Product;
 using AutoMapper;
 using DTOsB.Category;
+using DTOsB.Shared;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -29,16 +30,19 @@ namespace B_Tech.API.Controllers
             var categories = await _categoryService.GetAllCategoriesAsync();
             return Ok(categories);
         }
+
         // GET: api/Category/Search?name=categoryName
         [HttpGet("Search")]
         public async Task<IActionResult> Search(string name)
         {
-            var categories = await _categoryService.GetCategoryByNameAsync(name);
-            if (categories == null || !categories.Any())
+            var result = await _categoryService.GetCategoryByNameAsync(name);
+
+            if (!result.IsSuccess)
             {
-                return NotFound("No categories found.");
+                return NotFound(result.Msg); 
             }
-            return Ok(categories);
+
+            return Ok(result.Entity); 
         }
 
         // GET: api/Category/GetById/5
@@ -59,39 +63,44 @@ namespace B_Tech.API.Controllers
             }
         }
 
-        [HttpGet("GetProductsByCategoryName/{categoryName}")]
-        public async Task<IActionResult> GetProductsByCategoryName(string categoryName)
-        {
-            try
-            {
-                var products = await _categoryService.GetProductsByCategoryNameAsync(categoryName);
-                if (products == null || !products.Any())
-                {
-                    return NotFound($"No products found for category: {categoryName}");
-                }
-                return Ok(products);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(new { message = ex.Message });
-            }
-        }
+        //[HttpGet("GetProductsByCategoryName/{categoryName}")]
+        //public async Task<IActionResult> GetProductsByCategoryName(string categoryName)
+        //{
+        //    try
+        //    {
+        //        var products = await _categoryService.GetProductsByCategoryNameAsync(categoryName);
+        //        if (products == null || !products.Any())
+        //        {
+        //            return NotFound($"No products found for category: {categoryName}");
+        //        }
+        //        return Ok(products);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return BadRequest(new { message = ex.Message });
+        //    }
+        //}
         //GET: api/Category/FilterByLanguage?languageId=2
         [HttpGet("FilterByLanguage")]
         public async Task<IActionResult> FilterByLanguage(int languageId)
         {
-            IEnumerable<GetAllCategoriesDTO> categories;
+            ResultView<IEnumerable<GetAllCategoriesDTO>> result;
 
             if (languageId > 0)
             {
-                categories = await _categoryService.GetCategoriesByLanguageAsync(languageId);
+                result = await _categoryService.GetCategoriesByLanguageAsync(languageId);
             }
             else
             {
-                categories = await _categoryService.GetAllCategoriesAsync();
+                result = await _categoryService.GetAllCategoriesAsync();
             }
 
-            return Ok(categories); 
+            if (result.IsSuccess)
+            {
+                return Ok(result.Entity); 
+            }
+
+            return BadRequest(result.Msg); 
         }
         //GET: api/Category/GetLanguages
         [HttpGet("GetLanguages")]
@@ -102,40 +111,40 @@ namespace B_Tech.API.Controllers
         }
     
 
-         [HttpGet("GetProductsByCategoryId/{categoryId}")]
-        public async Task<IActionResult> GetProductsByCategoryId(int categoryId)
-        {
-            try
-            {
-                var products = await _categoryService.GetProductsByCategoryIdAsync(categoryId);
+        // [HttpGet("GetProductsByCategoryId/{categoryId}")]
+        //public async Task<IActionResult> GetProductsByCategoryId(int categoryId)
+        //{
+        //    try
+        //    {
+        //        var products = await _categoryService.GetProductsByCategoryIdAsync(categoryId);
 
-                return Ok(products);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(new { message = ex.Message });
-            }
-        }
+        //        return Ok(products);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return BadRequest(new { message = ex.Message });
+        //    }
+        //}
 
-        [HttpGet("GetMainCategories")]
-        public async Task<IActionResult> GetMainCategories()
-        {
-            try
-            {
-                var mainCategories = await _categoryService.GetMainCategoriesAsync();
+        //[HttpGet("GetMainCategories")]
+        //public async Task<IActionResult> GetMainCategories()
+        //{
+        //    try
+        //    {
+        //        var mainCategories = await _categoryService.GetMainCategoriesAsync();
 
-                if (mainCategories == null || !mainCategories.Any())
-                {
-                    return NotFound("No main categories found.");
-                }
+        //        if (mainCategories == null || !mainCategories.Any())
+        //        {
+        //            return NotFound("No main categories found.");
+        //        }
 
-                return Ok(mainCategories); 
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, $"Internal server error: {ex.Message}");
-            }
-        }
+        //        return Ok(mainCategories); 
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return StatusCode(500, $"Internal server error: {ex.Message}");
+        //    }
+        //}
 
 
 

@@ -1,5 +1,6 @@
 ﻿using AdminDashboardB.Models;
 using ApplicationB.Services_B;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -21,16 +22,16 @@ namespace DTOsB.Controllers
             _signInManager = signInManager;
             _userService = userservice;
         }
-        public IActionResult Index()
-        {
-            return View();
-        }
+        //public IActionResult Index()
+        //{
+        //    return View();
+        //}
 
 
 
 
         //[HttpPost]
-        //public async Task<IActionResult> Edit( )
+        //public async Task<IActionResult> Edit()
         //{
 
 
@@ -38,12 +39,16 @@ namespace DTOsB.Controllers
 
         //}
 
+        //[HttpGet]
+        //[AllowAnonymous]
 
         //public IActionResult Register()
         //{
         //    return View();
         //}
         //[HttpPost]
+        //[AllowAnonymous]
+
         //public async Task<IActionResult> Register(RegisterVM model)
         //{
         //    if (ModelState.IsValid)
@@ -90,7 +95,7 @@ namespace DTOsB.Controllers
 
 
 
-    
-      
+
+
     }
 }

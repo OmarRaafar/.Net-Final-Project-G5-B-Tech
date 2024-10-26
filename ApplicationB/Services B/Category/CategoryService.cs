@@ -4,6 +4,7 @@ using ApplicationB.Services_B.General;
 using AutoMapper;
 using DTOsB.Category;
 using DTOsB.Product;
+using DTOsB.Shared;
 using Microsoft.AspNetCore.Http;
 using ModelsB.Category_B;
 using System;
@@ -32,37 +33,62 @@ namespace ApplicationB.Services_B.Category
 
         }
 
-        public async Task<IEnumerable<GetAllCategoriesDTO>> GetAllCategoriesAsync()
+        public async Task<ResultView<IEnumerable<GetAllCategoriesDTO>>> GetAllCategoriesAsync()
         {
             var categories = await _categoryRepository.GetAllAsync();
             var activeCategories = categories.Where(c => !c.IsDeleted);
-            return _mapper.Map<IEnumerable<GetAllCategoriesDTO>>(activeCategories);
-
+            var category= _mapper.Map<IEnumerable<GetAllCategoriesDTO>>(activeCategories);
+            return ResultView<IEnumerable<GetAllCategoriesDTO>>.Success(category);
         }
-        public async Task<IEnumerable<GetAllCategoriesDTO>> GetCategoriesByLanguageAsync(int languageId)
+        public async Task<ResultView<IEnumerable<GetAllCategoriesDTO>>> GetCategoriesByLanguageAsync(int languageId)
         {
-           var categories = await _categoryRepository.GetByLanguageAsync(languageId);
-            return _mapper.Map<IEnumerable<GetAllCategoriesDTO>>(categories);
+            var categories = await _categoryRepository.GetByLanguageAsync(languageId);
+
+            if (categories == null || !categories.Any())
+            {
+                return ResultView<IEnumerable<GetAllCategoriesDTO>>.Failure("No categories found for the specified language.");
+            }
+
+            var mappedCategories = _mapper.Map<IEnumerable<GetAllCategoriesDTO>>(categories);
+            return ResultView<IEnumerable<GetAllCategoriesDTO>>.Success(mappedCategories);
         }
 
-        public async Task<CategoryB> GetCategoryByIdAsync(int id)
+        public async Task<ResultView<CategoryB>> GetCategoryByIdAsync(int id)
         {
             var category = await _categoryRepository.GetByIdAsync(id);
             if (category == null)
             {
 
-                throw new Exception($"Category with ID {id} not found.");
+                return ResultView<CategoryB>.Failure($"Category with ID {id} not found.");
             }
-            return (category);
+            return ResultView<CategoryB>.Success(category);
         }
-        public async Task<IEnumerable<GetAllCategoriesDTO>> GetCategoryByNameAsync(string categoryName)
+        public async Task<ResultView<IEnumerable<GetAllCategoriesDTO>>> GetCategoryByNameAsync(string categoryName)
         {
-            var categories = await _categoryRepository.GetAllAsync(); 
-            return categories.Where(c => c.Translations.Any(t => t.CategoryName.ToLower().Contains(categoryName.ToLower())))
-                             .Select(c => _mapper.Map<GetAllCategoriesDTO>(c))
-                             .ToList();
+
+            // Ensure the input is valid
+            if (string.IsNullOrWhiteSpace(categoryName))
+            {
+                return ResultView<IEnumerable<GetAllCategoriesDTO>>.Failure("Category name cannot be empty.");
+            }
+
+            // Retrieve categories and filter by name
+            var categories = await _categoryRepository.GetAllAsync();
+            var filteredCategories = categories
+                .Where(c => c.Translations.Any(t => t.CategoryName.Contains(categoryName, StringComparison.OrdinalIgnoreCase)))
+                .Select(c => _mapper.Map<GetAllCategoriesDTO>(c))
+                .ToList();
+
+            // Check if any categories were found
+            if (!filteredCategories.Any())
+            {
+                return ResultView<IEnumerable<GetAllCategoriesDTO>>.Failure($"No categories found matching '{categoryName}'.");
+            }
+
+            return ResultView<IEnumerable<GetAllCategoriesDTO>>.Success(filteredCategories);
+
         }
-        public async Task AddCategoryAsync(CreateOrUpdateCategoriesDTO createCategoryDto, IFormFile imageFile)
+        public async Task<ResultView<string>> AddCategoryAsync(CreateOrUpdateCategoriesDTO createCategoryDto, IFormFile imageFile)
         {
             // Check if the category name already exists
             var existingCategory = await _categoryRepository
@@ -70,17 +96,17 @@ namespace ApplicationB.Services_B.Category
 
             if (existingCategory)
             {
-                throw new Exception("A category with the same name already exists.");
+                return ResultView<string>.Failure("A category with the same name already exists.");
             }
 
             // Handle image upload (if provided)
             string imageUrl = null;
             if (imageFile != null)
             {
-                 imageUrl = await HandleImageUploadAsync(imageFile);
+                imageUrl = await HandleImageUploadAsync(imageFile);
                 if (string.IsNullOrEmpty(imageUrl))
                 {
-                    throw new Exception("Image upload failed. Please provide a valid image.");
+                    return ResultView<string>.Failure("Image upload failed. Please provide a valid image.");
                 }
             }
 
@@ -99,32 +125,32 @@ namespace ApplicationB.Services_B.Category
 
             if (createCategoryDto.Translations == null || !createCategoryDto.Translations.Any())
             {
-                throw new Exception("Translations list cannot be null or empty.");
+                return ResultView<string>.Failure("Translations list cannot be null or empty.");
             }
 
             foreach (var translation in createCategoryDto.Translations)
             {
                 if (translation == null)
                 {
-                    throw new Exception("Translation cannot be null.");
+                    return ResultView<string>.Failure("Translation cannot be null.");
                 }
 
                 // Validate and set LanguageId
                 if (translation.LanguageId == null || translation.LanguageId <= 0)
                 {
                     translation.LanguageId = 2; // Default to a specific language if needed
-                   
+
                 }
 
                 var languageExists = await _languageRepository.AnyAsync(l => l.Id == translation.LanguageId);
                 if (!languageExists)
                 {
-                    throw new Exception($"Language with ID {translation.LanguageId} does not exist.");
+                    return ResultView<string>.Failure($"Language with ID {translation.LanguageId} does not exist.");
                 }
 
                 if (string.IsNullOrEmpty(translation.CategoryName))
                 {
-                    throw new Exception("Category name cannot be null or empty.");
+                    return ResultView<string>.Failure("Category name cannot be null or empty.");
                 }
 
                 // Add product category relationship
@@ -133,19 +159,19 @@ namespace ApplicationB.Services_B.Category
                     foreach (var productId in createCategoryDto.ProductIds)
                     {
                         // Create an instance of ProductCategoryDto
-                        var productCategoryDto = new ProductCategoryDto
-                        {
-                            ProductId = productId, // Use the variable directly here
-                            Category = _mapper.Map<GetAllCategoriesDTO>(category), // Map category if needed
-                            IsMainCategory = translation.IsMainCategory // Access IsMainCategory through translation
-                        };
+                        //var productCategoryDto = new ProductCategoryDto
+                        //{
+                        //    ProductId = productId, // Use the variable directly here
+                        //    Category = _mapper.Map<GetAllCategoriesDTO>(category), // Map category if needed
+                        //    IsMainCategory = translation.IsMainCategory // Access IsMainCategory through translation
+                        //};
 
                         // Create the ProductCategoryB entity
                         var productCategoryEntity = new ProductCategoryB
                         {
-                            ProductId = productCategoryDto.ProductId, // Access ProductId from the instance
+                            ProductId = productId,//productCategoryDto.ProductId, // Access ProductId from the instance
                             Category = category, // Use the category instance
-                            IsMainCategory = productCategoryDto.IsMainCategory // Access IsMainCategory from the instance
+                            IsMainCategory = translation.IsMainCategory // productCategoryDto.IsMainCategory // Access IsMainCategory from the instance
                         };
                         category.ProductCategories.Add(productCategoryEntity);
 
@@ -156,39 +182,35 @@ namespace ApplicationB.Services_B.Category
             // Save the new category
             await _categoryRepository.AddAsync(category);
             await _categoryRepository.SaveChangesAsync();
+            return ResultView<string>.Success("Category added successfully.");
+
         }
 
-   
-        public async Task UpdateCategoryAsync(int id, CreateOrUpdateCategoriesDTO categoryDto, IFormFile imageFile)
+        public async Task<ResultView<string>> UpdateCategoryAsync(int id, CreateOrUpdateCategoriesDTO categoryDto, IFormFile imageFile)
         {
             var categoryEntity = await _categoryRepository.GetByIdAsync(id);
             if (categoryEntity == null)
             {
-                throw new KeyNotFoundException($"Category with ID {id} not found.");
+                return ResultView<string>.Failure($"Category with ID {id} not found.");
             }
             var existingImageUrl = categoryEntity.ImageUrl;
 
             // Handle image upload (convert IFormFile to a URL or save path)
             if (imageFile != null)
             {
-                try
+                var newImageUrl = await HandleImageUploadAsync(imageFile);
+                if (string.IsNullOrEmpty(newImageUrl))
                 {
-                    var newImageUrl = await HandleImageUploadAsync(imageFile);
-                    categoryEntity.ImageUrl = newImageUrl; // Update the image if new image uploaded
+                    categoryEntity.ImageUrl = existingImageUrl; 
+                    return ResultView<string>.Failure("Image upload failed. Please provide a valid image.");
                 }
-                catch (Exception ex)
-                {
-                    Console.WriteLine($"Error uploading image: {ex.Message}");
-                    // Revert to existing image URL if the upload fails
-                    categoryEntity.ImageUrl = existingImageUrl;
-                    throw new Exception("Image upload failed.");
-                }
+                categoryEntity.ImageUrl = newImageUrl;
             }
             else
             {
-                // If no new image is uploaded, retain the old image or update with provided URL
                 categoryEntity.ImageUrl = !string.IsNullOrEmpty(categoryDto.ImageUrl) ? categoryDto.ImageUrl : existingImageUrl;
             }
+
 
 
             // Update the user and updated date
@@ -202,14 +224,14 @@ namespace ApplicationB.Services_B.Category
             // Validate and update translations using AutoMapper
             if (categoryDto.Translations == null || !categoryDto.Translations.Any())
             {
-                throw new Exception("Translations list cannot be null or empty.");
+                return ResultView<string>.Failure("Translations list cannot be null or empty.");
             }
             // Update translations using AutoMapper
             foreach (var translationDto in categoryDto.Translations)
             {
                 if (string.IsNullOrEmpty(translationDto.CategoryName))
                 {
-                    throw new Exception("Category name cannot be null or empty.");
+                    return ResultView<string>.Failure("Category name cannot be null or empty.");
                 }
 
                 // Map translation DTO to entity
@@ -237,30 +259,35 @@ namespace ApplicationB.Services_B.Category
 
             // Save changes
             await _categoryRepository.SaveChangesAsync();
+            return ResultView<string>.Success("Category updated successfully.");
         }
 
 
-        public async Task DeleteCategoryAsync(int id)
-            {
+        public async Task<ResultView<string>> DeleteCategoryAsync(int id)
+        {
                 var categoryEntity = await _categoryRepository.GetByIdAsync(id);
                 if (categoryEntity == null)
                 {
-                    throw new KeyNotFoundException($"Category with ID {id} not found.");
+                 return ResultView<string>.Failure($"Category with ID {id} not found.");
                 }
-                 // Check if the category is linked to any products or subcategories
-                 if (categoryEntity.ProductCategories.Any())
+            // Check if the category is linked to any products or subcategories
+            if (categoryEntity.ProductCategories.Any())
                  {
-                   // You can choose to throw an exception, log a warning, or handle it accordingly
-                   throw new InvalidOperationException($"Category with ID {id} cannot be deleted because it has associated products or subcategories.");
-                  }
-                     // soft delete
-                 categoryEntity.IsDeleted = true;
-
-                await _categoryRepository.UpdateAsync(categoryEntity);
-                await _categoryRepository.SaveChangesAsync();
+                // You can choose to throw an exception, log a warning, or handle it accordingly
+                return ResultView<string>.Failure($"Category with ID {id} cannot be deleted because it has associated products or subcategories.");
             }
+            // soft delete
+            categoryEntity.IsDeleted = true;
+            categoryEntity.UpdatedBy = _userService.GetCurrentUserId(); // Log user who performed the action
+            categoryEntity.Updated = DateTime.Now;
 
-         public async Task<string> HandleImageUploadAsync(IFormFile imageFile)
+            await _categoryRepository.UpdateAsync(categoryEntity);
+            await _categoryRepository.SaveChangesAsync();
+            return ResultView<string>.Success("Category deleted successfully.");
+
+        }
+
+        public async Task<string> HandleImageUploadAsync(IFormFile imageFile)
             {
                 if (imageFile == null || imageFile.Length == 0)
                     return null;
@@ -280,67 +307,7 @@ namespace ApplicationB.Services_B.Category
 
             return $"/ImageUrls/categories/{newFileName}"; // Return the relative URL or path        
             }
-        public async Task<List<ProductCategoryDto>> GetProductsByCategoryNameAsync(string categoryName)
-        {
-            // Get categories by name using your existing GetByNameAsync method
-            var categories = await _categoryRepository.GetByNameAsync(categoryName);
-
-            if (!categories.Any())
-            {
-                throw new Exception($"No categories found with name {categoryName}.");
-            }
-
-            // Extract products from all matching categories
-            var productCategories = categories
-                                          .SelectMany(c => c.ProductCategories)
-                                          .Distinct()
-                                          .ToList();
-
-            // Map products to ProductDto
-            var productCategoryDtos = _mapper.Map<List<ProductCategoryDto>>(productCategories);
-
-            return productCategoryDtos;
-        }
-
-        public async Task<List<ProductCategoryDto>> GetProductsByCategoryIdAsync(int categoryId)
-        {
-            // Get the category by its ID, including the related products
-            var category = await _categoryRepository.GetByIdAsync(categoryId);
-
-            if (category == null)
-            {
-                throw new Exception($"Category with ID {categoryId} not found.");
-            }
-
-            // Extract product details from the ProductCategories relationship
-            var productCategories = category.ProductCategories.ToList();
-
-            var productCategoryDtos = _mapper.Map<List<ProductCategoryDto>>(productCategories);
-
-            //var products = category.ProductCategories
-            //                       .Select(pc => pc.Product)
-            //                       .ToList();
-
-            //// Map products to ProductDto
-            //var productDtos = _mapper.Map<List<ProductDto>>(products);
-            //return productDtos;
-            return productCategoryDtos;
-        }
-
-        public async Task<List<GetAllCategoriesDTO>> GetMainCategoriesAsync()
-        {
-
-            var mainCategories = await _categoryRepository.GetAllAsync();
-
-            var filteredMainCategories = mainCategories
-                .Where(c => c.ProductCategories.Any(pc => pc.IsMainCategory))
-                .ToList();
-
-            var mainCategoriesDto = _mapper.Map<List<GetAllCategoriesDTO>>(filteredMainCategories);
-
-            return mainCategoriesDto;
-        }
-
+   
     }
 } 
 
