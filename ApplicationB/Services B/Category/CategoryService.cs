@@ -74,23 +74,37 @@ namespace ApplicationB.Services_B.Category
 
             // Retrieve categories and filter by name
             var categories = await _categoryRepository.GetAllAsync();
+           
             var filteredCategories = categories
-                .Where(c => c.Translations.Any(t => t.CategoryName.Contains(categoryName, StringComparison.OrdinalIgnoreCase)))
-                .Select(c => _mapper.Map<GetAllCategoriesDTO>(c))
-                .ToList();
+                    .Where(c => c.Translations.Any(t =>
+                        t.CategoryName.Contains(categoryName, StringComparison.OrdinalIgnoreCase)))
+                    .Select(c => new CategoryB
+                    {
+                        Id = c.Id,
+                        ImageUrl = c.ImageUrl,
+                        CreatedBy = c.CreatedBy,
+                        UpdatedBy = c.UpdatedBy,
+                        // Keep only the translation matching the specified category name
+                        Translations = c.Translations
+                            .Where(t => t.CategoryName.Contains(categoryName, StringComparison.OrdinalIgnoreCase))
+                            .ToList(),
+                        ProductCategories = c.ProductCategories // Keep product associations if necessary
+                    })
+                    .ToList();
+            var mappedCategories = _mapper.Map<IEnumerable<GetAllCategoriesDTO>>(filteredCategories);
 
             // Check if any categories were found
-            if (!filteredCategories.Any())
+            if (!mappedCategories.Any())
             {
                 return ResultView<IEnumerable<GetAllCategoriesDTO>>.Failure($"No categories found matching '{categoryName}'.");
             }
 
-            return ResultView<IEnumerable<GetAllCategoriesDTO>>.Success(filteredCategories);
-
+            return ResultView<IEnumerable<GetAllCategoriesDTO>>.Success(mappedCategories);
+          
         }
         public async Task<ResultView<string>> AddCategoryAsync(CreateOrUpdateCategoriesDTO createCategoryDto, IFormFile imageFile)
         {
-            // Check if the category name already exists
+            // Check if a category with the same name already exists
             var existingCategory = await _categoryRepository
                 .AnyAsync(c => c.Translations.Any(t => t.CategoryName.ToLower() == createCategoryDto.Translations.First().CategoryName.ToLower()));
 
@@ -99,7 +113,7 @@ namespace ApplicationB.Services_B.Category
                 return ResultView<string>.Failure("A category with the same name already exists.");
             }
 
-            // Handle image upload (if provided)
+            // Handle image upload
             string imageUrl = null;
             if (imageFile != null)
             {
@@ -110,24 +124,24 @@ namespace ApplicationB.Services_B.Category
                 }
             }
 
-            // Set user and language information
+            // Get current user and language information
             var currentUserId = _userService.GetCurrentUserId();
             var currentLanguage = _languageService.GetCurrentLanguageCode();
 
-            // Map the DTO to the entity
+            // Map DTO to entity and set metadata
             var category = _mapper.Map<CategoryB>(createCategoryDto);
             category.CreatedBy = currentUserId;
             category.UpdatedBy = currentUserId;
             category.ImageUrl = imageUrl;
-
-            // Initialize product category list
             category.ProductCategories = new List<ProductCategoryB>();
 
+            // Ensure translations exist
             if (createCategoryDto.Translations == null || !createCategoryDto.Translations.Any())
             {
                 return ResultView<string>.Failure("Translations list cannot be null or empty.");
             }
 
+            // Process each translation and associated product categories
             foreach (var translation in createCategoryDto.Translations)
             {
                 if (translation == null)
@@ -135,11 +149,10 @@ namespace ApplicationB.Services_B.Category
                     return ResultView<string>.Failure("Translation cannot be null.");
                 }
 
-                // Validate and set LanguageId
+                // Validate LanguageId and set default if needed
                 if (translation.LanguageId == null || translation.LanguageId <= 0)
                 {
-                    translation.LanguageId = 2; // Default to a specific language if needed
-
+                    translation.LanguageId = 2; // Default language ID if applicable
                 }
 
                 var languageExists = await _languageRepository.AnyAsync(l => l.Id == translation.LanguageId);
@@ -148,42 +161,37 @@ namespace ApplicationB.Services_B.Category
                     return ResultView<string>.Failure($"Language with ID {translation.LanguageId} does not exist.");
                 }
 
+                // Validate the translation's CategoryName
                 if (string.IsNullOrEmpty(translation.CategoryName))
                 {
                     return ResultView<string>.Failure("Category name cannot be null or empty.");
                 }
 
-                // Add product category relationship
+                // Associate products if provided
                 if (createCategoryDto.ProductIds != null && createCategoryDto.ProductIds.Any())
                 {
                     foreach (var productId in createCategoryDto.ProductIds)
                     {
-                        // Create an instance of ProductCategoryDto
-                        //var productCategoryDto = new ProductCategoryDto
-                        //{
-                        //    ProductId = productId, // Use the variable directly here
-                        //    Category = _mapper.Map<GetAllCategoriesDTO>(category), // Map category if needed
-                        //    IsMainCategory = translation.IsMainCategory // Access IsMainCategory through translation
-                        //};
-
-                        // Create the ProductCategoryB entity
+                        // Create ProductCategoryB entity
                         var productCategoryEntity = new ProductCategoryB
                         {
-                            ProductId = productId,//productCategoryDto.ProductId, // Access ProductId from the instance
-                            Category = category, // Use the category instance
-                            IsMainCategory = translation.IsMainCategory // productCategoryDto.IsMainCategory // Access IsMainCategory from the instance
+                            ProductId = productId,
+                            Category = category,
+                            IsMainCategory = translation.IsMainCategory
                         };
                         category.ProductCategories.Add(productCategoryEntity);
-
                     }
                 }
             }
 
-            // Save the new category
+            // Log category data to check before saving
+            Console.WriteLine($"Category Data: {category}");
+
+            // Save category to the database
             await _categoryRepository.AddAsync(category);
             await _categoryRepository.SaveChangesAsync();
-            return ResultView<string>.Success("Category added successfully.");
 
+            return ResultView<string>.Success("Category added successfully.");
         }
 
         public async Task<ResultView<string>> UpdateCategoryAsync(int id, CreateOrUpdateCategoriesDTO categoryDto, IFormFile imageFile)

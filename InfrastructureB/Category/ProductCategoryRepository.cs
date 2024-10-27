@@ -92,6 +92,22 @@ namespace InfrastructureB.Category
                 .Where(pc => pc.IsMainCategory)
                 .ToListAsync();
         }
+        public async Task<List<ProductCategoryB>> GetSubCategoriesAsync()
+        {
+            return await _dbContext.ProductCategories
+                .Include(pc => pc.Category)
+                .Include(pc => pc.Product)
+                .Where(pc => !pc.IsMainCategory)
+                .ToListAsync();
+        }
+        public async Task<List<CategoryB>> GetSubCategoriesByMainCategoryIdAsync(int mainCategoryId)
+        {
+            return await _dbContext.ProductCategories
+                   .Where(pc => !pc.IsMainCategory && pc.CategoryId == mainCategoryId) // Filter to get only subcategories
+                   .Select(pc => pc.Category) // Select only the Category part
+                   .ToListAsync(); // Convert to a list asynchronously
+        }
+       
         Task<IQueryable<ProductCategoryB>> IGenericRepositoryB<ProductCategoryB>.GetAllAsync()
         {
             throw new NotImplementedException();

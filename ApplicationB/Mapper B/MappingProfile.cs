@@ -104,13 +104,21 @@ namespace ApplicationB.Mapper_B
             CreateMap<CategoryTranslationB, CategoryTranslationDTO>().ReverseMap();
             CreateMap<CategoryTranslationB, CreateCategoryTranslationDto>().ReverseMap();
 
-            CreateMap<ProductCategoryB, ProductCategoryDto>().ReverseMap();
-
+            //CreateMap<ProductCategoryB, ProductCategoryDto>().ReverseMap();
+            CreateMap<ProductCategoryB, ProductCategoryDto>()
+           .ForMember(dest => dest.Category, opt => opt.MapFrom(src => src.Category))
+           .ForMember(dest => dest.Product, opt => opt.MapFrom(src => src.Product)).ReverseMap();
 
             CreateMap<LanguageB, LanguageDto>().ReverseMap();
+
+            // Map ResultView<CategoryB> to ResultView<CreateOrUpdateCategoriesDTO>
+            CreateMap<ResultView<CategoryB>, ResultView<CreateOrUpdateCategoriesDTO>>()
+                .ForMember(dest => dest.Entity, opt => opt.MapFrom(src => src.Entity));
+
+
         }
 
-      
+
 
     }
 }

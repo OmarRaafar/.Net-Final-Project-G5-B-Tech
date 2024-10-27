@@ -18,6 +18,9 @@ namespace ApplicationB.Services_B.Category
         public Task<ResultView<List<ProductCategoryDto>>> GetProductsByCategoryNameAsync(string categoryName);
         public Task<ResultView<List<ProductCategoryDto>>> GetProductsByCategoryIdAsync(int categoryId);
         public Task<ResultView<List<ProductCategoryDto>>> GetMainCategoriesAsync();
+        public Task<ResultView<List<ProductCategoryDto>>> GetSubCategoriesAsync();
+
+        public Task<ResultView<IEnumerable<GetAllCategoriesDTO>>> GetSubCategoriesByMainCategoryIdAsync(int mainCategoryId);
 
     }
 }

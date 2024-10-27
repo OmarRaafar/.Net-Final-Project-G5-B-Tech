@@ -148,12 +148,12 @@ namespace AdminDashboardB.Controllers
         public async Task<IActionResult> Edit(int id)
         {
             var category = await _categoryService.GetCategoryByIdAsync(id);
-            if (category == null)
+            if (!category.IsSuccess ||category.Entity == null)
             {
                 return NotFound();
             }
 
-            var model = _mapper.Map<CreateOrUpdateCategoriesDTO>(category);
+            var model = _mapper.Map<CreateOrUpdateCategoriesDTO>(category.Entity);
 
             // Initialize Translations if none exist
             if (model.Translations == null || !model.Translations.Any())

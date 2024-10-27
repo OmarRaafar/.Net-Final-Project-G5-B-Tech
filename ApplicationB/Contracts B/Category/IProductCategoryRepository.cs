@@ -1,4 +1,6 @@
-﻿using ModelsB.Category_B;
+﻿using DTOsB.Category;
+using DTOsB.Shared;
+using ModelsB.Category_B;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,5 +20,8 @@ namespace ApplicationB.Contracts_B.Category
         Task<IEnumerable<ProductCategoryB>> GetByCategoryNameAsync(string categoryName);
         Task<IEnumerable<ProductCategoryB>> GetByCategoryIdAsync(int categoryId);
         Task<IEnumerable<ProductCategoryB>> GetMainCategoriesAsync();
+        Task<List<ProductCategoryB>> GetSubCategoriesAsync();
+        Task<List<CategoryB>> GetSubCategoriesByMainCategoryIdAsync(int mainCategoryId);
+
     }
 }

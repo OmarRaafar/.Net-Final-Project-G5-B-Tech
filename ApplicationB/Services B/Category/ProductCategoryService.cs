@@ -119,5 +119,30 @@ namespace ApplicationB.Services_B.Category
 
             return ResultView<List<ProductCategoryDto>>.Success(mainCategoryDtos);
         }
+        public async Task<ResultView<List<ProductCategoryDto>>> GetSubCategoriesAsync()
+        {
+            var subCategories = await _repository.GetSubCategoriesAsync();
+
+            if (subCategories == null || !subCategories.Any())
+            {
+                return ResultView<List<ProductCategoryDto>>.Failure("No subcategories found.");
+            }
+
+            var subCategoryDtos = _mapper.Map<List<ProductCategoryDto>>(subCategories);
+            return ResultView<List<ProductCategoryDto>>.Success(subCategoryDtos);
+        }
+
+        public async Task<ResultView<IEnumerable<GetAllCategoriesDTO>>> GetSubCategoriesByMainCategoryIdAsync(int mainCategoryId)
+        {
+            var subCategories = await _repository.GetSubCategoriesByMainCategoryIdAsync(mainCategoryId);
+
+            if (subCategories == null || !subCategories.Any())
+            {
+                return ResultView<IEnumerable<GetAllCategoriesDTO>>.Failure("No subcategories found for the specified main category ID.");
+            }
+
+            var mappedSubCategories = _mapper.Map<IEnumerable<GetAllCategoriesDTO>>(subCategories);
+            return ResultView<IEnumerable<GetAllCategoriesDTO>>.Success(mappedSubCategories);
+        }
     }
 }

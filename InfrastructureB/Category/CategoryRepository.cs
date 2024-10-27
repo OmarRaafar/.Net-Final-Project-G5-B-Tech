@@ -29,10 +29,25 @@ namespace InfrastructureB.Category
         }
         public async Task<IEnumerable<CategoryB>> GetByLanguageAsync(int languageId)
         {
-           return await _dbContext.Categories
-                               .Where(c => c.Translations.Any(t => t.LanguageId == languageId))
-                               .Include(c => c.Translations)
-                               .ToListAsync();
+            //return await _dbContext.Categories
+            //                    .Where(c => c.Translations.Any(t => t.LanguageId == languageId))
+            //                    .Include(c => c.Translations)
+            //                    .ToListAsync();
+           return await _context.Categories
+                        .Where(c => c.Translations.Any(t => t.LanguageId == languageId))  // جلب التصنيفات التي تحتوي على الترجمة للغة المطلوبة
+                        .Select(c => new CategoryB
+                        {
+                            Id = c.Id,
+                            ImageUrl = c.ImageUrl,
+                            CreatedBy = c.CreatedBy,
+                            UpdatedBy = c.UpdatedBy,
+                            // تعيين الترجمات المرتبطة فقط باللغة المطلوبة
+                            Translations = c.Translations
+                                .Where(t => t.LanguageId == languageId)
+                                .ToList(),
+                            ProductCategories = c.ProductCategories // الاحتفاظ بالربط مع المنتجات إن وجد
+                        })
+                        .ToListAsync();
         }
         public async Task AddAsync(CategoryB category)
         {
