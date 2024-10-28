@@ -50,7 +50,7 @@ Release/
 *.cache
 *.dll
 *.pdb
-*.json
+
 
 
 # User-specific files (MonoDevelop/Xamarin Studio)
@@ -369,7 +369,7 @@ paket-files/
 .cr/personal
 
 # Python Tools for Visual Studio (PTVS)
-_pycache_/
+pycache/
 *.pyc
 
 # Cake - Uncomment if you are using it
