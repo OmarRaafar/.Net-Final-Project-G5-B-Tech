@@ -19,13 +19,17 @@ using InfrastructureB.General;
 using InfrastructureB.Order;
 using InfrastructureB.Product;
 using InfrastructureB.User;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using ModelsB.Authentication_and_Authorization_B;
 using System.Globalization;
+using System.Text;
 
 namespace B_Tech.API
 {
@@ -38,6 +42,27 @@ namespace B_Tech.API
             // Add services to the container.
             builder.Services.AddDbContext<BTechDbContext>(options =>
          options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+            builder.Services.AddAuthentication(options =>
+            {
+                options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+            .AddJwtBearer(op =>
+            {
+              op.TokenValidationParameters = new TokenValidationParameters
+              {
+                  ValidateIssuer = true,
+                  ValidateAudience = true,
+                  ValidateLifetime = true,
+                  ValidateIssuerSigningKey = true,
+                  ValidIssuer = builder.Configuration["jwt:Issuer"],
+                  ValidAudience = builder.Configuration["jwt:Audience"],
+                  IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["jwt:Key"]))
+              };
+          });
+
 
             builder.Services.AddIdentity<ApplicationUserB, IdentityRole>().AddEntityFrameworkStores<BTechDbContext>()
                   .AddRoles<IdentityRole>();
@@ -187,9 +212,7 @@ namespace B_Tech.API
 
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-            builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
-
+      
            
 
 
@@ -210,6 +233,8 @@ namespace B_Tech.API
             });
 
             app.UseHttpsRedirection();
+            app.UseCors("Default");
+
 
             app.UseAuthentication();
             app.UseAuthorization();

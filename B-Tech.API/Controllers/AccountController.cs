@@ -79,6 +79,9 @@ namespace B_Tech.API.Controllers
         }
 
 
+
+
+
         [HttpPost("Login")]
         public async Task<IActionResult> Login(LoginDTO model)
         {
@@ -96,8 +99,10 @@ namespace B_Tech.API.Controllers
 
             List<Claim> claims = new List<Claim>()
     {
+        new Claim(ClaimTypes.NameIdentifier, user.Id),
         new Claim(ClaimTypes.Name, model.Email.Split('@')[0]),
         new Claim(ClaimTypes.Email, model.Email),
+        new Claim("UserType", user.UserType) 
     };
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["jwt:Key"]));
@@ -113,6 +118,51 @@ namespace B_Tech.API.Controllers
 
             return Ok(new { Message = "Login successful", Token = TokenStr });
         }
+
+
+        [HttpGet("GetCurrentUser")]
+        [Authorize]
+
+        public IActionResult GetCurrentUser()
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var userName = User.FindFirstValue(ClaimTypes.Name);
+            var email = User.FindFirstValue(ClaimTypes.Email);
+            var userType = User.FindFirstValue("UserType");
+
+            var userInfo = new
+            {
+                UserId = userId,
+                UserName = userName,
+                Email = email,
+                UserType = userType
+            };
+
+            return Ok(userInfo);
+        }
+
+
+        [HttpGet("GetUserById/{id}")]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> GetUserById(string id)
+        {
+            var user = await _userManager.FindByIdAsync(id);
+            if (user == null)
+            {
+                return NotFound(new { Message = "User not found." });
+            }
+
+            var userInfo = new
+            {
+                UserId = user.Id,
+                UserName = user.UserName,
+                Email = user.Email,
+                UserType = user.UserType
+            };
+
+            return Ok(userInfo);
+        }
+
 
 
 

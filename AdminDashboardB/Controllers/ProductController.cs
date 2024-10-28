@@ -7,6 +7,7 @@ using ApplicationB.Services_B.User;
 using DTOsB.Category;
 using DTOsB.Product;
 using DTOsB.Shared;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -16,6 +17,8 @@ using ModelsB.Localization_B;
 
 namespace DTOsB.Controllers
 {
+    [Authorize(Roles = "Admin")]
+
     public class ProductController : Controller
     {
         private readonly IWebHostEnvironment webHostEnvironment;
