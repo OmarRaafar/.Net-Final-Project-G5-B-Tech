@@ -10,6 +10,7 @@
 
 @{
     ViewData["Title"] = "Edit";
+    var categories = ViewBag.AllCategories as List<DTOsB.Category.GetAllCategoriesDTO>;
 }
 
 <div class="container my-5 p-4 shadow rounded col-md-8">
@@ -75,11 +76,11 @@
             </div>
 
             <!-- Created Date -->
-            <div class="mb-4">
+            @* <div class="mb-4">
                 <label class="form-label fs-5 fw-bold">Created Date</label>
                 <input type="date" class="form-control shadow-sm" asp-for="Entity.Created" placeholder="Enter Created Date" />
                 <span asp-validation-for="Entity.Created" class="text-danger"></span>
-            </div>
+            </div> *@
 
             <!-- Category Dropdown -->
             @* <div class="mb-4">
@@ -127,6 +128,41 @@
                 </div>
             } *@
 
+
+            @if (categories != null && categories.Any())
+{
+    <div class="mb-4">
+        <label class="form-label fs-5 fw-bold">Select Main Category</label>
+        <select class="form-select" name="SelectedCategories[0].Id" id="mainCategoryDropdown">
+            <option value="">-- Select Main Category --</option>
+            @foreach (var category in categories)
+            {
+                var mainCategoryTranslation = category?.Translations?.FirstOrDefault()?.CategoryName ?? "No name available";
+                <option value="@category.Id">
+                    @mainCategoryTranslation
+                </option>
+            }
+        </select>
+    </div>
+
+    <div class="mb-4">
+        <label class="form-label fs-5 fw-bold">Select Subcategory</label>
+        <select class="form-select" name="SelectedCategories[1].Id" id="subCategoryDropdown">
+            <option value="">-- Select Subcategory --</option>
+            @foreach (var category in categories)
+            {
+                var subCategoryTranslation = category?.Translations?.FirstOrDefault()?.CategoryName ?? "No name available";
+                <option value="@category.Id">
+                    @subCategoryTranslation
+                </option>
+            }
+        </select>
+    </div>
+}
+else
+{
+    <p>No categories available.</p>
+}
             <!-- Product Images -->
             <div class="mb-4">
                 <label class="form-label fs-5 fw-bold">Product Images</label>
@@ -137,7 +173,7 @@
 
             <!-- Product Specifications -->
             <@* form id="editSpecsForm" method="post" asp-action="EditSpecifications"> *@
-                <div id="specificationsContainer">
+               <div id="specificationsContainer">
                 @for (int i = 0; i < Model.Entity.Specifications.Count; i++)
                 {
                     var spec = Model.Entity.Specifications[i];
@@ -148,35 +184,40 @@
                 <!-- English Key and Value -->
                 <div class="mb-3">
                     <label class="form-label fw-bold" for="EnKey_@i">English Key</label>
-                    <input type="text" class="form-control" id="EnKey_@i" name="Specifications[@i].Translations[0].TranslatedKey"
-                           value="@spec.Translations?.FirstOrDefault(t => t.LanguageId == 2)?.TranslatedKey"
-                           placeholder="Enter English Key" required>
+                    <input type="text" class="form-control" id="EnKey_@i"
+                           name="Specifications[@i].Translations[0].TranslatedKey"
+                           value="@spec.Translations?.FirstOrDefault(t => t.LanguageId == 2)?.TranslatedKey ?? """
+                           placeholder="Enter English Key" required />
                     <input type="hidden" name="Specifications[@i].Translations[0].LanguageId" value="2" />
                 </div>
                 <div class="mb-3">
                     <label class="form-label fw-bold" for="EnValue_@i">English Value</label>
-                    <input type="text" class="form-control" id="EnValue_@i" name="Specifications[@i].Translations[0].TranslatedValue"
-                           value="@spec.Translations?.FirstOrDefault(t => t.LanguageId == 2)?.TranslatedValue"
-                           placeholder="Enter English Value" required>
+                    <input type="text" class="form-control" id="EnValue_@i"
+                           name="Specifications[@i].Translations[0].TranslatedValue"
+                           value="@spec.Translations?.FirstOrDefault(t => t.LanguageId == 2)?.TranslatedValue ?? """
+                           placeholder="Enter English Value" required />
                 </div>
 
                 <!-- Arabic Key and Value -->
                 <div class="mb-3">
                     <label class="form-label fw-bold" for="ArKey_@i">Arabic Key</label>
-                    <input type="text" class="form-control" id="ArKey_@i" name="Specifications[@i].Translations[1].TranslatedKey"
-                           value="@spec.Translations?.FirstOrDefault(t => t.LanguageId == 1)?.TranslatedKey"
-                           placeholder="Enter Arabic Key" required>
+                    <input type="text" class="form-control" id="ArKey_@i"
+                           name="Specifications[@i].Translations[1].TranslatedKey"
+                           value="@spec.Translations?.FirstOrDefault(t => t.LanguageId == 1)?.TranslatedKey ?? """
+                           placeholder="Enter Arabic Key" required />
                     <input type="hidden" name="Specifications[@i].Translations[1].LanguageId" value="1" />
                 </div>
                 <div class="mb-3">
                     <label class="form-label fw-bold" for="ArValue_@i">Arabic Value</label>
-                    <input type="text" class="form-control" id="ArValue_@i" name="Specifications[@i].Translations[1].TranslatedValue"
-                           value="@spec.Translations?.FirstOrDefault(t => t.LanguageId == 1)?.TranslatedValue"
-                           placeholder="Enter Arabic Value" required>
+                    <input type="text" class="form-control" id="ArValue_@i"
+                           name="Specifications[@i].Translations[1].TranslatedValue"
+                           value="@spec.Translations?.FirstOrDefault(t => t.LanguageId == 1)?.TranslatedValue ?? """
+                           placeholder="Enter Arabic Value" required />
                 </div>
             </div>
                 }
 </div>
+
 
                 <!-- Button to add more specifications -->
                 <div class="mb-3">

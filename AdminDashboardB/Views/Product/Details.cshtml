@@ -3,6 +3,11 @@
 @{
     ViewData["Title"] = "Details";
     var categories = ViewBag.ProductCategories as List<DTOsB.Category.ProductCategoryDto>;
+
+    if (categories == null)
+    {
+        categories = new List<DTOsB.Category.ProductCategoryDto>(); // Initialize if null
+    }
 }
 
 <div class="container my-5 p-4 shadow rounded col-md-10">

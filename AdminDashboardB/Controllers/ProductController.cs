@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ModelsB.Category_B;
 using ModelsB.Localization_B;
+using ModelsB.Product_B;
 
 namespace DTOsB.Controllers
 {
@@ -47,31 +48,51 @@ namespace DTOsB.Controllers
         }
 
 
-        public async Task<IActionResult> Index( int selectedCategoryId,int selectedLanguageId = 2)
+        public async Task<IActionResult> Index(string searchString, int? selectedLanguageId, int? selectedCategoryId)
         {
+            ViewBag.SearchString = searchString;
+           
+            
 
             var availableLanguages = await languageService.GetAllLanguagesAsync();
             ViewBag.AvailableLanguages = availableLanguages;
 
-            await languageService.SetUserSelectedLanguageAsync(selectedLanguageId);
+            if (selectedLanguageId.HasValue && selectedLanguageId > 0)
+            {
+                await languageService.SetUserSelectedLanguageAsync((int)selectedLanguageId);
+            }
             ViewBag.SelectedLanguageId = selectedLanguageId;
 
             var categories = await categoryService.GetAllCategoriesAsync();
-            ViewBag.Categories = categories;
+            ViewBag.Categories = categories.Entity;
+            ViewBag.SelectedCategoryId = selectedCategoryId;
 
             var products = await productService.GetAllProductsAsync();
-           
 
-            //if(selectedCategoryId >0)
-            //{
-            //    var productsByCategory = await categoryService.GetProductsByCategoryIdAsync(selectedCategoryId);
-            //    foreach (var item in productsByCategory)
-            //    {
-            //        productsByCategory
-            //    }
-                
-            //    return View(productsByCategory);
-            //}
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                products = await productService.SearchProductsByNameAsync(searchString);
+            }
+
+          
+
+            if (selectedCategoryId > 0)
+            {
+                var productsByCategory = productCategoryService.GetProductsByCategoryIdAsync((int)selectedCategoryId).Result.Entity;
+
+                // Initialize _Products.Entity as IEnumerable<ProductDto>
+                var _Products = new ResultView<IEnumerable<ProductDto>>()
+                {
+                    Entity = new List<ProductDto>() // Ensure Entity is initialized
+                };
+
+                foreach (var item in productsByCategory)
+                {
+                    _Products.Entity = _Products.Entity.Append(item.Product);
+                }
+
+                return View(_Products);
+            }
 
             if (products == null)
             {
@@ -221,6 +242,9 @@ namespace DTOsB.Controllers
         // GET: Products/Edit/5
         public async Task<IActionResult> Edit(int id)
         {
+            var allCategories = await categoryService.GetAllCategoriesAsync();
+            ViewBag.AllCategories = allCategories;
+
             var product = await productService.GetProductByIdAsync(id);
             if (product == null)
             {
@@ -398,7 +422,7 @@ namespace DTOsB.Controllers
         public async Task<IActionResult> Search(string searchString)
         {
             var products = await productService.SearchProductsByNameAsync(searchString);
-            ViewBag.SearchString = searchString;
+            //ViewBag.SearchString = searchString;
 
             return View("Index", products);
         }

@@ -106,6 +106,8 @@
                 </select>
                 <span asp-validation-for="CategoryId" class="text-danger"></span>
             </div> *@
+            @if (categories != null && categories.Any())
+            {
             <div class="mb-4">
             <label class="form-label fs-5 fw-bold">Select Main Category</label>
             <select class="form-select" name="SelectedCategories[0].Id" id="mainCategoryDropdown">
@@ -129,7 +131,11 @@
                     }
                 </select>
             </div>
-
+            }
+            else
+            {
+                <p>No categories available.</p>
+            }
             <div class="mb-4">
                 <label class="form-label fs-5 fw-bold" for="ImageFiles">Product Images</label>
                 <input type="file" class="form-control shadow-sm" id="ImageFiles" name="ImageFiles" multiple>

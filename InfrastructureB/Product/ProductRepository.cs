@@ -46,8 +46,8 @@ namespace InfrastructureB.Product
 
         public async Task<IQueryable<ProductB>> GetFilteredProductsAsync(int languageId)
         {
-            var products = _context.Products.Where(p => !p.IsDeleted).Include(p => p.Translations).Include(p => p.Images);
-            return products.Where(p => p.Translations.Any(t => t.Language.Id == languageId));
+            var products = _context.Products.Where(p => !p.IsDeleted).Include(p => p.Translations.Where(t => t.Language.Id == languageId)).Include(p => p.Images);
+            return products;
         }
         public async Task<EntityPaginatedB<ProductB>> GetAllPaginatedAsync(int pageNumber, int count)
         {
