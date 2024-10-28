@@ -9,8 +9,8 @@ namespace DTOsB.User
 {
     public class UserDto
     {
-    
-         public string Id { get; set; }
+
+        public string Id { get; set; }
 
         [Required(ErrorMessage = "User Name is required")]
         public string UserName { get; set; }

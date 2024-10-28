@@ -18,6 +18,5 @@ namespace DTOsB.Account
         public string Password { get; set; }
 
         public bool RememberMe { get; set; } // Add Remember Me option
-
     }
 }

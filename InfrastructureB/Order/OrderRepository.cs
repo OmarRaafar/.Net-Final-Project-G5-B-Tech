@@ -18,7 +18,8 @@ namespace InfrastructureB.Order
 
         public override async Task<IQueryable<OrderB>> GetAllAsync()
         {
-            var orders  = (await base.GetAllAsync()).Where(p => p.IsDeleted == false);
+            //var orders = (await base.GetAllAsync()).Where(p => p.IsDeleted == false); Order hasn't soft delete
+            var orders = (await base.GetAllAsync());
             return orders;
         }
     }

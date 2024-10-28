@@ -1,9 +1,6 @@
-﻿using AdminDashboardB.Models;
-using ApplicationB.Services_B;
+﻿using ApplicationB.Services_B.User;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages;
 using ModelsB.Authentication_and_Authorization_B;
 
 namespace DTOsB.Controllers
@@ -87,10 +84,5 @@ namespace DTOsB.Controllers
 
         //    return RedirectToAction("Login", "Admin"); // Redirect to homepage after signing out
         //}
-
-
-
-    
-      
     }
 }

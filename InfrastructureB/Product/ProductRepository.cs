@@ -26,7 +26,7 @@ namespace InfrastructureB.Product
         {
             var products = await GetAllAsync();  
             return products.Where(p => p.Translations.Any(t => t.Name.ToLower().Contains(name.ToLower()) ||
-                 p.Translations.Any(t => t.BrandName.ToLower().Contains(name.ToLower()))));
+                 p.Translations.Any(t => t.BrandName.ToLower().Contains(name.ToLower())))).Include(p=>p.Translations).Include(p => p.Images);
         }
 
         public override async Task<ProductB> GetByIdAsync(int id)
@@ -46,7 +46,7 @@ namespace InfrastructureB.Product
 
         public async Task<IQueryable<ProductB>> GetFilteredProductsAsync(int languageId)
         {
-            var products = _context.Products.Include(p => p.Translations);
+            var products = _context.Products.Where(p => !p.IsDeleted).Include(p => p.Translations).Include(p => p.Images);
             return products.Where(p => p.Translations.Any(t => t.Language.Id == languageId));
         }
         public async Task<EntityPaginatedB<ProductB>> GetAllPaginatedAsync(int pageNumber, int count)
@@ -85,12 +85,110 @@ namespace InfrastructureB.Product
             return result;
         }
 
-        //public async Task<IEnumerable<ProductB>> GetProductsByCategoryIdsAsync(IEnumerable<int> categoryIds)
+
+        ///// <summary>
+        ///// Product
+        ///// </summary>
+
+
+
+
+
+
+
+
+
+
+        ///// <summary>
+        ///// Image
+        ///// </summary>
+
+
+        //public async Task AddImagesAsync(int productId, IEnumerable<ProductImageB> images)
         //{
-        //    return await _context.ProductCategories
-        //        .Where(pc => categoryIds.Contains(pc.CategoryId))
-        //        .Select(pc => pc.Product)
-        //        .ToListAsync();
+        //    var product = await GetByIdAsync(productId);
+        //    if (product != null)
+        //    {
+        //        foreach (var image in images)
+        //        {
+        //            image.ProductId = productId; // Set the foreign key
+        //            await _context.ProductImages.AddAsync(image);
+        //        }
+        //        await _context.SaveChangesAsync();
+        //    }
+        //}
+
+        //public async Task RemoveImageAsync(int productId, int imageId)
+        //{
+        //    var image = await _context.ProductImages.FindAsync(imageId);
+        //    if (image != null && image.ProductId == productId)
+        //    {
+        //        _context.ProductImages.Remove(image);
+        //        await _context.SaveChangesAsync();
+        //    }
+        //}
+
+
+        ///// <summary>
+        ///// Translation
+        ///// </summary>
+        //public async Task AddTranslationsAsync(int productId, IEnumerable<ProductTranslationB> translations)
+        //{
+        //    var product = await GetByIdAsync(productId);
+        //    if (product != null)
+        //    {
+        //        foreach (var translation in translations)
+        //        {
+        //            translation.ProductId = productId; // Set the foreign key
+        //            await _context.ProductTranslations.AddAsync(translation);
+        //        }
+        //        await _context.SaveChangesAsync();
+        //    }
+        //}
+
+        //public async Task RemoveTranslationAsync(int productId, int translationId)
+        //{
+        //    var translation = await _context.ProductTranslations.FindAsync(translationId);
+        //    if (translation != null && translation.ProductId == productId)
+        //    {
+        //        _context.ProductTranslations.Remove(translation);
+        //        await _context.SaveChangesAsync();
+        //    }
+        //}
+
+        ///// <summary>
+        ///// Specification
+        ///// </summary>
+
+        //public async Task AddSpecificationsAsync(int productId, IEnumerable<ProductSpecificationsB> specifications)
+        //{
+        //    var product = await GetByIdAsync(productId);
+        //    if (product != null)
+        //    {
+        //        foreach (var specification in specifications)
+        //        {
+        //            specification.ProductId = productId; // Set the foreign key
+        //            await _context.ProductSpecifications.AddAsync(specification);
+        //        }
+        //        await _context.SaveChangesAsync();
+        //    }
+        //}
+
+        //public async Task RemoveSpecificationAsync(int productId, int specificationId)
+        //{
+        //    var specification = await _context.ProductSpecifications.FindAsync(specificationId);
+        //    if (specification != null && specification.ProductId == productId)
+        //    {
+        //        _context.ProductSpecifications.Remove(specification);
+        //        await _context.SaveChangesAsync();
+        //    }
+        //}
+
+        //public IQueryable<ProductSpecificationsB> GetSpecificationsByProductId(int productId)
+        //{
+        //    return _context.ProductSpecifications
+        //        .Where(s => s.ProductId == productId);
+        //    //}
         //}
 
     }

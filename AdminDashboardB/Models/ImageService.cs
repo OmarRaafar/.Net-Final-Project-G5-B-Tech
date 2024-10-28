@@ -34,7 +34,7 @@ namespace AdminDashboardB.Models
             }
 
             // Return the relative path for storing in the database
-            return Path.Combine("ImageUrls", uniqueFileName).Replace("\\", "/");
+            return Path.Combine("/ImageUrls", uniqueFileName).Replace("\\", "/");
         }
     }
 }

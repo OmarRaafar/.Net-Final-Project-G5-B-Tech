@@ -1,26 +1,31 @@
-using ApplicationB.Contracts_B.Product;
+
 using ApplicationB.Contracts_B;
+using ApplicationB.Contracts_B.Category;
+using ApplicationB.Contracts_B.General;
+using ApplicationB.Contracts_B.Order;
+using ApplicationB.Contracts_B.Product;
+using ApplicationB.Contracts_B.User;
 using ApplicationB.Mapper_B;
+using ApplicationB.Services_B;
+using ApplicationB.Services_B.Category;
+using ApplicationB.Services_B.General;
+using ApplicationB.Services_B.Order;
 using ApplicationB.Services_B.Product;
+using ApplicationB.Services_B.User;
+using AutoMapper;
 using DbContextB;
+using InfrastructureB.Category;
+using InfrastructureB.General;
+using InfrastructureB.Order;
+using InfrastructureB.Product;
+using InfrastructureB.User;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
+using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
+using Microsoft.OpenApi.Models;
 using ModelsB.Authentication_and_Authorization_B;
 using System.Globalization;
-using InfrastructureB.Product;
-using ApplicationB.Services_B;
-using ApplicationB.Contracts_B.General;
-using ApplicationB.Services_B.General;
-using InfrastructureB.General;
-using ApplicationB.Contracts_B.Category;
-using ApplicationB.Services_B.Category;
-using InfrastructureB.Category;
-using AutoMapper;
-using ApplicationB.Contracts_B.Order;
-using ApplicationB.Services_B.Order;
-using InfrastructureB.Order;
 
 namespace B_Tech.API
 {
@@ -32,21 +37,96 @@ namespace B_Tech.API
 
             // Add services to the container.
             builder.Services.AddDbContext<BTechDbContext>(options =>
-               options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+         options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-            builder.Services.AddIdentity<ApplicationUserB, IdentityRole>()
-                   .AddEntityFrameworkStores<BTechDbContext>()
-                   .AddDefaultTokenProviders();
+            builder.Services.AddIdentity<ApplicationUserB, IdentityRole>().AddEntityFrameworkStores<BTechDbContext>()
+                  .AddRoles<IdentityRole>();
+
+
+
+            //builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+
+            builder.Services.ConfigureApplicationCookie(options =>
+            {
+                options.LoginPath = "/Admin/Login"; // Redirect to Admin login page
+                options.AccessDeniedPath = "/Home/AccessDenied"; // Optional: redirect to an access denied page
+                options.SlidingExpiration = true; // Renew the session on each request
+                options.ExpireTimeSpan = TimeSpan.FromDays(7); // Adjust duration as needed
+                options.Cookie.HttpOnly = true; // Helps protect against XSS attacks
+                options.Cookie.IsEssential = true;
+            });
+
+
+            //.AddRoles<ApplicationUserB>();
+
+
+            builder.Services.AddCors(op =>
+            {
+                op.AddPolicy("Default", policy =>
+                {
+                    policy.AllowAnyHeader()
+                          .AllowAnyOrigin()
+                          .AllowAnyMethod();
+                });
+            });
+
+            builder.Services.AddEndpointsApiExplorer();
+            builder.Services.AddSwaggerGen(c => {
+                c.SwaggerDoc(
+                    "v1", new OpenApiInfo
+                    {
+                        Title = "JWTToken_Auth_API",
+                        Version = "v1"
+                    });
+                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
+                {
+                    Name = "Authorization",
+                    Type = SecuritySchemeType.ApiKey,
+                    Scheme = "Bearer",
+                    BearerFormat = "JWT",
+                    In = ParameterLocation.Header,
+                    Description = "JWT Authorization header using the Bearer scheme. \r\n\r\n Enter 'Bearer' [space] and then your token in the text input below.\r\n\r\nExample: \"Bearer 1safsfsdfdfd\"",
+                });
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement {
+        {
+            new OpenApiSecurityScheme {
+                Reference = new OpenApiReference {
+                    Type = ReferenceType.SecurityScheme,
+                        Id = "Bearer"
+                }
+            },
+            new string[] {}
+        }
+    });
+            });
+
+
+
+
+            builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
+            builder.Services.AddMvc().AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
+                .AddDataAnnotationsLocalization();
 
             builder.Services.AddAutoMapper(typeof(MappingProfile));
+            var serviceProvider = builder.Services.BuildServiceProvider();
+            var mapper = serviceProvider.GetService<IMapper>();
+            //mapper.ConfigurationProvider.AssertConfigurationIsValid();
+
             builder.Services.AddHttpContextAccessor();
 
+
             #region AddScoped
+
             builder.Services.AddScoped<ILanguageRepository, LanguageRepository>();
             builder.Services.AddScoped<ILanguageService, LanguageService>();
+            //builder.Services.AddScoped<IImageService, ImageService>();
+
             builder.Services.AddScoped<IUserService, UserService>();
+            builder.Services.AddScoped<IUserRepository, UserRepository>();
+
 
             //==========Product==========
+
             builder.Services.AddScoped<IProductRepository, ProductRepository>();
             builder.Services.AddScoped<IProductService, ProductService>();
             builder.Services.AddScoped<IProductImageRepository, ProductImageRepository>();
@@ -61,10 +141,13 @@ namespace B_Tech.API
             builder.Services.AddScoped<ISpecificationStoreRepository, SpecificationStoreRepository>();
             builder.Services.AddScoped<ISpecificationStoreService, SpecificationStoreService>();
 
+
             builder.Services.AddScoped<IReviewRepository, ReviewRepository>();
             builder.Services.AddScoped<IReviewService, ReviewService>();
 
+
             //==========Category==========
+
             builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
             builder.Services.AddScoped<ICategoryService, CategoryService>();
 
@@ -80,7 +163,13 @@ namespace B_Tech.API
 
             builder.Services.AddScoped<IPaymentRepository, PaymentRepository>();
             builder.Services.AddScoped<PaymentService>();
+
+
+            //==========Language==========
+            builder.Services.AddScoped<ILanguageRepository, LanguageRepository>();
+            builder.Services.AddScoped<ILanguageService, LanguageService>();
             #endregion
+
 
             builder.Services.Configure<RequestLocalizationOptions>(options =>
             {
@@ -95,39 +184,38 @@ namespace B_Tech.API
                 options.SupportedUICultures = supportedCultures;
             });
 
-            // Add controllers
+
             builder.Services.AddControllers();
+            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+            builder.Services.AddEndpointsApiExplorer();
+            builder.Services.AddSwaggerGen();
+
+           
+
+
 
             var app = builder.Build();
-
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage();
+                app.UseSwagger();
+                app.UseSwaggerUI();
             }
-            else
+
+            app.UseSwagger();
+
+            app.UseSwaggerUI(c =>
             {
-                app.UseExceptionHandler("/Error");
-                app.UseHsts();
-            }
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "B-Tech API v1");
+            });
 
             app.UseHttpsRedirection();
-
-            app.UseRouting();
-
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers(); // This should be here to map API controller routes
-            });
-            var locOptions = app.Services.GetService<IOptions<RequestLocalizationOptions>>();
-            app.UseRequestLocalization(locOptions.Value);
 
             app.UseAuthentication();
             app.UseAuthorization();
 
-            // Map API routes
-            app.MapControllers();
 
+            app.MapControllers();
 
             app.Run();
         }

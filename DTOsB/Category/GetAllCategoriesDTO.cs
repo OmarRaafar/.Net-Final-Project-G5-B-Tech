@@ -15,6 +15,5 @@ namespace DTOsB.Category
         public ICollection<CategoryTranslationDTO> Translations { get; set; }
         public bool IsDeleted { get; set; }
         public bool IsMainCategory { get; set; }
-
     }
 }

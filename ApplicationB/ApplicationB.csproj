@@ -14,7 +14,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DbContextB\DbContextB.csproj" />
     <ProjectReference Include="..\DTOsB\DTOsB.csproj" />
     <ProjectReference Include="..\ModelsB\ModelsB.csproj" />
   </ItemGroup>

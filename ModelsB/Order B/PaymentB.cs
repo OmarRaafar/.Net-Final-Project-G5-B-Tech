@@ -5,11 +5,10 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ModelsB.Shared;
 
 namespace ModelsB.Order_B
 {
-    public class PaymentB: BaseEntityB
+    public class PaymentB
     {
         public int Id { get; set; }
         [Column(TypeName = "money")]

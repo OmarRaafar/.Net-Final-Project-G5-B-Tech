@@ -15,16 +15,8 @@ namespace ApplicationB.Contracts_B
 
         Task<EntityPaginatedB<ProductB>> GetAllPaginatedAsync(int pageNumber, int count);
         Task<IQueryable<ProductB>> GetFilteredProductsAsync(int languageId);
-        //public Task<IEnumerable<ProductB>> GetProductsByCategoryIdsAsync(IEnumerable<int> categoryIds);
-
     }
 
-
-    //Task AddImagesAsync(int productId, IEnumerable<ProductImageB> images);
-    //Task RemoveImageAsync(int productId, int imageId);
-    //Task AddTranslationsAsync(int productId, IEnumerable<ProductTranslationB> translations);
-    //Task RemoveTranslationAsync(int productId, int translationId);
-    //Task DeleteAsync(int id);
 
     //Task AddImagesAsync(int productId, IEnumerable<ProductImageB> images);
     //Task RemoveImageAsync(int productId, int imageId);

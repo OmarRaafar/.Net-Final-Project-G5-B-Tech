@@ -1,16 +1,14 @@
-﻿using AdminDashboardB.Models;
-using ApplicationB.Services_B;
+﻿using ApplicationB.Services_B.User;
 using AutoMapper;
 using DTOsB.Account;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages;
 using ModelsB.Authentication_and_Authorization_B;
 
 namespace DTOsB.Controllers
 {
+    [AllowAnonymous]
     public class AdminController : Controller
     {
         private UserManager<ApplicationUserB> _userManager;
@@ -18,7 +16,7 @@ namespace DTOsB.Controllers
         private IMapper _mapper;
         private IUserService _userService;
 
-        public AdminController(UserManager<ApplicationUserB> userManager, SignInManager<ApplicationUserB> signInManager,IMapper mapper , IUserService userService)
+        public AdminController(UserManager<ApplicationUserB> userManager, SignInManager<ApplicationUserB> signInManager, IMapper mapper, IUserService userService)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -70,7 +68,7 @@ namespace DTOsB.Controllers
 
             return View(model);
         }
-       
+
 
         public async Task<IActionResult> Logout()
         {
@@ -82,7 +80,7 @@ namespace DTOsB.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetAllUsers()
         {
-            var UserDto=await _userService.GetAllAppUsersAsync();
+            var UserDto = await _userService.GetAllAppUsersAsync();
             return View("users", UserDto);
         }
 
@@ -112,7 +110,7 @@ namespace DTOsB.Controllers
             return View(user); // Return user for view
         }
 
-       //مربطهاش ب الservice بسبب مشاكل فى ال mapping 
+        //مربطهاش ب الservice بسبب مشاكل فى ال mapping 
 
         [HttpGet("{id}/edit")]
         public async Task<IActionResult> UpdateUser(string id)
@@ -126,90 +124,90 @@ namespace DTOsB.Controllers
             return View("UpdateUser", user); // Return user for editing
         }
 
-        [HttpPost("{id}/edit")]
-        public async Task<IActionResult> UpdateUser(ApplicationUserB user)
-        {
-            if (ModelState.IsValid)
-            {
-                var existingUser = await _userManager.FindByIdAsync(user.Id);
-                if (existingUser == null)
-                {
-                    return NotFound();
-                }
+        //[HttpPost("{id}/edit")]
+        //public async Task<IActionResult> UpdateUser(ApplicationUserB user)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        var existingUser = await _userManager.FindByIdAsync(user.Id);
+        //        if (existingUser == null)
+        //        {
+        //            return NotFound();
+        //        }
 
-                existingUser.UserName = user.UserName;
-                existingUser.Email = user.Email;
-                existingUser.Address = user.Address;
-                existingUser.PhoneNumber = user.PhoneNumber;
-                existingUser.City = user.City;
-                existingUser.Country = user.Country;
-                existingUser.PostalCode = user.PostalCode;
-                existingUser.UserType = user.UserType;
+        //        existingUser.UserName = user.UserName;
+        //        existingUser.Email = user.Email;
+        //        existingUser.Address = user.Address;
+        //        existingUser.PhoneNumber = user.PhoneNumber;
+        //        existingUser.City = user.City;
+        //        existingUser.Country = user.Country;
+        //        existingUser.PostalCode = user.PostalCode;
+        //        existingUser.UserType = user.UserType;
 
-                //_mapper.Map(user, existingUser);
+        //        //_mapper.Map(user, existingUser);
 
 
-                var result = await _userManager.UpdateAsync(existingUser);
-                if (result.Succeeded)
-                {
+        //        var result = await _userManager.UpdateAsync(existingUser);
+        //        if (result.Succeeded)
+        //        {
 
-                    if (user.UserType == "Admin")
-                    {
-                        await _userManager.AddToRoleAsync(user, "Admin");
-                    }
-                    else
-                    {
-                        await _userManager.AddToRoleAsync(user, "User");
-                    }
+        //            if (user.UserType == "Admin")
+        //            {
+        //                await _userManager.AddToRoleAsync(user, "Admin");
+        //            }
+        //            else
+        //            {
+        //                await _userManager.AddToRoleAsync(user, "User");
+        //            }
 
-                    return RedirectToAction("GetAllUsers"); // Redirect to user list after update
-                }
+        //            return RedirectToAction("GetAllUsers"); // Redirect to user list after update
+        //        }
 
-                foreach (var error in result.Errors)
-                {
-                    ModelState.AddModelError(string.Empty, error.Description);
-                }
-            }
+        //        foreach (var error in result.Errors)
+        //        {
+        //            ModelState.AddModelError(string.Empty, error.Description);
+        //        }
+        //    }
 
-            return View(user);
-        }
+        //    return View(user);
+        //}
 
-        public async Task<IActionResult> DeleteUser(string id)
-        {
-            var user = await _userManager.FindByIdAsync(id);
-            if (user == null)
-            {
-                return NotFound();
-            }
-            return View(user);
-        }
+        //public async Task<IActionResult> DeleteUser(string id)
+        //{
+        //    var user = await _userManager.FindByIdAsync(id);
+        //    if (user == null)
+        //    {
+        //        return NotFound();
+        //    }
+        //    return View(user);
+        //}
 
-        [HttpPost, ActionName("DeleteUser")]
-        public async Task<IActionResult> DeleteConfirmed(string id)
-        {
-            var user = await _userManager.FindByIdAsync(id);
-            if (user != null)
-            {
-                var result = await _userManager.DeleteAsync(user);
-                if (result.Succeeded)
-                {
-                    return RedirectToAction("GetAllUsers");
-                }
+        //[HttpPost, ActionName("DeleteUser")]
+        //public async Task<IActionResult> DeleteConfirmed(string id)
+        //{
+        //    var user = await _userManager.FindByIdAsync(id);
+        //    if (user != null)
+        //    {
+        //        var result = await _userManager.DeleteAsync(user);
+        //        if (result.Succeeded)
+        //        {
+        //            return RedirectToAction("GetAllUsers");
+        //        }
 
-                foreach (var error in result.Errors)
-                {
-                    ModelState.AddModelError(string.Empty, error.Description);
-                }
-            }
-            return RedirectToAction("GetAllUsers");
-        }
+        //        foreach (var error in result.Errors)
+        //        {
+        //            ModelState.AddModelError(string.Empty, error.Description);
+        //        }
+        //    }
+        //    return RedirectToAction("GetAllUsers");
+        //}
 
 
         public IActionResult CreateUser()
         {
             return View();
         }
-       
+
         [HttpPost]
         public async Task<IActionResult> CreateUser(RegisterDto model)
         {
@@ -235,13 +233,13 @@ namespace DTOsB.Controllers
                     {
                         await _userManager.AddToRoleAsync(user, "Admin");
                     }
-                   else
+                    else
                     {
                         await _userManager.AddToRoleAsync(user, "User");
                     }
 
                     await _signInManager.SignInAsync(user, isPersistent: false);
-                    return RedirectToAction("GetAllUsers"); 
+                    return RedirectToAction("GetAllUsers");
                 }
 
                 foreach (var error in result.Errors)
@@ -250,8 +248,7 @@ namespace DTOsB.Controllers
                 }
             }
 
-            return View(model); 
+            return View(model);
         }
-
     }
 }

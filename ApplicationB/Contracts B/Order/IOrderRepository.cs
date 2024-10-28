@@ -9,5 +9,6 @@ namespace ApplicationB.Contracts_B.Order
 {
     public interface IOrderRepository : IGenericRepositoryB<OrderB>
     {
+    
     }
 }

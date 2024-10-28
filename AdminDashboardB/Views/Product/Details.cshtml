@@ -1,7 +1,8 @@
-﻿@model DTOsB.Shared.ResultView<DTOsB.Product.ProductDto>
+﻿@model DTOsB.Shared.ResultView<DTOsB.Product.ProductCreateOrUpdateDto>
 
 @{
     ViewData["Title"] = "Details";
+    var categories = ViewBag.ProductCategories as List<DTOsB.Category.ProductCategoryDto>;
 }
 
 <div class="container my-5 p-4 shadow rounded col-md-10">
@@ -12,7 +13,7 @@
             <hr />
             <ul class="list-group shadow">
                 <li class="list-group-item">
-                    <strong>Name:</strong> @Model.Entity.Translations.FirstOrDefault(trans => trans.LanguageId == trans.LanguageId)?.Name
+                    <strong>Name:</strong> @Model.Entity.Translations.FirstOrDefault(trans => trans.LanguageId == 2)?.Name
                 </li>
                 <li class="list-group-item">
                     <strong>Price:</strong> @Model.Entity.Price
@@ -21,33 +22,55 @@
                     <strong>Stock Quantity:</strong> @Model.Entity.StockQuantity
                 </li>
                 <li class="list-group-item">
-                    <strong>Description:</strong> @Model.Entity.Translations.FirstOrDefault(trans => trans.LanguageId == trans.LanguageId)?.Description
+                    <strong>Description:</strong> @Model.Entity.Translations.FirstOrDefault(trans => trans.LanguageId ==2)?.Description
                 </li>
+               
                 <li class="list-group-item">
-                    <strong>Created:</strong> @Model.Entity.Created
-                </li>
-                <li class="list-group-item">
-                    <strong>Category Name:</strong> @* Render the category name here *@
+                    <strong>Category Name:</strong>
+                    <ul>
+                     @if (categories != null && categories.Any())
+                         {
+                            @foreach (var cat in categories)
+                            {
+                            <li>
+                                @cat?.Category?.Translations?.FirstOrDefault()?.CategoryName
+                            </li>
+                            }
+                        }
+                        else
+                        {
+                            <li>No categories available</li>
+                        }
+                    </ul>
                 </li>
                 <li class="list-group-item">
                     <strong>Specifications:</strong>
                     <ul>
                         @foreach (var specification in Model.Entity.Specifications)
                         {
-                            <li>@specification.Translations.FirstOrDefault()?.TranslatedKey: @specification.Translations.FirstOrDefault()?.TranslatedValue</li>
+                            <li>
+                                @specification.Translations.FirstOrDefault(l => l.LanguageId == 2)?.TranslatedKey:
+                                @specification.Translations.FirstOrDefault(l => l.LanguageId == 2)?.TranslatedValue
+                            </li>
                         }
                     </ul>
                 </li>
+             
                 <li class="list-group-item">
                     <strong>Images:</strong>
                     <ul class="list-group">
                         @foreach (var image in Model.Entity.Images)
                         {
                             <li class="list-group-item">
+                                
                                 <img src="@image.Url" class="img-thumbnail" alt="Product Image" style="max-width: 150px;" />
+                              
                             </li>
+                           
                         }
                     </ul>
+                   
+
                 </li>
             </ul>
         </div>
@@ -65,6 +88,20 @@
                 }
             </div>
         </div>
+
+
+        <li class="list-group-item">
+            <strong>Created:</strong> @Model.Entity.Created
+        </li>
+        @* <li class="list-group-item">
+            <strong>Created By:</strong> @Model.Entity.CreatedBy
+        </li> *@
+        <li class="list-group-item">
+            <strong>Updated:</strong> @Model.Entity.Updated
+        </li>
+        @* <li class="list-group-item">
+            <strong>Updated By:</strong> @Model.Entity.UpdatedBy
+        </li> *@
     </div>
 </div>
 
@@ -80,3 +117,4 @@
         </div>
     </div>
 </div>
+

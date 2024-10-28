@@ -16,14 +16,14 @@ namespace ApplicationB.Services_B.Product
     {
         private readonly IProductSpecificationRepository _specificationRepository;
         private readonly IMapper _mapper;
-        private readonly IUserService _userService;
+
 
         public ProductSpecificationService(IProductSpecificationRepository specificationRepository, IMapper mapper,
-            IUserService userService, ILanguageService languageService)
+             ILanguageService languageService)
         {
             _specificationRepository = specificationRepository;
             _mapper = mapper;
-            _userService = userService;
+
            
         }
 
@@ -33,8 +33,7 @@ namespace ApplicationB.Services_B.Product
                 return ResultView<ProductSpecificationDto>.Failure("This Specifiction is already exists. Use update to modify it.");
 
             var specification = _mapper.Map<ProductSpecificationsB>(specificationDto);
-            
-            specification.Product.CreatedBy = _userService.GetCurrentUserId();
+           
 
             await _specificationRepository.AddAsync(specification);
             return ResultView<ProductSpecificationDto>.Success(specificationDto);
@@ -52,8 +51,7 @@ namespace ApplicationB.Services_B.Product
 
            
             _mapper.Map(specificationDto, existingSpec);
-            existingSpec.Product.UpdatedBy = _userService.GetCurrentUserId();
-
+          
             await _specificationRepository.UpdateAsync(existingSpec);
             return ResultView<ProductSpecificationDto>.Success(specificationDto);
             

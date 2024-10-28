@@ -19,12 +19,14 @@ using InfrastructureB.General;
 using ApplicationB.Contracts_B.Category;
 using ApplicationB.Services_B.Category;
 using InfrastructureB.Category;
-using Microsoft.AspNetCore.Mvc.Authorization;
-using ApplicationB.Contracts_B.User;
-using InfrastructureB.User;
+using AutoMapper;
+using AdminDashboardB.Models;
 using ApplicationB.Contracts_B.Order;
 using ApplicationB.Services_B.Order;
 using InfrastructureB.Order;
+using ApplicationB.Services_B.User;
+using ApplicationB.Contracts_B.User;
+using InfrastructureB.User;
 
 namespace WebApplication1
 {
@@ -36,7 +38,7 @@ namespace WebApplication1
 
 
             // Add services to the container.
-
+            
             builder.Services.AddDbContext<BTechDbContext>(options =>
            options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
@@ -44,17 +46,14 @@ namespace WebApplication1
                    .AddDefaultTokenProviders().AddDefaultUI();
 
 
-
+          
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
-
-      
 
 
             //builder.Services.AddControllersWithViews(options =>
             //{
             //    options.Filters.Add(new AuthorizeFilter());
             //});
-
             builder.Services.ConfigureApplicationCookie(options =>
             {
                 options.LoginPath = "/Admin/Login"; // Redirect to Admin login page
@@ -66,15 +65,13 @@ namespace WebApplication1
             });
 
 
-
             builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
             builder.Services.AddMvc().AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
                 .AddDataAnnotationsLocalization();
 
             builder.Services.AddAutoMapper(typeof(MappingProfile));
             var serviceProvider = builder.Services.BuildServiceProvider();
-
-            //var mapper = serviceProvider.GetService<IMapper>();
+            var mapper = serviceProvider.GetService<IMapper>();
             //mapper.ConfigurationProvider.AssertConfigurationIsValid();
 
             builder.Services.AddHttpContextAccessor();
@@ -84,23 +81,24 @@ namespace WebApplication1
 
             builder.Services.AddScoped<ILanguageRepository, LanguageRepository>();
             builder.Services.AddScoped<ILanguageService, LanguageService>();
+            builder.Services.AddScoped<IImageService, ImageService>();
 
+            
 
             builder.Services.AddScoped<IUserRepository, UserRepository>();
             builder.Services.AddScoped<IUserService, UserService>();
 
-
             //==========Product==========
 
             builder.Services.AddScoped<IProductRepository, ProductRepository>();
-            builder.Services.AddScoped<IProductService, ProductService>();
+            builder.Services.AddScoped<IProductService,ProductService>();
             builder.Services.AddScoped<IProductImageRepository, ProductImageRepository>();
-            builder.Services.AddScoped<IProductImageService, ProductImageService>();
+            builder.Services.AddScoped<IProductImageService,ProductImageService>();
 
             builder.Services.AddScoped<IProductSpecificationRepository, ProductSpecificationRepository>();
-            builder.Services.AddScoped<IProductSpecificationService, ProductSpecificationService>();
+            builder.Services.AddScoped<IProductSpecificationService,ProductSpecificationService>();
             builder.Services.AddScoped<IProductTranslationRepository, ProductTranslationRepository>();
-            builder.Services.AddScoped<IProductTranslationService, ProductTranslationService>();
+            builder.Services.AddScoped<IProductTranslationService,ProductTranslationService>();
             builder.Services.AddScoped<IProductSpecificationTranslationRepository, ProductSpecificationTranslationRep>();
             builder.Services.AddScoped<IProductSpecificationTransService, ProductSpecificationTransService>();
             builder.Services.AddScoped<ISpecificationStoreRepository, SpecificationStoreRepository>();
@@ -115,6 +113,9 @@ namespace WebApplication1
 
             builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
             builder.Services.AddScoped<ICategoryService, CategoryService>();
+            builder.Services.AddScoped<IProductCategoryRepository, ProductCategoryRepository>();
+            builder.Services.AddScoped<IProductCategoryService, ProductCategoryService>();
+
 
             //===========Order==============
             builder.Services.AddScoped<IOrderRepository, OrderRepository>();
@@ -146,12 +147,8 @@ namespace WebApplication1
             });
 
 
-            builder.Services.AddControllersWithViews(options =>
-            {
-                options.Filters.Add(new AuthorizeFilter());
-            });
-
-
+            builder.Services.AddControllersWithViews();
+           
             var app = builder.Build();
 
 

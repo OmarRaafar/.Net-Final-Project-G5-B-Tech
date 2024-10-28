@@ -11,6 +11,7 @@ namespace ApplicationB.Services_B.General
     {
         int GetCurrentLanguageCode();
         void SetCurrentLanguageCode(int languageId);
+        void SetCurrentLanguageCode(string languageCode);
         Task<string> SetLanguageFromBrowserAsync(string acceptLanguageHeader);
         Task<int> SetUserSelectedLanguageAsync(int languageId); 
         Task<List<LanguageDto>> GetAllLanguagesAsync();

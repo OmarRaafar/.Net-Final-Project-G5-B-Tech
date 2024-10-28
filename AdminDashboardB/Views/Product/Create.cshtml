@@ -6,6 +6,7 @@
 
 @{
     ViewData["Title"] = "Create";
+    var categories = ViewBag.Categories as List<DTOsB.Category.GetAllCategoriesDTO>;
 }
 <div class="container my-5 p-4  shadow rounded col-md-12">
    @*  <form asp-action="Index" method="get">
@@ -25,31 +26,39 @@
 
             <div class="mb-4">
                 <label class="form-label fs-5 fw-bold " for="Name">English Name</label>
-                <input type="text" class="form-control shadow-sm" id="EnName" name="Name" placeholder="Enter Name" required>
-                <span asp-validation-for="Translations.FirstOrDefault(trans=> trans.LanguageId == 2).Name" class="text-danger"></span>
+                <input type="text" class="form-control shadow-sm" id="EnName" name="Translations[0].Name" placeholder="Enter Name" required>
+                <input type="hidden" name="Translations[0].LanguageId" value="2" />
+                <span asp-validation-for="Translations[0].Name" class="text-danger"></span>
             </div>
 
             <div class="mb-4">
-                <label class="form-label fs-5 fw-bold " for="Name">Arabic Name</label>
-                <input type="text" class="form-control shadow-sm" id="ArName" name="Name" placeholder="Enter Name" required>
-                <span asp-validation-for="Translations.FirstOrDefault(trans=> trans.LanguageId == 1).Name" class="text-danger"></span>
+                <label class="form-label fs-5 fw-bold" for="EnBrandName">English Brand Name</label>
+                <input type="text" class="form-control shadow-sm" id="EnBrandName" name="Translations[0].BrandName" placeholder="Enter English Brand Name" required>
+                <span asp-validation-for="Translations[0].BrandName" class="text-danger"></span>
             </div>
 
             <div class="mb-4">
-                <label class="form-label fs-5 fw-bold" for="ArabicName">Englis Brand Name</label>
-                <input type="text" class="form-control shadow-sm" id="EnBrandName" name="ArabicName" placeholder="Enter Arabic Name" required>
-                <span asp-validation-for="Translations.FirstOrDefault(trans=> trans.LanguageId == 2).BrandName" class="text-danger"></span>
+                <label class="form-label fs-5 fw-bold" for="EnDescription">English Description</label>
+                <textarea class="form-control shadow-sm" id="EnDescription" name="Translations[0].Description" rows="3" placeholder="Enter English Description"></textarea>
+                <span asp-validation-for="Translations[0].Description" class="text-danger"></span>
             </div>
 
             <div class="mb-4">
-                <label class="form-label fs-5 fw-bold" for="ArabicName">Arabic Brand Name</label>
-                <input type="text" class="form-control shadow-sm" id="ArBrandName" name="ArabicName" placeholder="Enter Arabic Name" required>
-                <span asp-validation-for="Translations.FirstOrDefault(trans=> trans.LanguageId == 1).BrandName" class="text-danger"></span>
+                <label class="form-label fs-5 fw-bold" for="ArName">Arabic Name</label>
+                <input type="text" class="form-control shadow-sm" id="ArName" name="Translations[1].Name" placeholder="Enter Arabic Name" required>
+                <input type="hidden" name="Translations[1].LanguageId" value="1" />
+                <span asp-validation-for="Translations[1].Name" class="text-danger"></span>
+            </div>
+
+            <div class="mb-4">
+                <label class="form-label fs-5 fw-bold" for="ArBrandName">Arabic Brand Name</label>
+                <input type="text" class="form-control shadow-sm" id="ArBrandName" name="Translations[1].BrandName" placeholder="Enter Arabic Brand Name" required>
+                <span asp-validation-for="Translations[1].BrandName" class="text-danger"></span>
             </div>
 
             @* <div class="mb-4">
-                <label class="form-label fs-5 fw-bold" for="ArBrandName">Arabic Brand Name</label>
-                <select class="form-control shadow-sm" id="ArBrandName" name="ArabicName" required>
+                <label class="form-label fs-5 fw-bold" for="BrandName">Arabic Brand Name</label>
+                <select class="form-control shadow-sm" id="ArBrandName" name="BrandName" required>
                     <option value="">Select Arabic Brand Name</option>
                     @foreach (var trans in Model.Translations.Where(t => t.LanguageId == 1))
                     {
@@ -58,6 +67,14 @@
                 </select>
                 <span asp-validation-for="Translations.FirstOrDefault(trans => trans.LanguageId == 1).BrandName" class="text-danger"></span>
             </div> *@
+
+
+            
+            <div class="mb-4">
+                <label class="form-label fs-5 fw-bold" for="ArDescription">Arabic Description</label>
+                <textarea class="form-control shadow-sm" id="ArDescription" name="Translations[1].Description" rows="3" placeholder="Enter Arabic Description"></textarea>
+                <span asp-validation-for="Translations[1].Description" class="text-danger"></span>
+            </div>
             
 
             <div class="mb-4">
@@ -68,21 +85,12 @@
 
             <div class="mb-4">
                 <label class="form-label fs-5 fw-bold" for="Stock"> StockQuantity </label>
-                <input type="number" class="form-control shadow-sm" id="Stock" name="Stock" placeholder="Enter StockQuantity " required>
+                <input type="number" class="form-control shadow-sm" id="Stock" name="StockQuantity" placeholder="Enter StockQuantity " required>
                 <span asp-validation-for="StockQuantity" class="text-danger"></span>
             </div>
 
-            <div class="mb-4">
-                <label class="form-label fs-5 fw-bold " for="Description">English Description</label>
-                <textarea class="form-control shadow-sm" id="Description" name="EnDescription" rows="3" placeholder="Enter Product Description"></textarea>
-                <span asp-validation-for="Translations.FirstOrDefault(trans=> trans.LanguageId == 2).Description" class="text-danger"></span>
-            </div>
+           
 
-            <div class="mb-4">
-                <label class="form-label fs-5 fw-bold " for="Description">Arabic Description</label>
-                <textarea class="form-control shadow-sm" id="Description" name="ArDescription" rows="3" placeholder="Enter Product Description"></textarea>
-                <span asp-validation-for="Translations.FirstOrDefault(trans=> trans.LanguageId == 1).Description" class="text-danger"></span>
-            </div>
 
 
            @*  <div class="mb-4">
@@ -98,7 +106,29 @@
                 </select>
                 <span asp-validation-for="CategoryId" class="text-danger"></span>
             </div> *@
+            <div class="mb-4">
+            <label class="form-label fs-5 fw-bold">Select Main Category</label>
+            <select class="form-select" name="SelectedCategories[0].Id" id="mainCategoryDropdown">
+                <option value="">-- Select Main Category --</option>
+                @foreach (var category in categories)
+                {
+                    var mainCategoryTranslation = category?.Translations?.FirstOrDefault()?.CategoryName ?? "No name available";
+                    <option value="@category.Id">@mainCategoryTranslation</option>
+                }
+            </select>
+            </div>
 
+            <div class="mb-4">
+                <label class="form-label fs-5 fw-bold">Select Subcategory</label>
+                <select class="form-select" name="SelectedCategories[1].Id" id="subCategoryDropdown">
+                    <option value="">-- Select Subcategory --</option>
+                    @foreach (var category in categories)
+                    {
+                        var subCategoryTranslation = category?.Translations?.FirstOrDefault()?.CategoryName ?? "No name available";
+                        <option value="@category.Id">@subCategoryTranslation</option>
+                    }
+                </select>
+            </div>
 
             <div class="mb-4">
                 <label class="form-label fs-5 fw-bold" for="ImageFiles">Product Images</label>
@@ -106,7 +136,116 @@
                 <span asp-validation-for="Images.FirstOrDefault().ImageFile" class="text-danger"></span>
             </div>
 
-            <div class="mb-4">
+
+            <!-- Specifications Region -->
+            @* <input type="hidden" name="Specifications" value="@Json.Serialize(Model.Specifications)" /> *@
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#specModal">
+                Add Specifications
+            </button>
+            <div class="modal fade" id="specModal" tabindex="-1" aria-labelledby="specModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="specModalLabel">Add Specifications</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form id="specForm" method="post">
+                                <!-- Container for multiple specification entries -->
+                                <div id="specificationsContainer">
+                                    <div class="specification-entry mb-3">
+                                        <div class="mb-4">
+                                            <label class="form-label fs-5 fw-bold" for="EnKey">English Key</label>
+                                            <input type="text" class="form-control shadow-sm" id="EnKey" name="Specifications[0].Translations[0].TranslatedKey" placeholder="Enter English Key" required>
+                                            <input type="hidden" name="Specifications[0].Translations[0].LanguageId" value="2" />
+                                            <span asp-validation-for="Specifications[0].Translations.FirstOrDefault().TranslatedKey" class="text-danger"></span>
+                                        </div>
+
+                                        <div class="mb-4">
+                                            <label class="form-label fs-5 fw-bold" for="EnValue">English Value</label>
+                                            <input type="text" class="form-control shadow-sm" id="EnValue" name="Specifications[0].Translations[0].TranslatedValue" placeholder="Enter English Value" required>
+
+                                            <span asp-validation-for="Specifications[0].Translations.FirstOrDefault().TranslatedValue" class="text-danger"></span>
+                                        </div>
+
+                                        <div class="mb-4">
+                                            <label class="form-label fs-5 fw-bold" for="ArKey">Arabic Key</label>
+                                            <input type="text" class="form-control shadow-sm" id="ArKey" name="Specifications[0].Translations[1].TranslatedKey" placeholder="Enter Arabic Key" required>
+                                            <input type="hidden" name="Specifications[0].Translations[1].LanguageId" value="1" />
+
+                                            <span asp-validation-for="Specifications[1].Translations.FirstOrDefault().TranslatedKey" class="text-danger"></span>
+                                        </div>
+
+                                        <div class="mb-4">
+                                            <label class="form-label fs-5 fw-bold" for="ArValue">Arabic Value</label>
+                                            <input type="text" class="form-control shadow-sm" id="ArValue" name="Specifications[0].Translations[1].TranslatedValue" placeholder="Enter Arabic Value" required>
+                                            <span asp-validation-for="Specifications[1].Translations.FirstOrDefault().TranslatedValue" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Button to add more specification entries -->
+                                <button type="button" class="btn btn-secondary mt-2" id="addSpec">Add More</button>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Save Specifications</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+           @*  <input type="hidden" name="Specifications" value="@Json.Serialize(Model.Specifications)" />
+            <!-- Specifications Region -->
+            <!-- Button to trigger the modal -->
+            <!-- Trigger button -->
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#specModal">
+                Add Specifications
+            </button>
+
+            <!-- Modal -->
+            <div class="modal fade" id="specModal" tabindex="-1" aria-labelledby="specModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="specModalLabel">Add Specifications</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form id="specForm">
+                                <!-- Container for multiple specification entries -->
+                                <div id="specificationsContainer">
+                                    <div class="specification-entry mb-3">
+                                        <label for="translatedKey" class="form-label">Translated Key</label>
+                                        <input type="text" class="form-control translatedKey" placeholder="Enter key" required>
+
+                                        <label for="translatedValue" class="form-label">Translated Value</label>
+                                        <input type="text" class="form-control translatedValue" placeholder="Enter value" required>
+
+                                        <label for="languageId" class="form-label">Language</label>
+                                        <select class="form-select languageId" required>
+                                            <option value="1">Arabic</option>
+                                            <option value="2">English</option>
+                                            <!-- Add more languages -->
+                                        </select>
+                                    </div>
+                                </div>
+                                <!-- Button to add more specification entries -->
+                                <button type="button" class="btn btn-secondary mt-2" id="addSpec">Add More</button>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary" id="saveSpec">Save Specifications</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+ *@
+
+
+
+            @* <div class="mb-4">
                 <label class="form-label fs-5 fw-bold" for="SpecificationId">Specification</label>
                 <select class="form-select shadow-sm" id="SpecificationId" name="SpecificationId">
                     <option value="">Select Specification</option>
@@ -118,7 +257,7 @@
                     *@
                 </select>
                 @* <span asp-validation-for="SpecificationId" class="text-danger"></span> *@
-            </div>
+           @*  </div> *@ 
 
           
 
@@ -172,7 +311,103 @@
     </div>
 </div>
 </div>
+<script>
+document.getElementById('addSpec').addEventListener('click', function () {
+    const specCount = document.querySelectorAll('.specification-entry').length;
+    const specContainer = document.createElement('div');
+    specContainer.classList.add('specification-entry', 'mb-3');
+    specContainer.innerHTML = `
+<div class="mb-4">
+    <label class="form-label fs-5 fw-bold" for="EnKey${specCount}">English Key</label>
+    <input type="text" class="form-control shadow-sm" id="EnKey${specCount}" name="Specifications[${specCount}].Translations[0].TranslatedKey" placeholder="Enter English Key" required>
+    <input type="hidden" name="Specifications[${specCount}].Translations[0].LanguageId" value="2" />
+</div>
+<div class="mb-4">
+    <label class="form-label fs-5 fw-bold" for="EnValue${specCount}">English Value</label>
+    <input type="text" class="form-control shadow-sm" id="EnValue${specCount}" name="Specifications[${specCount}].Translations[0].TranslatedValue" placeholder="Enter English Value" required>
+</div>
+<div class="mb-4">
+    <label class="form-label fs-5 fw-bold" for="ArKey${specCount}">Arabic Key</label>
+    <input type="text" class="form-control shadow-sm" id="ArKey${specCount}" name="Specifications[${specCount}].Translations[1].TranslatedKey" placeholder="Enter Arabic Key" required>
+    <input type="hidden" name="Specifications[${specCount}].Translations[1].LanguageId" value="1" />
+</div>
+<div class="mb-4">
+    <label class="form-label fs-5 fw-bold" for="ArValue${specCount}">Arabic Value</label>
+    <input type="text" class="form-control shadow-sm" id="ArValue${specCount}" name="Specifications[${specCount}].Translations[1].TranslatedValue" placeholder="Enter Arabic Value" required>
+</div>
+    `;
+    document.getElementById('specificationsContainer').appendChild(specContainer);
+});
 
+    
+
+</script>
+@* <script>
+    $(document).ready(function () {
+        $('#specModal').modal('show');
+    });
+
+    // JavaScript to dynamically add more specifications
+    let specifications = [];
+
+    document.getElementById('addSpec').addEventListener('click', function () {
+        // Create a new specification entry dynamically
+        let specEntry = `
+            <div class="specification-entry mb-3">
+                <label for="translatedKey" class="form-label">Translated Key</label>
+                <input type="text" class="form-control translatedKey" placeholder="Enter key" required>
+
+                <label for="translatedValue" class="form-label">Translated Value</label>
+                <input type="text" class="form-control translatedValue" placeholder="Enter value" required>
+
+                <label for="languageId" class="form-label">Language</label>
+                <select class="form-select languageId" required>
+                    <option value="1">Arabic</option>
+                    <option value="2">English</option>
+                    <!-- Add more languages -->
+                </select>
+            </div>
+        `;
+        document.getElementById('specificationsContainer').insertAdjacentHTML('beforeend', specEntry);
+    });
+
+    document.getElementById('saveSpec').addEventListener('click', function () {
+        // Collect all specification entries from the modal
+        const specEntries = document.querySelectorAll('.specification-entry');
+
+        specEntries.forEach(entry => {
+            const translatedKey = entry.querySelector('.translatedKey').value;
+            const translatedValue = entry.querySelector('.translatedValue').value;
+            const languageId = entry.querySelector('.languageId').value;
+
+            // Create the specification translation object
+            const specTranslation = {
+                TranslatedKey: translatedKey,
+                TranslatedValue: translatedValue,
+                LanguageId: parseInt(languageId)
+            };
+
+            // If you're adding to the same specification, just add it to the Translations list
+            let productSpec = {
+                // ProductId: 0, // Replace with actual ProductId
+                Translations: []
+            };
+
+            productSpec.Translations.push(specTranslation);
+
+            // Push the specification into the list
+            specifications.push(productSpec);
+        });
+
+        // Clear form fields and close the modal
+        document.getElementById('specForm').reset();
+        $('#specModal').modal('hide');
+
+        // Optionally, you can preview the added specifications
+        console.log(specifications);
+    });
+
+</script> *@
 
 @* <script>
     $(document).ready(function () {

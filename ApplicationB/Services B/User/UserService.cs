@@ -1,6 +1,5 @@
 ﻿using ApplicationB.Contracts_B.User;
 using AutoMapper;
-using DTOsB.Account;
 using DTOsB.User;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -12,28 +11,29 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ApplicationB.Services_B
+namespace ApplicationB.Services_B.User
 {
     public class UserService: IUserService
     {
-        private readonly IHttpContextAccessor _httpContextAccessor;
-
         private readonly IUserRepository _userRepository;
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly UserManager<ApplicationUserB> _userManager;
         private readonly IMapper _mapper;
 
-        public UserService(IUserRepository userRepository, IMapper mapper , IHttpContextAccessor httpContextAccessor)
+        public UserService(IHttpContextAccessor httpContextAccessor, UserManager<ApplicationUserB> userManager, IMapper mapper,
+            IUserRepository userRepository)
         {
-            _userRepository = userRepository;
-            _mapper = mapper;
             _httpContextAccessor = httpContextAccessor;
+            _userManager = userManager;
+            _mapper = mapper;
+            _userRepository = userRepository;
         }
 
         public string GetCurrentUserId()
         {
             var userId = _httpContextAccessor.HttpContext?.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            return userId != null ? userId : "0";
+            return userId != null ? userId : "0"; 
         }
-
         public async Task<IEnumerable<UserDto>> GetAllAppUsersAsync()
         {
             var users = await _userRepository.GetAllUsersAsync();
@@ -68,6 +68,5 @@ namespace ApplicationB.Services_B
             var user = _mapper.Map<ApplicationUserB>(UserDto);
             return await _userRepository.CreateUserAsync(user, UserDto.Password);
         }
-
     }
 }

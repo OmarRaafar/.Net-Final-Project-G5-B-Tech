@@ -1,5 +1,4 @@
-﻿using ApplicationB.Contracts_B;
-using ApplicationB.Contracts_B.Order;
+﻿using ApplicationB.Contracts_B.Order;
 using DbContextB;
 using InfrastructureB.General;
 using ModelsB.Order_B;
@@ -16,6 +15,5 @@ namespace InfrastructureB.Order
         public ShippingRepository(BTechDbContext context) : base(context)
         {
         }
-
     }
 }

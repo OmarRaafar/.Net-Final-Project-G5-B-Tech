@@ -1,5 +1,5 @@
-﻿﻿ 
-@model IEnumerable<DTOsB.OrderDTO.SelectOrderBDTO>
+﻿﻿
+@model IEnumerable<DTOsB.Order.OrderDTO.SelectOrderBDTO>
 
 @{
     ViewData["Title"] = "Index";
@@ -11,7 +11,7 @@
     <h2 class="shadow rounded-3 bg-dark mb-5 mt-4 rounded p-1 col-12 col-md-3 text-center text-light fw-bold ">All Orders</h2>
     <div class="table-responsive shadow rounded-3">
         <div>
-             <a asp-controller="Order" asp-action="Add" class="btn btn-outline-warning">
+            <a asp-controller="Order" asp-action="Add" class="btn btn-outline-warning">
                 <i class="fa-solid fa-pen-to-square"></i> Add Order
             </a>
         </div>
@@ -27,10 +27,10 @@
                 </tr>
             </thead>
             <tbody>
-                
+
                 @foreach (var order in Model)
                 {
-                
+
                     <tr>
                         <td>Id</td>
                         <td>@order.OrderDate</td>
@@ -52,8 +52,15 @@
 
                         </td>
                     </tr>
-                } 
+                }
             </tbody>
         </table>
+
+        @if (TempData["ErrorMessage"] != null)
+        {
+            <div class="alert alert-danger">
+                @TempData["ErrorMessage"]
+            </div>
+        }
     </div>
 </div>

@@ -36,6 +36,22 @@ namespace ApplicationB.Services_B.General
             _currentLanguageId = LanguageId;
         }
 
+        public void SetCurrentLanguageCode(string LanguageCode)
+        {
+            if (LanguageCode == null)
+            {
+                throw new ArgumentException("Invalid language code");
+            }
+
+
+            _currentLanguageId = LanguageCode.Contains("ar") ? 1 : 2;
+
+
+        }
+
+
+
+
         // Handle default language detection from Accept-Language header
         public async Task<string> SetLanguageFromBrowserAsync(string acceptLanguageHeader)
         {
@@ -84,10 +100,9 @@ namespace ApplicationB.Services_B.General
             var languages = await _languageRepository.GetAllAsync();
             return languages.Select(l => new LanguageDto
             {
-                Id = l.Id,
                 Code = l.Code,
+                Id = l.Id,
                 Name = l.Name,
             }).ToList();
         }
-    }
-}
+    } }

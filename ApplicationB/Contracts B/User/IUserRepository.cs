@@ -15,7 +15,6 @@ namespace ApplicationB.Contracts_B.User
         Task<ApplicationUserB> GetUserByEmailAsync(string email);
         Task UpdateUserAsync(ApplicationUserB user);
         Task DeleteUserAsync(string id);
-        Task<IdentityResult> CreateUserAsync(ApplicationUserB user, string password); 
-
+        Task<IdentityResult> CreateUserAsync(ApplicationUserB user, string password);
     }
 }

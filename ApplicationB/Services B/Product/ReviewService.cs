@@ -1,4 +1,5 @@
 ﻿using ApplicationB.Contracts_B.Product;
+using ApplicationB.Services_B.User;
 using AutoMapper;
 using DTOsB.Product;
 using DTOsB.Shared;

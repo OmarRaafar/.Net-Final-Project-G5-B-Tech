@@ -15,5 +15,6 @@ namespace InfrastructureB.Order
         public PaymentRepository(BTechDbContext context) : base(context)
         {
         }
+   
     }
 }

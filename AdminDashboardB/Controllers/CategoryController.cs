@@ -1,17 +1,13 @@
-
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
 ﻿using ApplicationB.Contracts_B.Category;
 using ApplicationB.Services_B.Category;
 using ApplicationB.Services_B.General;
 using AutoMapper;
 using DTOsB.Category;
-using InfrastructureB.Category;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace AdminDashboardB.Controllers
+namespace DTOsB.Controllers
 {
-
     public class CategoryController : Controller
     {
         private readonly ICategoryService _categoryService;
@@ -19,7 +15,8 @@ namespace AdminDashboardB.Controllers
         private readonly ICategoryRepository _categoryRepository;
         private readonly IMapper _mapper;
 
-        public CategoryController(ICategoryService categoryService, ILanguageService languageService, IMapper mapper, ICategoryRepository categoryRepository) { 
+        public CategoryController(ICategoryService categoryService, ILanguageService languageService, IMapper mapper, ICategoryRepository categoryRepository)
+        {
             _categoryService = categoryService;
             _languageService = languageService;
             _categoryRepository = categoryRepository;
@@ -27,36 +24,61 @@ namespace AdminDashboardB.Controllers
         }
         public async Task<IActionResult> Index()
         {
-            var categories = await _categoryService.GetAllCategoriesAsync();
-            ViewBag.Languages = await _languageService.GetAllLanguagesAsync(); 
+            var result = await _categoryService.GetAllCategoriesAsync();
 
+            if (!result.IsSuccess)
+            {
+                return View("Error", result.Msg);
+            }
+
+            var categories = result.Entity;
+
+            ViewBag.Languages = await _languageService.GetAllLanguagesAsync();
             return View(categories);
         }
         public async Task<IActionResult> Search(string name)
         {
-            var categories = await _categoryService.GetCategoryByNameAsync(name);
-            ViewBag.Languages = await _languageService.GetAllLanguagesAsync(); // Populate languages
+            //var categories = await _categoryService.GetCategoryByNameAsync(name);
+            //ViewBag.Languages = await _languageService.GetAllLanguagesAsync(); // Populate languages
+            //return View("Index", categories);
+            var result = await _categoryService.GetCategoryByNameAsync(name);
+
+            if (!result.IsSuccess)
+            {
+                ViewBag.ErrorMessage = result.Msg;
+                ViewBag.Languages = await _languageService.GetAllLanguagesAsync();
+                return View("Index", new List<GetAllCategoriesDTO>());
+            }
+
+            var categories = result.Entity;
+            ViewBag.Languages = await _languageService.GetAllLanguagesAsync();
             return View("Index", categories);
         }
         public async Task<IActionResult> FilterByLanguage(int languageId)
         {
-            //var categories = await _categoryService.GetCategoriesByLanguageAsync(languageId);
-            //return View("Index", categories); // Adjust as needed to return the correct view
             IEnumerable<GetAllCategoriesDTO> categories;
-
 
             if (languageId > 0)
             {
-                categories = await _categoryService.GetCategoriesByLanguageAsync(languageId);
+                var result = await _categoryService.GetCategoriesByLanguageAsync(languageId);
+                if (!result.IsSuccess)
+                {
+                    return NotFound(result.Msg);
+                }
+                categories = result.Entity;
             }
             else
             {
-                categories = await _categoryService.GetAllCategoriesAsync(); // استرجع جميع الفئات
+                var allCategoriesResult = await _categoryService.GetAllCategoriesAsync();
+                if (!allCategoriesResult.IsSuccess)
+                {
+                    return NotFound(allCategoriesResult.Msg);
+                }
+                categories = allCategoriesResult.Entity;
             }
 
-            ViewBag.Languages = await _languageService.GetAllLanguagesAsync(); // Populate languages
+            ViewBag.Languages = await _languageService.GetAllLanguagesAsync();
             return View("Index", categories);
-
         }
 
 
@@ -66,10 +88,11 @@ namespace AdminDashboardB.Controllers
             var languages = await _languageService.GetAllLanguagesAsync();
             ViewBag.Languages = languages.Select(l => new SelectListItem
             {
-                
-                Value = l.Id.ToString(), 
+
+                Value = l.Id.ToString(),
                 Text = l.Name
             }).ToList();
+
             return View();
         }
         [HttpPost]
@@ -78,7 +101,7 @@ namespace AdminDashboardB.Controllers
         {
             if (ModelState.IsValid)
             {
-               
+
                 try
                 {
                     // Check if translations are added
@@ -122,12 +145,12 @@ namespace AdminDashboardB.Controllers
         public async Task<IActionResult> Edit(int id)
         {
             var category = await _categoryService.GetCategoryByIdAsync(id);
-            if (category == null)
+            if (!category.IsSuccess || category.Entity == null)
             {
                 return NotFound();
             }
 
-            var model = _mapper.Map<CreateOrUpdateCategoriesDTO>(category);
+            var model = _mapper.Map<CreateOrUpdateCategoriesDTO>(category.Entity);
 
             // Initialize Translations if none exist
             if (model.Translations == null || !model.Translations.Any())
@@ -185,6 +208,7 @@ namespace AdminDashboardB.Controllers
                 return NotFound();
             }
             var categoryDto = _mapper.Map<GetAllCategoriesDTO>(categoryEntity);
+
             return View(categoryDto);
         }
 
@@ -193,9 +217,18 @@ namespace AdminDashboardB.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            await _categoryService.DeleteCategoryAsync(id);
+            //await _categoryService.DeleteCategoryAsync(id);
+            //return RedirectToAction(nameof(Index));
+            var result = await _categoryService.DeleteCategoryAsync(id);
+
+            if (!result.IsSuccess)
+            {
+                // Optionally, return the user back to the delete view with an error message
+                TempData["ErrorMessage"] = result.Msg;
+                return RedirectToAction(nameof(Delete), new { id });
+            }
+
             return RedirectToAction(nameof(Index));
         }
     }
 }
-

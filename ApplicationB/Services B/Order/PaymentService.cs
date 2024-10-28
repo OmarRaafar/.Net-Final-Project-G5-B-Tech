@@ -1,6 +1,4 @@
-﻿using DTOsB.OrderBDTOs.PaymentDTO;
-using DTOsB.Shared;
-using PayPalCheckoutSdk.Core;
+﻿using PayPalCheckoutSdk.Core;
 using PayPalCheckoutSdk.Orders;
 using System;
 using System.Collections.Generic;
@@ -8,9 +6,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
+
 namespace ApplicationB.Services_B.Order
 {
-
     public class PaymentService : IPaymentService
     {
         public async Task<string> CreatePayment(decimal amount, string currency)
@@ -78,5 +77,4 @@ namespace ApplicationB.Services_B.Order
             return new PayPalHttpClient(GetEnvironment());
         }
     }
-
 }

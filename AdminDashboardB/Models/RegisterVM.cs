@@ -34,6 +34,5 @@ namespace AdminDashboardB.Models
         [Required(ErrorMessage = "Postal Code is required")]
         [RegularExpression(@"^\d{5}(-\d{4})?$", ErrorMessage = "Invalid Postal Code")]
         public string PostalCode { get; set; }
-
     }
 }

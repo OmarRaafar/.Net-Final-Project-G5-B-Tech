@@ -11,7 +11,7 @@ namespace ModelsB.Category_B
 {
     public class CategoryTranslationB: BaseTranslationB
     {
-        public new int Id { get; set; }
+        public int Id { get; set; }
 
         [MaxLength(50)]
         public string CategoryName { get; set; }

@@ -1,5 +1,6 @@
 ﻿using ApplicationB.Contracts_B.Product;
 using ApplicationB.Services_B.General;
+using ApplicationB.Services_B.User;
 using AutoMapper;
 using DTOsB.Product;
 using DTOsB.Shared;
@@ -16,7 +17,7 @@ namespace ApplicationB.Services_B.Product
     {
         private readonly IProductTranslationRepository _translationRepository;
         private readonly IMapper _mapper;
-        private readonly IUserService _userService;
+        
         private readonly ILanguageService _languageService;
 
         public ProductTranslationService(IProductTranslationRepository translationRepository, IMapper mapper,
@@ -24,7 +25,7 @@ namespace ApplicationB.Services_B.Product
         {
             _translationRepository = translationRepository;
             _mapper = mapper;
-            _userService = userService;
+           
             _languageService = languageService;
         }
 
@@ -32,8 +33,7 @@ namespace ApplicationB.Services_B.Product
         {
             var translation = _mapper.Map<ProductTranslationB>(translationDto);
             
-            translation.Product.CreatedBy = _userService.GetCurrentUserId();
-            translation.Language.Id= _languageService.GetCurrentLanguageCode();
+           
 
 
             await _translationRepository.AddAsync(translation);
@@ -51,8 +51,8 @@ namespace ApplicationB.Services_B.Product
             }
             _mapper.Map(translationDto, existingTranslation);
 
-            existingTranslation.Product.UpdatedBy = _userService.GetCurrentUserId();
-            existingTranslation.Language.Id = _languageService.GetCurrentLanguageCode();
+            
+            //existingTranslation.Language.Id = _languageService.GetCurrentLanguageCode();
 
             await _translationRepository.UpdateAsync(existingTranslation);
             return ResultView<ProductTranslationDto>.Success(translationDto);

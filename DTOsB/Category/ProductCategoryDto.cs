@@ -10,9 +10,9 @@ namespace DTOsB.Category
     public class ProductCategoryDto
     {
         public int? ProductId { get; set; }
-        public ProductDto Product { get; set; } 
+        public ProductDto Product { get; set; }
         public int CategoryId { get; set; }
-        public GetAllCategoriesDTO Category { get; set; } 
+        public GetAllCategoriesDTO Category { get; set; }
         public bool IsMainCategory { get; set; }
     }
 }
