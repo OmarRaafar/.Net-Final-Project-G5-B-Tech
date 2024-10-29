@@ -1,9 +1,12 @@
 ﻿using ApplicationB.Services_B.Order;
 using DTOsB.Order.OrderDTO;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DTOsB.Controllers
 {
+    [Authorize(Roles = "Admin")]
+
     public class OrderController : Controller
     {
         private readonly IOrderService orderService; // Assuming you're using a service for business logic

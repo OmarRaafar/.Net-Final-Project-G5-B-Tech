@@ -3,11 +3,14 @@ using ApplicationB.Services_B.Category;
 using ApplicationB.Services_B.General;
 using AutoMapper;
 using DTOsB.Category;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace DTOsB.Controllers
 {
+
+    [Authorize(Roles = "Admin")]
     public class CategoryController : Controller
     {
         private readonly ICategoryService _categoryService;

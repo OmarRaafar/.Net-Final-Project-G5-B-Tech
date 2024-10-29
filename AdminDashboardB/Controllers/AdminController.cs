@@ -8,7 +8,6 @@ using ModelsB.Authentication_and_Authorization_B;
 
 namespace DTOsB.Controllers
 {
-    [AllowAnonymous]
     public class AdminController : Controller
     {
         private UserManager<ApplicationUserB> _userManager;
