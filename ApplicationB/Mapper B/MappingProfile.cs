@@ -41,14 +41,14 @@ namespace ApplicationB.Mapper_B
                 .ForMember(dest => dest.Translations, opt => opt.MapFrom(src => src.Translations))
                 .ReverseMap();
             CreateMap<ProductB, ProductCreateOrUpdateDto>()
-                .ForMember(dest => dest.ImageFiles, opt => opt.Ignore()).ReverseMap()
+                .ForMember(dest => dest.ImageFiles, opt => opt.Ignore()).ReverseMap();
 
 
-                .ReverseMap();
             CreateMap<ProductImageB, ProductImageDto>().ReverseMap();
             CreateMap<ProductImageB, ProductImageCreateOrUpdateDto>()
             .ForMember(dest => dest.ImageFile, opt => opt.Ignore()).ReverseMap();
 
+            
             // Mapping for product translations
             CreateMap<ProductTranslationB, ProductTranslationDto>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
@@ -60,8 +60,18 @@ namespace ApplicationB.Mapper_B
                 .ReverseMap();
 
 
-            CreateMap<ProductSpecificationsB, ProductSpecificationDto>().ReverseMap();
-            CreateMap<ProductSpecificationTranslationB, ProductSpecificationTranslationDto>().ReverseMap();
+            //CreateMap<ProductSpecificationsB, ProductSpecificationDto>().ReverseMap();
+            //CreateMap<ProductSpecificationTranslationB, ProductSpecificationTranslationDto>().ReverseMap();
+            CreateMap<ProductSpecificationsB, ProductSpecificationDto>()
+               .ForMember(dest => dest.Translations, opt => opt.MapFrom(src => src.Translations)).ReverseMap();
+
+            CreateMap<ProductSpecificationTranslationB, ProductSpecificationTranslationDto>()
+                    .ForMember(dest => dest.TranslatedKey, opt => opt.MapFrom(src => src.TranslatedKey))
+                    .ForMember(dest => dest.TranslatedValue, opt => opt.MapFrom(src => src.TranslatedValue))
+                    .ForMember(dest => dest.LanguageId, opt => opt.MapFrom(src => src.LanguageId))
+                    .ReverseMap();
+            
+
             CreateMap<SpecificationStore, SpecificationStoreDto>().ReverseMap();
             CreateMap<ReviewB, ReviewDto>().ReverseMap();
 
@@ -73,8 +83,13 @@ namespace ApplicationB.Mapper_B
             //CreateMap<CategoryB, CreateOrUpdateCategoriesDTO>().ReverseMap();
             //CreateMap<CategoryTranslationB, CategoryTranslationDTO>().ReverseMap();
             //CreateMap<CategoryTranslationB, CreateCategoryTranslationDto>().ReverseMap();
-          
-            CreateMap<CategoryB, GetAllCategoriesDTO>().ReverseMap();
+
+            //CreateMap<CategoryB, GetAllCategoriesDTO>().ReverseMap();
+            CreateMap<CategoryB, GetAllCategoriesDTO>()
+                    .ForMember(dest => dest.Translations, opt => opt.MapFrom(src => src.Translations))
+                    .ForMember(dest => dest.ImageUrl, opt => opt.MapFrom(src => src.ImageUrl)).ReverseMap();
+
+
             CreateMap<CategoryB, CreateOrUpdateCategoriesDTO>()
                                                       .ForMember(dest => dest.ImageUrl, opt => opt.MapFrom(src => src.ImageUrl))
                                                      .ReverseMap();
@@ -86,10 +101,19 @@ namespace ApplicationB.Mapper_B
            .ForMember(dest => dest.Category, opt => opt.MapFrom(src => src.Category))
            .ForMember(dest => dest.Product, opt => opt.MapFrom(src => src.Product)).ReverseMap();
 
+
             // Map ResultView<CategoryB> to ResultView<CreateOrUpdateCategoriesDTO>
             CreateMap<ResultView<CategoryB>, ResultView<CreateOrUpdateCategoriesDTO>>()
                 .ForMember(dest => dest.Entity, opt => opt.MapFrom(src => src.Entity));
-
+            CreateMap<ResultView<CategoryB>, ResultView<GetAllCategoriesDTO>>()
+                .ForMember(dest => dest.Entity, opt => opt.MapFrom(src => src.Entity));
+            CreateMap<CategoryB, GetAllCategoriesDTO>()
+                .ForMember(dest => dest.Translations, opt => opt.MapFrom(src => src.Translations))
+                .ForMember(dest => dest.ImageUrl, opt => opt.MapFrom(src => src.ImageUrl));
+            CreateMap<ResultView<CategoryB>, ResultView<GetAllCategoriesDTO>>()
+                .ForMember(dest => dest.Entity, opt => opt.MapFrom(src => src.Entity))
+                .ForMember(dest => dest.IsSuccess, opt => opt.MapFrom(src => src.IsSuccess))
+                .ForMember(dest => dest.Msg, opt => opt.MapFrom(src => src.Msg));
 
             // Order --------------------------------
 

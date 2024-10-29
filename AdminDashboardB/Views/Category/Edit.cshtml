@@ -47,10 +47,10 @@
                             @Html.DropDownListFor(model => model.Translations[i].LanguageId,
                                      (IEnumerable<SelectListItem>)ViewBag.Languages, "-- Select Language --", new { @class = "form-select shadow-sm", required = "required" })
 
-                            <div class="mb-3 form-check">
+                           @*  <div class="mb-3 form-check">
                                 <input class="form-check-input" type="checkbox" name="Translations[@i].IsMainCategory" value="true" @(Model.Translations[i].IsMainCategory ? "checked" : "") />
                                 <label class="form-check-label fs-5 fw-bold">Is Main Category</label>
-                            </div>
+                            </div> *@
                         </div>
                     }
                 </div>
@@ -88,10 +88,7 @@
                     }
                 </select>
 
-                <div class="mb-3 form-check">
-                    <input class="form-check-input" type="checkbox" name="Translations[${translationIndex}].IsMainCategory" value="true">
-                    <label class="form-check-label fs-5 fw-bold">Is Main Category</label>
-                </div>
+                
             </div>
         `;
         container.insertAdjacentHTML('beforeend', newTranslation);
