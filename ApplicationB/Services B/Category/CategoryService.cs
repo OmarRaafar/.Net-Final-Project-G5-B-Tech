@@ -168,20 +168,20 @@ namespace ApplicationB.Services_B.Category
                 }
 
                 // Associate products if provided
-                if (createCategoryDto.ProductIds != null && createCategoryDto.ProductIds.Any())
-                {
-                    foreach (var productId in createCategoryDto.ProductIds)
-                    {
-                        // Create ProductCategoryB entity
-                        var productCategoryEntity = new ProductCategoryB
-                        {
-                            ProductId = productId,
-                            Category = category,
-                            IsMainCategory = translation.IsMainCategory
-                        };
-                        category.ProductCategories.Add(productCategoryEntity);
-                    }
-                }
+                //if (createCategoryDto.ProductIds != null && createCategoryDto.ProductIds.Any())
+                //{
+                //    foreach (var productId in createCategoryDto.ProductIds)
+                //    {
+                //        // Create ProductCategoryB entity
+                //        var productCategoryEntity = new ProductCategoryB
+                //        {
+                //            ProductId = productId,
+                //            Category = category,
+                //            IsMainCategory = translation.IsMainCategory
+                //        };
+                //        category.ProductCategories.Add(productCategoryEntity);
+                //    }
+                //}
             }
 
             // Log category data to check before saving
@@ -247,19 +247,19 @@ namespace ApplicationB.Services_B.Category
                 categoryEntity.Translations.Add(translation);
 
                 // Add product category relationships
-                if (categoryDto.ProductIds != null && categoryDto.ProductIds.Any())
-                {
-                    foreach (var productId in categoryDto.ProductIds)
-                    {
-                        var productCategory = new ProductCategoryB
-                        {
-                            ProductId = productId,
-                            Category = categoryEntity,
-                            IsMainCategory = categoryDto.Translations.First().IsMainCategory // Assuming the main category flag is derived from the first translation
-                        };
-                        categoryEntity.ProductCategories.Add(productCategory);
-                    }
-                }
+                //if (categoryDto.ProductIds != null && categoryDto.ProductIds.Any())
+                //{
+                //    foreach (var productId in categoryDto.ProductIds)
+                //    {
+                //        var productCategory = new ProductCategoryB
+                //        {
+                //            ProductId = productId,
+                //            Category = categoryEntity,
+                //            IsMainCategory = categoryDto.Translations.First().IsMainCategory // Assuming the main category flag is derived from the first translation
+                //        };
+                //        categoryEntity.ProductCategories.Add(productCategory);
+                //    }
+                //}
             }
 
             // Update the category in the repository

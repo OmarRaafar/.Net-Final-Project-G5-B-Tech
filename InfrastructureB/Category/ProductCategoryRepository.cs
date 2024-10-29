@@ -8,6 +8,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using static Microsoft.AspNetCore.Hosting.Internal.HostingApplication;
+using DTOsB.Category;
 
 namespace InfrastructureB.Category
 {
@@ -68,27 +70,41 @@ namespace InfrastructureB.Category
 
             public async Task<IEnumerable<ProductCategoryB>> GetByCategoryNameAsync(string categoryName)
             {
+           
                 return await _dbContext.ProductCategories
-                    .Include(pc => pc.Product)
-                    .Include(pc => pc.Category)
-                    .Where(pc => pc.Category.Translations.Any(t => t.CategoryName.ToLower() == categoryName.ToLower()))
-                    .ToListAsync();
+                              .Include(pc => pc.Product)
+                                  .ThenInclude(p => p.Images) // Include images
+                              .Include(pc => pc.Product)
+                                  .ThenInclude(p => p.Translations) // Include translations for the product
+                              .Include(pc => pc.Product)
+                                  .ThenInclude(p => p.Specifications) // Include specifications
+                                      .ThenInclude(s => s.Translations) // Include translations for specifications
+                              .Include(pc => pc.Category)
+                                  .ThenInclude(c => c.Translations) // Include translations for the category
+                              .Where(pc => pc.Category.Translations.Any(t => t.CategoryName.ToLower() == categoryName.ToLower()))
+                              .ToListAsync();
             }
 
             public async Task<IEnumerable<ProductCategoryB>> GetByCategoryIdAsync(int categoryId)
             {
+              
                 return await _dbContext.ProductCategories
-                    .Include(pc => pc.Product)
-                    .Include(pc => pc.Category)
-                    .Where(pc => pc.CategoryId == categoryId)
-                    .ToListAsync();
+                           .Include(pc => pc.Product.Images) // Include related images
+                           .Include(pc => pc.Product.Translations) // Include related translations
+                           .Include(pc => pc.Product.Specifications) // Include related specifications
+                                 .ThenInclude(spec => spec.Translations) // Include translations for specifications
+                           .Include(pc => pc.Category)
+                                 .ThenInclude(c => c.Translations)
+                           .Where(pc => pc.CategoryId == categoryId)
+                           .ToListAsync();
             }
 
             public async Task<IEnumerable<ProductCategoryB>> GetMainCategoriesAsync()
             {
                 return await _dbContext.ProductCategories
-                    .Include(pc => pc.Product)
+                    //.Include(pc => pc.Product)
                     .Include(pc => pc.Category)
+                        .ThenInclude(c => c.Translations)
                     .Where(pc => pc.IsMainCategory)
                     .ToListAsync();
             }
@@ -96,19 +112,30 @@ namespace InfrastructureB.Category
             {
                 return await _dbContext.ProductCategories
                     .Include(pc => pc.Category)
-                    .Include(pc => pc.Product)
+                        .ThenInclude(c => c.Translations)
+                    //.Include(pc => pc.Product)
                     .Where(pc => !pc.IsMainCategory)
                     .ToListAsync();
             }
-            public async Task<List<CategoryB>> GetSubCategoriesByMainCategoryIdAsync(int mainCategoryId)
+            public async Task<List<MainCategoryWithSubCategoriesDTO>> GetSubCategoriesByMainCategoryIdAsync(int mainCategoryId)
             {
+            
                 return await _dbContext.ProductCategories
-                       .Where(pc => !pc.IsMainCategory && pc.CategoryId == mainCategoryId) // Filter to get only subcategories
-                       .Select(pc => pc.Category) // Select only the Category part
-                       .ToListAsync(); // Convert to a list asynchronously
+                   .Where(pc => pc.IsMainCategory && pc.CategoryId == mainCategoryId) // 1. Filter to get only the specified main category
+                   .Select(mainCategory => new MainCategoryWithSubCategoriesDTO
+                   {
+                       MainCategory = mainCategory.Category, // 2. Select the main category
+                       SubCategories = _dbContext.ProductCategories
+                           .Where(pc => !pc.IsMainCategory && pc.ProductId == mainCategory.ProductId) // 3. Get subcategories for the same product
+                           .Include(pc => pc.Category) // Include the related category details
+                                  .ThenInclude(c => c.Translations) // Include translations if required
+                           .Select(pc => pc.Category) // 4. Select only the Category part
+                           .ToList() // Convert subcategories to a list
+                   })
+                   .ToListAsync(); // Finally, convert the main categories with their subcategories into a list asynchronously
             }
 
-            Task<IQueryable<ProductCategoryB>> IGenericRepositoryB<ProductCategoryB>.GetAllAsync()
+        Task<IQueryable<ProductCategoryB>> IGenericRepositoryB<ProductCategoryB>.GetAllAsync()
             {
                 throw new NotImplementedException();
             }

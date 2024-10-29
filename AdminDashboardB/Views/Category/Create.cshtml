@@ -44,10 +44,7 @@
                         </select>
                         <span asp-validation-for="Translations[0].LanguageId" class="text-danger"></span>
 
-                        <div class="mb-3 form-check">
-                            <input class="form-check-input" type="checkbox" name="Translations[0].IsMainCategory" value="true">
-                            <label class="form-check-label fs-5 fw-bold">Is Main Category</label>
-                        </div>
+                       
                     </div>
                 </div>
 
@@ -88,10 +85,7 @@
                     </select>
                     <span class="text-danger"></span>
 
-                    <div class="mb-3 form-check">
-                        <input class="form-check-input" type="checkbox" name="Translations[${translationIndex}].IsMainCategory" value="true">
-                        <label class="form-check-label fs-5 fw-bold">Is Main Category</label>
-                    </div>
+                   
                 </div>
             `;
         container.insertAdjacentHTML('beforeend', newTranslation);

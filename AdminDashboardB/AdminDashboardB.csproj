@@ -8,6 +8,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="wwwroot\ImageUrls_Categories\**" />
+    <Content Remove="wwwroot\ImageUrls_Categories\**" />
+    <EmbeddedResource Remove="wwwroot\ImageUrls_Categories\**" />
+    <None Remove="wwwroot\ImageUrls_Categories\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="8.0.10" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.10" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="8.0.10" />
@@ -28,8 +35,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\ImageUrls\" />
-    <Folder Include="wwwroot\ImageUrls_Categories\" />
+    <Folder Include="wwwroot\ImageUrls\categories\" />
   </ItemGroup>
 
 </Project>

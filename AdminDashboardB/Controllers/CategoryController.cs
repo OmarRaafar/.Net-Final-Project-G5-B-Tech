@@ -118,18 +118,18 @@ namespace DTOsB.Controllers
                     ModelState.AddModelError("", ex.Message);
                 }
             }
-            if (!ModelState.IsValid)
-            {
-                foreach (var entry in ModelState)
-                {
-                    var errors = entry.Value.Errors;
-                    foreach (var error in errors)
-                    {
+            //if (!ModelState.IsValid)
+            //{
+            //    foreach (var entry in ModelState)
+            //    {
+            //        var errors = entry.Value.Errors;
+            //        foreach (var error in errors)
+            //        {
 
-                        Console.WriteLine($"Error in {entry.Key}: {error.ErrorMessage}");
-                    }
-                }
-            }
+            //            Console.WriteLine($"Error in {entry.Key}: {error.ErrorMessage}");
+            //        }
+            //    }
+            //}
             // Reload the languages if the model state is invalid
             var languages = await _languageService.GetAllLanguagesAsync();
             ViewBag.Languages = languages.Select(l => new SelectListItem
@@ -180,7 +180,7 @@ namespace DTOsB.Controllers
             {
                 try
                 {
-                    model.Translations[0].IsMainCategory = Request.Form["Translations[0].IsMainCategory"] == "true";
+                    //model.Translations[0].IsMainCategory = Request.Form["Translations[0].IsMainCategory"] == "true";
 
                     await _categoryService.UpdateCategoryAsync(id, model, imageFile);
                     return RedirectToAction("Index", "Category");
@@ -199,7 +199,7 @@ namespace DTOsB.Controllers
             return View(model);
         }
 
-        // GET: Category/Delete
+       
         public async Task<IActionResult> Delete(int id)
         {
             var categoryEntity = await _categoryService.GetCategoryByIdAsync(id);
@@ -207,12 +207,11 @@ namespace DTOsB.Controllers
             {
                 return NotFound();
             }
-            var categoryDto = _mapper.Map<GetAllCategoriesDTO>(categoryEntity);
+            var categoryDto = _mapper.Map<GetAllCategoriesDTO>(categoryEntity.Entity);
 
             return View(categoryDto);
         }
 
-        // POST: Category/Delete
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
