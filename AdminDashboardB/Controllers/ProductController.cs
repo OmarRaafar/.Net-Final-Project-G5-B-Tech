@@ -18,7 +18,7 @@ using ModelsB.Product_B;
 
 namespace DTOsB.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    //[Authorize(Roles = "Admin")]
 
     public class ProductController : Controller
     {
@@ -246,7 +246,7 @@ namespace DTOsB.Controllers
         public async Task<IActionResult> Edit(int id)
         {
             var allCategories = await categoryService.GetAllCategoriesAsync();
-            ViewBag.AllCategories = allCategories;
+            ViewBag.AllCategories = allCategories.Entity;
 
             var product = await productService.GetProductByIdAsync(id);
             if (product == null)
@@ -261,7 +261,8 @@ namespace DTOsB.Controllers
 
         //[ValidateAntiForgeryToken]
         [HttpPost]
-        public async Task<IActionResult> Edit(int id, ResultView<ProductCreateOrUpdateDto> resultView)
+        public async Task<IActionResult> Edit(int id, ResultView<ProductCreateOrUpdateDto> resultView,
+            List<GetAllCategoriesDTO> SelectedCategories)
         {
             // Extract the actual DTO from the result view
             var productDto = resultView.Entity;
@@ -276,11 +277,18 @@ namespace DTOsB.Controllers
             productDto.CreatedBy = _userService.GetCurrentUserId();
             productDto.UpdatedBy = _userService.GetCurrentUserId();
 
-            var allCategories = await categoryService.GetAllCategoriesAsync();
-            var selectedCategoryIds = await productCategoryService.GetCategoriesByProductIdAsync(id);
 
-            ViewBag.AllCategories = allCategories;
-            ViewBag.SelectedCategoryIds = selectedCategoryIds;
+
+            for (int i = 0; i < SelectedCategories.Count; i++)
+            {
+                var newItem = new ProductCategoryDto
+                {
+                    CategoryId = SelectedCategories[i].Id,
+                    ProductId = productDto.Id,
+                    IsMainCategory = (i == 0) ? true : false,
+                };
+                await productCategoryService.UpdateAsync(newItem);
+            }
 
 
             var result = await productService.UpdateProductAsync(productDto);
@@ -346,8 +354,7 @@ namespace DTOsB.Controllers
                 }
             }
 
-            var categories = await productCategoryService.GetCategoriesByProductIdAsync(id);
-            ViewBag.ProductCategories = categories.Entity;
+            
 
             //ModelState.AddModelError("", result.Msg);
             //}

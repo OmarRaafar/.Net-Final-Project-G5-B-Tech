@@ -201,12 +201,12 @@ namespace DTOsB.Controllers
         //    return RedirectToAction("GetAllUsers");
         //}
 
-
+        [AllowAnonymous]
         public IActionResult CreateUser()
         {
             return View();
         }
-
+        [AllowAnonymous]
         [HttpPost]
         public async Task<IActionResult> CreateUser(RegisterDto model)
         {

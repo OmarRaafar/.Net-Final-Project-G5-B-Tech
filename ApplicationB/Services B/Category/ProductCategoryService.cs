@@ -3,6 +3,7 @@ using AutoMapper;
 using DTOsB.Category;
 using DTOsB.Shared;
 using ModelsB.Category_B;
+using ModelsB.Product_B;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -56,8 +57,15 @@ namespace ApplicationB.Services_B.Category
 
         public async Task<ResultView<ProductCategoryDto>> UpdateAsync(ProductCategoryDto productCategoryDto)
         {
+            var productCat = await _repository.GetByIdAsync((int)productCategoryDto.ProductId, productCategoryDto.CategoryId);
+
+            if (productCat == null)
+            {
+                return ResultView<ProductCategoryDto>.Failure($"Failed to update Product-Category");
+            }
             try
             {
+               
                 var productCategory = _mapper.Map<ProductCategoryB>(productCategoryDto);
                 await _repository.UpdateAsync(productCategory);
                 return ResultView<ProductCategoryDto>.Success(productCategoryDto);

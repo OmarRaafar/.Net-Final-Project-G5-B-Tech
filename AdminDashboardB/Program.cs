@@ -190,7 +190,7 @@ namespace WebApplication1
 
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Admin}/{action=Login}/{id?}");
+                pattern: "{controller=Product}/{action=Index}/{id?}");
             app.MapRazorPages();
 
             app.Run();
