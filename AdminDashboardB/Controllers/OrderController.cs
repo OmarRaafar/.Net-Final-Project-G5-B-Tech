@@ -89,6 +89,10 @@ namespace DTOsB.Controllers
         public async Task<IActionResult> DetailsOfOrder(int id)
         {
             var order = await orderService.GetOrderByIdAsync(id);
+            foreach (var item in order.OrderItems)
+            {
+                item.TotalPrice = (int)(item.Quantity * item.Price);
+            }
             return View("Details", order);
         }
 

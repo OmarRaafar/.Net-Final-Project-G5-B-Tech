@@ -15,10 +15,11 @@ using Microsoft.EntityFrameworkCore;
 using ModelsB.Category_B;
 using ModelsB.Localization_B;
 using ModelsB.Product_B;
+using PayPalCheckoutSdk.Orders;
 
 namespace DTOsB.Controllers
 {
-    //[Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin")]
 
     public class ProductController : Controller
     {
@@ -131,14 +132,9 @@ namespace DTOsB.Controllers
 
 
 
-        public async Task<IActionResult> Create(/*int selectedLanguageId = 2*/)
+        public async Task<IActionResult> Create()
         {
-            //var availableLanguages = await languageService.GetAllLanguagesAsync();
-            //ViewBag.AvailableLanguages = new SelectList(availableLanguages, "Id", "Code");
-
-
-            //languageService.SetUserSelectedLanguageAsync(selectedLanguageId);
-            //ViewBag.SelectedLanguageId = selectedLanguageId;
+           
             var categories = await categoryService.GetAllCategoriesAsync();
             ViewBag.Categories = categories.Entity;
 
@@ -152,9 +148,9 @@ namespace DTOsB.Controllers
         {
             //if (ModelState.IsValid)
             //{
-
-            productDto.CreatedBy = _userService.GetCurrentUserId();
-            productDto.UpdatedBy = _userService.GetCurrentUserId();
+           
+            productDto.CreatedBy =  _userService.GetAppUserByIdAsync( _userService.GetCurrentUserId()).Result.UserName;
+            productDto.UpdatedBy = _userService.GetAppUserByIdAsync(_userService.GetCurrentUserId()).Result.UserName;
 
            
 
@@ -202,7 +198,13 @@ namespace DTOsB.Controllers
                     ProductId = result.Entity.Id,
                     IsMainCategory = (i==0)? true : false,
                 };
-                await productCategoryService.AddAsync(newItem);
+                var Result =await productCategoryService.AddAsync(newItem);
+                
+                if (!Result.IsSuccess)
+                {
+                    ModelState.AddModelError("", Result.Msg);
+                    return View(result.Entity);
+                }
             }
            
             //Translations
@@ -274,21 +276,27 @@ namespace DTOsB.Controllers
 
             //if (ModelState.IsValid)
             //{
-            productDto.CreatedBy = _userService.GetCurrentUserId();
-            productDto.UpdatedBy = _userService.GetCurrentUserId();
+           
+            productDto.UpdatedBy = _userService.GetAppUserByIdAsync(_userService.GetCurrentUserId()).Result.UserName;
+            productDto.CreatedBy = _userService.GetAppUserByIdAsync(_userService.GetCurrentUserId()).Result.UserName;
 
 
-
+            List<ProductCategoryDto> Items = new List<ProductCategoryDto>();
             for (int i = 0; i < SelectedCategories.Count; i++)
             {
+              
                 var newItem = new ProductCategoryDto
                 {
                     CategoryId = SelectedCategories[i].Id,
                     ProductId = productDto.Id,
                     IsMainCategory = (i == 0) ? true : false,
                 };
-                await productCategoryService.UpdateAsync(newItem);
+                Items.Add(newItem);
+                //await productCategoryService.DeleteByProductIdAsync(productDto.Id);
+                //await productCategoryService.AddAsync(newItem);
+
             }
+            await productCategoryService.UpdateAsync(Items);
 
 
             var result = await productService.UpdateProductAsync(productDto);
@@ -354,18 +362,18 @@ namespace DTOsB.Controllers
                 }
             }
 
-            
+
 
             //ModelState.AddModelError("", result.Msg);
             //}
-            //foreach (var spec in productDto.Specifications)
-            //{
-            //    await _productSpecificationService.UpdateSpecificationAsync(spec);
-            //    foreach (var specTrans in spec.Translations)
-            //    {
-            //        _productSpecificationTransService.UpdateTranslationAsync(specTrans);
-            //    }
-            //}
+            foreach (var spec in productDto.Specifications)
+            {
+                await _productSpecificationService.UpdateSpecificationAsync(spec);
+                foreach (var specTrans in spec.Translations)
+                {
+                    _productSpecificationTransService.UpdateTranslationAsync(specTrans);
+                }
+            }
 
 
             if (result.IsSuccess)

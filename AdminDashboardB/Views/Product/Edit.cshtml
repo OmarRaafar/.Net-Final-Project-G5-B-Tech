@@ -179,22 +179,22 @@ else
                     var spec = Model.Entity.Specifications[i];
 
             <div class="specification-entry mb-4" data-index="@i">
-                <input type="hidden" name="Specifications[@i].Id" value="@spec.Id" />
+                <input type="hidden" name="Model.Entity.Specifications[i].Id" value="@spec.Id" />
 
                 <!-- English Key and Value -->
                 <div class="mb-3">
                     <label class="form-label fw-bold" for="EnKey_@i">English Key</label>
                     <input type="text" class="form-control" id="EnKey_@i"
-                           name="Specifications[@i].Translations[0].TranslatedKey"
-                           value="@spec.Translations?.FirstOrDefault(t => t.LanguageId == 2)?.TranslatedKey ?? """
+                                   name="Model.Entity.Specifications[i].Translations[0].TranslatedKey"
+                           value="@spec.Translations?.FirstOrDefault(t => t.LanguageId == 2)?.TranslatedKey"
                            placeholder="Enter English Key" required />
-                    <input type="hidden" name="Specifications[@i].Translations[0].LanguageId" value="2" />
+                        <input type="hidden" name="@spec.Translations[0].LanguageId" value="2" />
                 </div>
                 <div class="mb-3">
                     <label class="form-label fw-bold" for="EnValue_@i">English Value</label>
                     <input type="text" class="form-control" id="EnValue_@i"
-                           name="Specifications[@i].Translations[0].TranslatedValue"
-                           value="@spec.Translations?.FirstOrDefault(t => t.LanguageId == 2)?.TranslatedValue ?? """
+                                   name="Model.Entity.Specifications[i].Translations[0].TranslatedValue"
+                           value="@spec.Translations?.FirstOrDefault(t => t.LanguageId == 2)?.TranslatedValue"
                            placeholder="Enter English Value" required />
                 </div>
 
@@ -202,16 +202,16 @@ else
                 <div class="mb-3">
                     <label class="form-label fw-bold" for="ArKey_@i">Arabic Key</label>
                     <input type="text" class="form-control" id="ArKey_@i"
-                           name="Specifications[@i].Translations[1].TranslatedKey"
-                           value="@spec.Translations?.FirstOrDefault(t => t.LanguageId == 1)?.TranslatedKey ?? """
+                               name="Model.Entity.Specifications[i].Translations[1].TranslatedKey"
+                           value="@spec.Translations?.FirstOrDefault(t => t.LanguageId == 1)?.TranslatedKey"
                            placeholder="Enter Arabic Key" required />
-                    <input type="hidden" name="Specifications[@i].Translations[1].LanguageId" value="1" />
+                        <input type="hidden" name="Model.Entity.Specifications[i].Translations[1].LanguageId" value="1" />
                 </div>
                 <div class="mb-3">
                     <label class="form-label fw-bold" for="ArValue_@i">Arabic Value</label>
                     <input type="text" class="form-control" id="ArValue_@i"
-                           name="Specifications[@i].Translations[1].TranslatedValue"
-                           value="@spec.Translations?.FirstOrDefault(t => t.LanguageId == 1)?.TranslatedValue ?? """
+                               name="Model.Entity.Specifications[i].Translations[1].TranslatedValue"
+                           value="@spec.Translations?.FirstOrDefault(t => t.LanguageId == 1)?.TranslatedValue"
                            placeholder="Enter Arabic Value" required />
                 </div>
             </div>
@@ -223,64 +223,6 @@ else
                 <div class="mb-3">
                     <button type="button" class="btn btn-secondary" id="addSpec">Add More Specifications</button>
                 </div>
-
-              
-                
-            @* </form> *@
-
-
-            @* <!-- Button to open modal for editing all specifications -->
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editAllSpecsModal">
-                Edit Specifications
-            </button>
-            <!-- Modal for Editing All Specifications -->
-            <!-- Edit Specifications Modal -->
-            <div class="modal fade" id="editSpecModal" tabindex="-1" aria-labelledby="editSpecModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="editSpecModalLabel">Edit Specifications</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <form id="editSpecForm" method="post" asp-action="EditSpecification">
-                                <input type="hidden" id="specId" name="Specifications[0].Id" value="" />
-
-                                <!-- English Key and Value -->
-                                <div class="mb-4">
-                                    <label class="form-label fs-5 fw-bold" for="editEnKey">English Key</label>
-                                    <input type="text" class="form-control shadow-sm" id="editEnKey" name="Specifications[0].Translations[0].TranslatedKey" placeholder="Enter English Key" required>
-                                    <input type="hidden" name="Specifications[0].Translations[0].LanguageId" value="2" />
-                                </div>
-                                <div class="mb-4">
-                                    <label class="form-label fs-5 fw-bold" for="editEnValue">English Value</label>
-                                    <input type="text" class="form-control shadow-sm" id="editEnValue" name="Specifications[0].Translations[0].TranslatedValue" placeholder="Enter English Value" required>
-                                </div>
-
-                                <!-- Arabic Key and Value -->
-                                <div class="mb-4">
-                                    <label class="form-label fs-5 fw-bold" for="editArKey">Arabic Key</label>
-                                    <input type="text" class="form-control shadow-sm" id="editArKey" name="Specifications[0].Translations[1].TranslatedKey" placeholder="Enter Arabic Key" required>
-                                    <input type="hidden" name="Specifications[0].Translations[1].LanguageId" value="1" />
-                                </div>
-                                <div class="mb-4">
-                                    <label class="form-label fs-5 fw-bold" for="editArValue">Arabic Value</label>
-                                    <input type="text" class="form-control shadow-sm" id="editArValue" name="Specifications[0].Translations[1].TranslatedValue" placeholder="Enter Arabic Value" required>
-                                </div>
-                            </form>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Save Changes</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
- *@
-
-
-
 
             <!-- Submit Button -->
             <div class="d-grid gap-2 mt-5">

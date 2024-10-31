@@ -73,8 +73,10 @@ namespace ApplicationB.Services_B.Order
         public async Task<SelectOrderBDTO> GetOrderByIdAsync(int id)
         {
             OrderB order = await orderRepository.GetByIdAsync(id);
+           
 
             var orderDto = mapper.Map<SelectOrderBDTO>(order);
+            
             var test = new SelectOrderBDTO();
             if (orderDto == null) return test;
 
@@ -82,14 +84,14 @@ namespace ApplicationB.Services_B.Order
             if (items == null) items = new List<SelectOrderItemBDTO>();
             orderDto.OrderItems = items;
 
-            orderDto.ApplicationUserName = (await userService.GetAppUserByIdAsync(order.ApplicationUserId)).UserName;//"Nourhan";
+            orderDto.ApplicationUserName = (await userService.GetAppUserByIdAsync(order.ApplicationUserId)).UserName;
             orderDto.ApplicationUserId = order.ApplicationUserId;
 
-            var shippingResulView = await shippingService.GetShippingByIdAsync(orderDto.Id);
-            if (shippingResulView.Entity == null) orderDto.ShippingCost = 0;
+            var shippingResulView = await shippingService.GetShippingByIdAsync(order.ShippingId);
+            if (shippingResulView.Entity == null) orderDto.ShippingCost = 70;
             else orderDto.ShippingCost = shippingResulView.Entity.ShippingCost;
 
-            orderDto.PaymentStatus = "pending";
+            if( order.Payment.PaymentStatus==null) orderDto.PaymentStatus="Pending";
 
             return orderDto;
         }

@@ -1,6 +1,7 @@
 ﻿using ApplicationB.Contracts_B.Order;
 using DbContextB;
 using InfrastructureB.General;
+using Microsoft.EntityFrameworkCore;
 using ModelsB.Order_B;
 using System;
 using System.Collections.Generic;
@@ -21,7 +22,8 @@ namespace InfrastructureB.Order
 
         public async Task<IEnumerable<OrderItemB>> ItemsOfOrder(int id)
         {
-            var ans = context.OrderItems.Where(o => o.OrderId == id);
+            var ans = context.OrderItems.Where(o => o.OrderId == id).Include(p=> p.Product)
+                .ThenInclude(t=>t.Translations);
             return ans;
         }
     }

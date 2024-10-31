@@ -55,20 +55,6 @@
                 <input type="text" class="form-control shadow-sm" id="ArBrandName" name="Translations[1].BrandName" placeholder="Enter Arabic Brand Name" required>
                 <span asp-validation-for="Translations[1].BrandName" class="text-danger"></span>
             </div>
-
-            @* <div class="mb-4">
-                <label class="form-label fs-5 fw-bold" for="BrandName">Arabic Brand Name</label>
-                <select class="form-control shadow-sm" id="ArBrandName" name="BrandName" required>
-                    <option value="">Select Arabic Brand Name</option>
-                    @foreach (var trans in Model.Translations.Where(t => t.LanguageId == 1))
-                    {
-                        <option value="@trans.BrandName">@trans.BrandName</option>
-                    }
-                </select>
-                <span asp-validation-for="Translations.FirstOrDefault(trans => trans.LanguageId == 1).BrandName" class="text-danger"></span>
-            </div> *@
-
-
             
             <div class="mb-4">
                 <label class="form-label fs-5 fw-bold" for="ArDescription">Arabic Description</label>
@@ -89,23 +75,8 @@
                 <span asp-validation-for="StockQuantity" class="text-danger"></span>
             </div>
 
-           
 
-
-
-           @*  <div class="mb-4">
-                <label class="form-label fs-5 fw-bold" for="CategoryId">Category</label>
-                <select class="form-select shadow-sm" id="CategoryId" name="CategoryId">
-                    <option value="">Select Category</option>
-                    
-                    @foreach (var category in ViewBag.CategoryList)
-                    {
-                    <option value="@category.Id">@category.Name</option>
-                    }
-                   
-                </select>
-                <span asp-validation-for="CategoryId" class="text-danger"></span>
-            </div> *@
+            <!-- Category Region -->
             @if (categories != null && categories.Any())
             {
             <div class="mb-4">
@@ -144,7 +115,7 @@
 
 
             <!-- Specifications Region -->
-            @* <input type="hidden" name="Specifications" value="@Json.Serialize(Model.Specifications)" /> *@
+          
             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#specModal">
                 Add Specifications
             </button>
@@ -195,124 +166,17 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Save Specifications</button>
+                            <button type="submit" class="btn btn-success">Save Product</button>
                         </div>
                     </div>
                 </div>
             </div>
 
-           @*  <input type="hidden" name="Specifications" value="@Json.Serialize(Model.Specifications)" />
-            <!-- Specifications Region -->
-            <!-- Button to trigger the modal -->
-            <!-- Trigger button -->
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#specModal">
-                Add Specifications
-            </button>
-
-            <!-- Modal -->
-            <div class="modal fade" id="specModal" tabindex="-1" aria-labelledby="specModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="specModalLabel">Add Specifications</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <form id="specForm">
-                                <!-- Container for multiple specification entries -->
-                                <div id="specificationsContainer">
-                                    <div class="specification-entry mb-3">
-                                        <label for="translatedKey" class="form-label">Translated Key</label>
-                                        <input type="text" class="form-control translatedKey" placeholder="Enter key" required>
-
-                                        <label for="translatedValue" class="form-label">Translated Value</label>
-                                        <input type="text" class="form-control translatedValue" placeholder="Enter value" required>
-
-                                        <label for="languageId" class="form-label">Language</label>
-                                        <select class="form-select languageId" required>
-                                            <option value="1">Arabic</option>
-                                            <option value="2">English</option>
-                                            <!-- Add more languages -->
-                                        </select>
-                                    </div>
-                                </div>
-                                <!-- Button to add more specification entries -->
-                                <button type="button" class="btn btn-secondary mt-2" id="addSpec">Add More</button>
-                            </form>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary" id="saveSpec">Save Specifications</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
- *@
-
-
-
-            @* <div class="mb-4">
-                <label class="form-label fs-5 fw-bold" for="SpecificationId">Specification</label>
-                <select class="form-select shadow-sm" id="SpecificationId" name="SpecificationId">
-                    <option value="">Select Specification</option>
-                    @*
-                    @foreach (var Specification in ViewBag.SpecificationList)
-                    {
-                    <option value="@Specification.Id">@Specification.Name</option>
-                    }
-                    *@
-                </select>
-                @* <span asp-validation-for="SpecificationId" class="text-danger"></span> *@
-           @*  </div> *@ 
-
-          
-
-            @* <div id="specifications-container">
-            <h4>Specifications</h4>
-
-            <!-- Loop through existing specifications in the model -->
-            @for (var i = 1; i < 5; i++)
-            {
-                <div class="spec-row">
-                    <div class="form-group">
-                        <label for="spec-language-@i">Language</label>
-                        <select name="Specifications[@i].LanguageId" class="form-control">
-                                @foreach (var lang in ViewBag.AvailableLanguages)
-                            {
-                                <option value="@lang.Value">
-                                    @lang.Text
-                                </option>
-                            }
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="spec-key-@i">Specification Key</label>
-                        <input type="text" class="form-control" name="Specifications[@i].Translations[0].TranslatedKey" 
-                               value="@Model.Specifications[i].Translations.FirstOrDefault()?.TranslatedKey ?? string.Empty" />
-                    </div>
-
-                    <div class="form-group">
-                        <label for="spec-value-@i">Specification Value</label>
-                        <input type="text" class="form-control" name="Specifications[@i].Translations[0].TranslatedValue" 
-                               value="@Model.Specifications[i].Translations.FirstOrDefault()?.TranslatedValue ?? string.Empty" />
-                    </div>
-                </div>
-            }
-            </div>
-
-
-           
-
-             <!-- Button to add new specification -->
-            <button type="button" class="btn btn-primary" id="add-spec-btn">Add Specification</button> *@
-
-
-            <div class="d-grid gap-2 mt-5">
+           @*  <div class="d-grid gap-2 mt-5">
                 <button class="btn btn-success btn-lg shadow" type="submit">
-                    <i class="fa-solid fa-check me-2"></i>Submit
+                   Submit
                 </button>
-            </div>
+            </div> *@
         </form>
     </div>
 </div>
@@ -346,111 +210,3 @@ document.getElementById('addSpec').addEventListener('click', function () {
 });
 
     
-
-</script>
-@* <script>
-    $(document).ready(function () {
-        $('#specModal').modal('show');
-    });
-
-    // JavaScript to dynamically add more specifications
-    let specifications = [];
-
-    document.getElementById('addSpec').addEventListener('click', function () {
-        // Create a new specification entry dynamically
-        let specEntry = `
-            <div class="specification-entry mb-3">
-                <label for="translatedKey" class="form-label">Translated Key</label>
-                <input type="text" class="form-control translatedKey" placeholder="Enter key" required>
-
-                <label for="translatedValue" class="form-label">Translated Value</label>
-                <input type="text" class="form-control translatedValue" placeholder="Enter value" required>
-
-                <label for="languageId" class="form-label">Language</label>
-                <select class="form-select languageId" required>
-                    <option value="1">Arabic</option>
-                    <option value="2">English</option>
-                    <!-- Add more languages -->
-                </select>
-            </div>
-        `;
-        document.getElementById('specificationsContainer').insertAdjacentHTML('beforeend', specEntry);
-    });
-
-    document.getElementById('saveSpec').addEventListener('click', function () {
-        // Collect all specification entries from the modal
-        const specEntries = document.querySelectorAll('.specification-entry');
-
-        specEntries.forEach(entry => {
-            const translatedKey = entry.querySelector('.translatedKey').value;
-            const translatedValue = entry.querySelector('.translatedValue').value;
-            const languageId = entry.querySelector('.languageId').value;
-
-            // Create the specification translation object
-            const specTranslation = {
-                TranslatedKey: translatedKey,
-                TranslatedValue: translatedValue,
-                LanguageId: parseInt(languageId)
-            };
-
-            // If you're adding to the same specification, just add it to the Translations list
-            let productSpec = {
-                // ProductId: 0, // Replace with actual ProductId
-                Translations: []
-            };
-
-            productSpec.Translations.push(specTranslation);
-
-            // Push the specification into the list
-            specifications.push(productSpec);
-        });
-
-        // Clear form fields and close the modal
-        document.getElementById('specForm').reset();
-        $('#specModal').modal('hide');
-
-        // Optionally, you can preview the added specifications
-        console.log(specifications);
-    });
-
-</script> *@
-
-@* <script>
-    $(document).ready(function () {
-        $('#ArBrandName').select2({
-            placeholder: "Select Arabic Brand Name",
-            allowClear: true
-        });
-    });
-</script> *@
-@* <script>
-    var specIndex = @Model.Specifications.Count;
-
-    // Function to dynamically add new spec rows
-    document.getElementById("add-spec-btn").addEventListener("click", function () {
-        var container = document.getElementById("specifications-container");
-        var newRow = `
-                <div class="spec-row">
-                    <div class="form-group">
-                        <label for="spec-language-${specIndex}">Language</label>
-                        <select name="Specs[${specIndex}].LanguageId" class="form-control">
-    @foreach (var lang in ViewBag.LanguageList)
-    {
-                                    <option value="@lang.Id">@lang.Name</option>
-    }
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="spec-key-${specIndex}">Specification Key</label>
-                        <input type="text" class="form-control" name="Specs[${specIndex}].Key" />
-                    </div>
-                    <div class="form-group">
-                        <label for="spec-value-${specIndex}">Specification Value</label>
-                        <input type="text" class="form-control" name="Specs[${specIndex}].Value" />
-                    </div>
-                </div>
-            `;
-        container.insertAdjacentHTML('beforeend', newRow);
-        specIndex++;
-    });
-</script> *@

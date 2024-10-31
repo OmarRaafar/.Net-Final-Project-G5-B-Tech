@@ -179,8 +179,8 @@ namespace DTOsB.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, CreateOrUpdateCategoriesDTO model, IFormFile imageFile)
         {
-            if (ModelState.IsValid)
-            {
+            //if (ModelState.IsValid)
+            //{
                 try
                 {
                     //model.Translations[0].IsMainCategory = Request.Form["Translations[0].IsMainCategory"] == "true";
@@ -194,7 +194,7 @@ namespace DTOsB.Controllers
 
                     ModelState.AddModelError("", ex.Message);
                 }
-            }
+            //}
 
             var languages = await _languageService.GetAllLanguagesAsync();
             ViewBag.Languages = new SelectList(languages, "Id", "Name");
