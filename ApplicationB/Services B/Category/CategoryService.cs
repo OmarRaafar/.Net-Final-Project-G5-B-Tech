@@ -22,15 +22,16 @@ namespace ApplicationB.Services_B.Category
         private readonly IUserService _userService;
         private readonly ILanguageService _languageService;
         private readonly ILanguageRepository _languageRepository;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public CategoryService(ICategoryRepository categoryRepository, IMapper mapper, IUserService userService, ILanguageService languageService, ILanguageRepository languageRepository)
+        public CategoryService(ICategoryRepository categoryRepository, IMapper mapper, IUserService userService, ILanguageService languageService, ILanguageRepository languageRepository, IHttpContextAccessor httpContextAccessor)
         {
             _categoryRepository = categoryRepository;
             _mapper = mapper;
             _userService = userService;
             _languageService = languageService;
             _languageRepository = languageRepository;
-
+            _httpContextAccessor = httpContextAccessor;
         }
 
         public async Task<ResultView<IEnumerable<GetAllCategoriesDTO>>> GetAllCategoriesAsync()
@@ -295,25 +296,57 @@ namespace ApplicationB.Services_B.Category
 
         }
 
+        //public async Task<string> HandleImageUploadAsync(IFormFile imageFile)
+        //{
+        //    if (imageFile == null || imageFile.Length == 0)
+        //        return null;
+
+        //    // Logic to save the image to a folder and return the file path or URL
+        //    var fileName = Path.GetFileNameWithoutExtension(imageFile.FileName);
+        //    var fileExtension = Path.GetExtension(imageFile.FileName);
+        //    var newFileName = $"{fileName}_{DateTime.Now.Ticks}{fileExtension}";
+
+        //    var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/ImageUrls/categories", newFileName);
+
+        //    using (var stream = new FileStream(filePath, FileMode.Create))
+        //    {
+        //        await imageFile.CopyToAsync(stream);
+        //    }
+        //    Console.WriteLine($"Image saved to: {filePath}");
+
+        //    return $"/ImageUrls/categories/{newFileName}"; // Return the relative URL or path        
+        //}
         public async Task<string> HandleImageUploadAsync(IFormFile imageFile)
         {
             if (imageFile == null || imageFile.Length == 0)
                 return null;
 
-            // Logic to save the image to a folder and return the file path or URL
+            // Generate unique file name
             var fileName = Path.GetFileNameWithoutExtension(imageFile.FileName);
             var fileExtension = Path.GetExtension(imageFile.FileName);
             var newFileName = $"{fileName}_{DateTime.Now.Ticks}{fileExtension}";
 
-            var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/ImageUrls/categories", newFileName);
+            // Define file path in wwwroot
+            var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "ImageUrls", "categories", newFileName);
 
+            // Ensure directory exists
+            var directory = Path.GetDirectoryName(filePath);
+            if (!Directory.Exists(directory))
+            {
+                Directory.CreateDirectory(directory);
+            }
+
+            // Save the image
             using (var stream = new FileStream(filePath, FileMode.Create))
             {
                 await imageFile.CopyToAsync(stream);
             }
             Console.WriteLine($"Image saved to: {filePath}");
 
-            return $"/ImageUrls/categories/{newFileName}"; // Return the relative URL or path        
+            // Get the base URL (host and scheme) dynamically
+            var baseUrl = $"{_httpContextAccessor.HttpContext.Request.Scheme}://{_httpContextAccessor.HttpContext.Request.Host}";
+
+            return $"{baseUrl}/ImageUrls/categories/{newFileName}".Replace("\\", "/");
         }
 
     }
