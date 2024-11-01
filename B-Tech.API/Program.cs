@@ -38,15 +38,7 @@ namespace B_Tech.API
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
-            builder.Services.AddCors(options =>
-            {
-                options.AddPolicy("AllowLocalhost", builder =>
-                {
-                    builder.AllowAnyOrigin()//.WithOrigins("http://127.0.0.1:5500") // Allow your frontend origin
-                           .AllowAnyMethod()
-                           .AllowAnyHeader();
-                });
-            });
+     
             // Add services to the container.
             builder.Services.AddDbContext<BTechDbContext>(options =>
          options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));

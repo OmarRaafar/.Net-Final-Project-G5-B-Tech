@@ -44,6 +44,21 @@ namespace B_Tech.API.Controllers
             var products = await productService.GetAllProductsAsync();
             return Ok(products);
         }
+
+        [HttpGet("GetPaginated")]
+        public async Task<IActionResult> GetPaginated([FromQuery] int pageNumber, [FromQuery] int pageSize)
+        {
+            var userLanguage = GetUserLanguage();
+            languageService.SetCurrentLanguageCode(userLanguage);
+
+            var lang = languageService.GetCurrentLanguageCode();
+            var products = await productService.GetAllPaginatedByLanguageAsync(pageNumber, pageSize, lang);
+
+            return Ok(products);
+        }
+
+
+
         [HttpGet("{id}")]
         public async Task<IActionResult> Details(int id)
         {
