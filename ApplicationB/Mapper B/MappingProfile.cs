@@ -118,10 +118,16 @@ namespace ApplicationB.Mapper_B
             // Order --------------------------------
 
             CreateMap<OrderB, AddOrUpdateOrderBDTO>().ReverseMap();
-            CreateMap<OrderB, SelectOrderBDTO>().ReverseMap();
+            CreateMap<OrderB, SelectOrderBDTO>()
+
+                .ReverseMap();
 
             CreateMap<OrderItemB, AddOrUpdateOrderItemBDTO>().ReverseMap();
-            CreateMap<OrderItemB, SelectOrderItemBDTO>().ReverseMap();
+            CreateMap<OrderItemB, SelectOrderItemBDTO>()
+                .ForMember(dest=> dest.ProductName, opt=>opt.MapFrom(src=> src.Product.Translations.FirstOrDefault().Name))
+                .ForMember(dest => dest.Price, opt => opt.MapFrom(src => src.Product.Price))
+                .ForMember(dest => dest.StockQuantity, opt => opt.MapFrom(src => src.Product.StockQuantity))
+                .ReverseMap();
             CreateMap<SelectOrderItemBDTO, AddOrUpdateOrderItemBDTO>().ReverseMap();
 
             CreateMap<PaymentB, AddOrUpdatePaymentBDTO>().ReverseMap();

@@ -44,7 +44,7 @@ namespace DTOsB.Controllers
             var user = await _userManager.FindByEmailAsync(model.Email);
             if (user == null)
             {
-                ModelState.AddModelError(string.Empty, "User does not exist.");
+                ModelState.AddModelError(string.Empty, "Invalid Email or Password.");
                 return View(model);
             }
 
@@ -228,6 +228,13 @@ namespace DTOsB.Controllers
                 //    PostalCode = model.PostalCode,
                 //    UserType = model.UserType, 
                 //};
+                var existingEmail = await _userManager.FindByEmailAsync(model.Email);
+                if (existingEmail != null)
+                {         
+                    ModelState.AddModelError("Email", "The email address is already in use.");
+                    return View(model); 
+                }
+
                 var user = _mapper.Map<ApplicationUserB>(model);
 
                 var result = await _userManager.CreateAsync(user, model.Password);

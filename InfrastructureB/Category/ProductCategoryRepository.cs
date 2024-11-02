@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using static Microsoft.AspNetCore.Hosting.Internal.HostingApplication;
 using DTOsB.Category;
+using ModelsB.Product_B;
 
 namespace InfrastructureB.Category
 {
@@ -56,13 +57,23 @@ namespace InfrastructureB.Category
             public async Task<ProductCategoryB> GetByIdAsync(int productId, int categoryId)
             {
                 return await _dbContext.ProductCategories
+                           .Where(pc => pc.ProductId == productId && pc.CategoryId == categoryId)
                            .Include(pc => pc.Product)
                            .Include(pc => pc.Category)
-                           .FirstOrDefaultAsync(pc => pc.ProductId == productId && pc.CategoryId == categoryId);
+                           .FirstOrDefaultAsync();
             }
 
+        public async Task<List<ProductCategoryB>> GetByProductIdAsync(int productId)
+        {
+            return await _dbContext.ProductCategories
+                       .Where(pc => pc.ProductId == productId)
+                       .Include(pc => pc.Product)
+                       .Include(pc => pc.Category)
+                       .ToListAsync();
+        }
 
-            public async Task UpdateAsync(ProductCategoryB productCategory)
+
+        public async Task UpdateAsync(ProductCategoryB productCategory)
             {
                 _dbContext.ProductCategories.Update(productCategory);
                 await _dbContext.SaveChangesAsync();
@@ -143,10 +154,19 @@ namespace InfrastructureB.Category
             {
                 throw new NotImplementedException();
             }
-            public Task DeleteAsync(int id)
+            public async Task DeleteAsync(int id)
             {
-                throw new NotImplementedException();
+            var productCategory = await GetByProductIdAsync(id);
+            if (productCategory != null)
+            {
+                foreach (var item in productCategory)
+                {
+                    _dbContext.ProductCategories.Remove(item);
+                    await _dbContext.SaveChangesAsync();
+                }
+               
             }
+        }
         public async Task<IEnumerable<ProductCategoryB>> GetCategoriesByProductIdAsync(int productId)
         {
             return await _dbContext.ProductCategories

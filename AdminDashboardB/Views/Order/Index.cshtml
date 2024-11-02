@@ -10,11 +10,11 @@
 
     <h2 class="shadow rounded-3 bg-dark mb-5 mt-4 rounded p-1 col-12 col-md-3 text-center text-light fw-bold ">All Orders</h2>
     <div class="table-responsive shadow rounded-3">
-        <div>
+       @*  <div>
             <a asp-controller="Order" asp-action="Add" class="btn btn-outline-warning">
                 <i class="fa-solid fa-pen-to-square"></i> Add Order
             </a>
-        </div>
+        </div> *@
         <table class="table table-hover text-center align-middle">
             <thead class="table-dark shadow">
                 <tr>
@@ -36,17 +36,17 @@
                         <td>@order.OrderDate</td>
                         <td>@order.TotalPrice</td>
                         <td>@order.CurrentStatus</td>
-                        <td>@order.ShippingCost</td>
+                        <td>If(@order.ShippingCost ==0) 70 else @order.ShippingCost ==0 </td>
                         <td>
                             <a asp-controller="Order" asp-action="Edit" asp-route-id="@order.Id" class="btn btn-outline-warning">
                                 <i class="fa-solid fa-pen-to-square"></i> Edit
                             </a>
 
-                            <a asp-controller="Order" asp-action="CancelOrder" asp-route-id="@order.Id" class="btn btn-outline-warning">
+                            <a asp-controller="Order" asp-action="CancelOrder" asp-route-id="@order.Id" class="btn btn-outline-danger">
                                 <i class="fa-solid fa-pen-to-square"></i> Cancel
                             </a>
 
-                            <a asp-controller="Order" asp-action="DetailsOfOrder" asp-route-id="@order.Id" class="btn btn-outline-warning">
+                            <a asp-controller="Order" asp-action="DetailsOfOrder" asp-route-id="@order.Id" class="btn btn-outline-info">
                                 <i class="fa-solid fa-pen-to-square"></i> Details
                             </a>
 

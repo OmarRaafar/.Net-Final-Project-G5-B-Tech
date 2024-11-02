@@ -32,7 +32,7 @@ namespace WebApplication1
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
 
@@ -146,12 +146,23 @@ namespace WebApplication1
                 options.SupportedUICultures = supportedCultures;
             });
 
+            //builder.Services.AddTransient<DataSeederB>();
+
+
+
 
             builder.Services.AddControllersWithViews();
            
             var app = builder.Build();
 
 
+            //using (var scope = app.Services.CreateScope())
+            //{
+            //    var seeder = scope.ServiceProvider.GetRequiredService<DataSeederB>();
+            //    await seeder.SeedAsync(); // Call the seed method asynchronously
+            //}
+
+          
             //using (var serviceScope = app.Services.GetService<IServiceScopeFactory>().CreateScope())
             //{
             //    var services = serviceScope.ServiceProvider;
@@ -190,10 +201,10 @@ namespace WebApplication1
 
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Admin}/{action=Login}/{id?}");
+                pattern: "{controller=Home}/{action=Index}/{id?}");
             app.MapRazorPages();
 
-            app.Run();
+            await app.RunAsync();
         }
     }
 }

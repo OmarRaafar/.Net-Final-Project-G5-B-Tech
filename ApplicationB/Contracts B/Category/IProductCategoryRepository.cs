@@ -22,5 +22,6 @@ namespace ApplicationB.Contracts_B.Category
         Task<List<ProductCategoryB>> GetSubCategoriesAsync();
         Task<List<MainCategoryWithSubCategoriesDTO>> GetSubCategoriesByMainCategoryIdAsync(int mainCategoryId);
         Task<IEnumerable<ProductCategoryB>> GetCategoriesByProductIdAsync(int productId);
+        Task<List<ProductCategoryB>> GetByProductIdAsync(int productId);
     }
 }

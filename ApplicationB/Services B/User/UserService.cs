@@ -32,7 +32,7 @@ namespace ApplicationB.Services_B.User
         public string GetCurrentUserId()
         {
             var userId = _httpContextAccessor.HttpContext?.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            return userId != null ? userId : "0"; 
+            return userId != null ? userId : "38981d39-6f02-4c16-a231-292adf2e5637"; 
         }
         public async Task<IEnumerable<UserDto>> GetAllAppUsersAsync()
         {

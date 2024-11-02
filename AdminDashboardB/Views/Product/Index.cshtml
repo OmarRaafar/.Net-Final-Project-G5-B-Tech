@@ -51,11 +51,19 @@
             <input type="search" class="form-control" name="searchString" placeholder="Search Products" value="@ViewBag.SearchString" aria-label="Search">
         </div>
 
+            
+
         <!-- Submit Button -->
         <div class="text-center">
             <button type="submit" class="btn btn-primary">Search & Filter</button>
         </div>
     </form>
+        <div class="col-12 col-md-3 text-center mt-3 mt-md-0">
+            <a asp-action="Create" class="shadow btn btn-success">
+                <i class="fa-solid fa-plus me-2"></i>Add New Product
+            </a>
+        </div>
+        
 </div>
 
 

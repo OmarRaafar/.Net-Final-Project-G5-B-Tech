@@ -1,8 +1,12 @@
-﻿using ApplicationB.Contracts_B.Category;
+﻿using ApplicationB.Contracts_B;
+using ApplicationB.Contracts_B.Category;
 using AutoMapper;
 using DTOsB.Category;
+using DTOsB.Product;
 using DTOsB.Shared;
 using ModelsB.Category_B;
+using ModelsB.Product_B;
+using PayPalCheckoutSdk.Orders;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -54,25 +58,64 @@ namespace ApplicationB.Services_B.Category
             }
         }
 
-        public async Task<ResultView<ProductCategoryDto>> UpdateAsync(ProductCategoryDto productCategoryDto)
+        public async Task<ResultView<List<ProductCategoryDto>>> UpdateAsync(List<ProductCategoryDto> productCategoryDto)
         {
+            if (productCategoryDto == null || !productCategoryDto.Any())
+            {
+                return ResultView<List<ProductCategoryDto>>.Failure("Input data is empty. Unable to update.");
+            }
+
+            var productId = productCategoryDto[0].ProductId;
+            var existingProductCategories = await _repository.GetByProductIdAsync(productId);
+
+            if (existingProductCategories == null || !existingProductCategories.Any())
+            {
+                return ResultView<List<ProductCategoryDto>>.Failure("Product not found. Unable to update.");
+            }
+
             try
             {
-                var productCategory = _mapper.Map<ProductCategoryB>(productCategoryDto);
-                await _repository.UpdateAsync(productCategory);
-                return ResultView<ProductCategoryDto>.Success(productCategoryDto);
+                // Delete existing categories for the product
+                foreach (var item in existingProductCategories)
+                {
+                    await _repository.DeleteAsync(item.ProductId, item.CategoryId);
+                }
+
+                // Add new categories
+                var newProductCategories = _mapper.Map<List<ProductCategoryB>>(productCategoryDto);
+                foreach (var item in newProductCategories)
+                {
+                    await _repository.AddAsync(item);
+                }
+
+                return ResultView<List<ProductCategoryDto>>.Success(productCategoryDto);
             }
             catch (Exception ex)
             {
-                return ResultView<ProductCategoryDto>.Failure($"Failed to update Product-Category: {ex.Message}");
+                // Log the exception (if logging is implemented)
+                return ResultView<List<ProductCategoryDto>>.Failure($"Failed to update Product-Category. Error: {ex.Message}");
             }
         }
+
 
         public async Task<ResultView<bool>> DeleteAsync(int productId, int categoryId)
         {
             try
             {
                 await _repository.DeleteAsync(productId, categoryId);
+                return ResultView<bool>.Success(true);
+            }
+            catch (Exception ex)
+            {
+                return ResultView<bool>.Failure($"Failed to delete Product-Category: {ex.Message}");
+            }
+        }
+
+        public async Task<ResultView<bool>> DeleteByProductIdAsync(int productId)
+        {
+            try
+            {
+                await _repository.DeleteAsync(productId);
                 return ResultView<bool>.Success(true);
             }
             catch (Exception ex)

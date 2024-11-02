@@ -55,9 +55,10 @@ namespace B_Tech.API.Controllers
 
             // Update quantity
             AddOrUpdateOrderItemBDTO updatedOrderItem = mapper.Map<AddOrUpdateOrderItemBDTO>(orderItem);
+            updatedOrderItem.Quantity = newQuantity;
             await orderItemService.UpdateOrderItemAsync(updatedOrderItem);
 
-            return Ok("Order item quantity updated successfully.");
+            return Ok(new { message = "Order item quantity updated successfully." });
         }
 
 
@@ -75,7 +76,7 @@ namespace B_Tech.API.Controllers
 
             await orderService.DeleteOrderAsync(orderId);
 
-            return Ok("Order and all related items have been canceled.");
+            return Ok(new { message = "Order and all related items have been canceled." });
         }
 
         //*******************************************************
@@ -87,12 +88,12 @@ namespace B_Tech.API.Controllers
 
             if (orderItem == null || orderItem.IsDeleted == true)
             {
-                return NotFound("Order item not found.");
+                return NotFound(new { message = "Order item not found." });
             }
 
             await orderItemService.DeleteOrderItemAsync(orderItemId);
 
-            return Ok("Order item deleted successfully.");
+            return Ok(new { message = "Order item deleted successfully." });
         }
 
 
@@ -175,7 +176,7 @@ namespace B_Tech.API.Controllers
 
             }
 
-            return Ok("Product added to cart successfully.");
+            return Ok(new { message = "Product added successfully" });
         }
 
         //****************************************************************************
