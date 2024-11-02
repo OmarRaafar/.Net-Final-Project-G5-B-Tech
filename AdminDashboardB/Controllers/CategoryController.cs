@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 namespace DTOsB.Controllers
 {
 
-    [Authorize(Roles = "Admin")]
+    //[Authorize(Roles = "Admin")]
     public class CategoryController : Controller
     {
         private readonly ICategoryService _categoryService;
@@ -110,29 +110,30 @@ namespace DTOsB.Controllers
                     // Check if translations are added
                     if (model.Translations == null || !model.Translations.Any())
                     {
-                        throw new Exception("At least one translation is required.");
+                        ModelState.AddModelError("", "At least one translation is required.");
                     }
+                   
 
-                    await _categoryService.AddCategoryAsync(model, imageFile);
-                    return RedirectToAction("Index", "Category"); // Redirect to the category list
-                }
+                await _categoryService.AddCategoryAsync(model, imageFile);
+                return RedirectToAction("Index", "Category"); // Redirect to the category list
+            }
                 catch (Exception ex)
                 {
-                    ModelState.AddModelError("", ex.Message);
+                ModelState.AddModelError("", ex.Message);
+            }
+        }
+            if (!ModelState.IsValid)
+            {
+                foreach (var entry in ModelState)
+                {
+                    var errors = entry.Value.Errors;
+                    foreach (var error in errors)
+                    {
+
+                        Console.WriteLine($"Error in {entry.Key}: {error.ErrorMessage}");
+                    }
                 }
             }
-            //if (!ModelState.IsValid)
-            //{
-            //    foreach (var entry in ModelState)
-            //    {
-            //        var errors = entry.Value.Errors;
-            //        foreach (var error in errors)
-            //        {
-
-            //            Console.WriteLine($"Error in {entry.Key}: {error.ErrorMessage}");
-            //        }
-            //    }
-            //}
             // Reload the languages if the model state is invalid
             var languages = await _languageService.GetAllLanguagesAsync();
             ViewBag.Languages = languages.Select(l => new SelectListItem

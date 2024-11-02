@@ -18,7 +18,7 @@ using ModelsB.Product_B;
 
 namespace DTOsB.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    //[Authorize(Roles = "Admin")]
 
     public class ProductController : Controller
     {
