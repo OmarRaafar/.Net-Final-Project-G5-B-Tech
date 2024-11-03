@@ -117,6 +117,8 @@ namespace InfrastructureB.Category
                     .Include(pc => pc.Category)
                         .ThenInclude(c => c.Translations)
                     .Where(pc => pc.IsMainCategory)
+                    .GroupBy(pc => pc.CategoryId) // Grouping here to ensure distinctness
+                    .Select(g => g.FirstOrDefault()) // Select first from each group
                     .ToListAsync();
             }
             public async Task<List<ProductCategoryB>> GetSubCategoriesAsync()
@@ -126,6 +128,8 @@ namespace InfrastructureB.Category
                         .ThenInclude(c => c.Translations)
                     //.Include(pc => pc.Product)
                     .Where(pc => !pc.IsMainCategory)
+                    .GroupBy(pc => pc.CategoryId) // Grouping here to ensure distinctness
+                    .Select(g => g.FirstOrDefault()) // Select first from each group
                     .ToListAsync();
             }
             public async Task<List<MainCategoryWithSubCategoriesDTO>> GetSubCategoriesByMainCategoryIdAsync(int mainCategoryId)
