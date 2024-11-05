@@ -39,9 +39,9 @@ namespace B_Tech.API.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            var userLanguage = GetUserLanguage();
-            languageService.SetCurrentLanguageCode(userLanguage);
-            var products = await productService.GetAllProductsAsync();
+            //var userLanguage = GetUserLanguage();
+            //languageService.SetCurrentLanguageCode(userLanguage);
+            var products = await productService.GetAllProductsWithoutLangAsync();
             return Ok(products);
         }
 

@@ -18,7 +18,7 @@ namespace ApplicationB.Services_B.Product
         Task<ResultView<IEnumerable<ProductDto>>> SearchProductsByNameAsync(string name);
         public Task<EntityPaginatedB<ProductDto>> GetAllPaginatedAsync(int pageNumber, int Count);
         Task<ResultView<bool>> DeleteProductModelAsync(int productId);
-
+        Task<ResultView<IEnumerable<ProductDto>>> GetAllProductsWithoutLangAsync();
         Task<EntityPaginatedB<ProductDto>> GetAllPaginatedByLanguageAsync(int pageNumber, int count, int languageId);
     }
 }
