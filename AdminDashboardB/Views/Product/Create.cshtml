@@ -8,7 +8,8 @@
     ViewData["Title"] = "Create";
     var categories = ViewBag.Categories as List<DTOsB.Category.GetAllCategoriesDTO>;
 }
-<div class="container my-5 p-4  shadow rounded col-md-12">
+
+<div class="container my-5 p-4  shadow rounded col-md-8">
    @*  <form asp-action="Index" method="get">
         <select name="selectedLanguageId" onchange="this.form.submit()">
             <option value="">Select Language</option>
@@ -180,7 +181,7 @@
         </form>
     </div>
 </div>
-</div>
+
 <script>
 document.getElementById('addSpec').addEventListener('click', function () {
     const specCount = document.querySelectorAll('.specification-entry').length;
@@ -209,4 +210,4 @@ document.getElementById('addSpec').addEventListener('click', function () {
     document.getElementById('specificationsContainer').appendChild(specContainer);
 });
 
-    
+    </script>

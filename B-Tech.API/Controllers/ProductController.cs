@@ -39,11 +39,26 @@ namespace B_Tech.API.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            var userLanguage = GetUserLanguage();
-            languageService.SetCurrentLanguageCode(userLanguage);
-            var products = await productService.GetAllProductsAsync();
+            //var userLanguage = GetUserLanguage();
+            //languageService.SetCurrentLanguageCode(userLanguage);
+            var products = await productService.GetAllProductsWithoutLangAsync();
             return Ok(products);
         }
+
+        [HttpGet("GetPaginated")]
+        public async Task<IActionResult> GetPaginated([FromQuery] int pageNumber, [FromQuery] int pageSize)
+        {
+            var userLanguage = GetUserLanguage();
+            languageService.SetCurrentLanguageCode(userLanguage);
+
+            var lang = languageService.GetCurrentLanguageCode();
+            var products = await productService.GetAllPaginatedByLanguageAsync(pageNumber, pageSize, lang);
+
+            return Ok(products);
+        }
+
+
+
         [HttpGet("{id}")]
         public async Task<IActionResult> Details(int id)
         {

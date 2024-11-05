@@ -28,6 +28,7 @@ using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using ModelsB.Authentication_and_Authorization_B;
+using PayPalCheckoutSdk.Core;
 using System.Globalization;
 using System.Text;
 
@@ -38,7 +39,7 @@ namespace B_Tech.API
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
-
+     
             // Add services to the container.
             builder.Services.AddDbContext<BTechDbContext>(options =>
          options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
@@ -66,9 +67,11 @@ namespace B_Tech.API
 
             builder.Services.AddIdentity<ApplicationUserB, IdentityRole>().AddEntityFrameworkStores<BTechDbContext>()
                   .AddRoles<IdentityRole>();
-           
 
 
+            //builder.Services.AddSingleton(new PayPalHttpClient(new PayPalEnvironment.Sandbox(
+            //             configuration["PayPal:ClientId"],
+            //        configuration["PayPal:Secret"])));
 
             //builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 

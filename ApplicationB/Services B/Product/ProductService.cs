@@ -123,6 +123,16 @@ public class ProductService: IProductService
 
         }
 
+        public async Task<ResultView<IEnumerable<ProductDto>>> GetAllProductsWithoutLangAsync()
+        {
+           
+            var filteredProducts = await _productRepository.GetAllAsync();
+
+            var productDtos = _mapper.Map<IEnumerable<ProductDto>>(filteredProducts);
+            return ResultView<IEnumerable<ProductDto>>.Success(productDtos);
+
+        }
+
 
         public async Task<ResultView<IEnumerable<ProductDto>>> SearchProductsByNameAsync(string name)
         {
@@ -301,28 +311,31 @@ public class ProductService: IProductService
             
             var productsPaginated = await _productRepository.GetAllPaginatedAsync(pageNumber, count);
 
-           
+
             var productDtos = productsPaginated.Data.Select(product => new ProductDto
             {
                 Id = product.Id,
                 Price = product.Price,
                 StockQuantity = product.StockQuantity,
+                CreatedBy = product.CreatedBy,
+                UpdatedBy = product.UpdatedBy,
+                IsDeleted = product.IsDeleted,
 
-                
                 Translations = _mapper.Map<List<ProductTranslationDto>>(
-                    product.Translations.FirstOrDefault(t => t.LanguageId == languageId)
+                    product.Translations.Where(t => t.LanguageId == languageId).ToList()
                 ),
 
-             
+
                 Images = _mapper.Map<List<ProductImageDto>>(product.Images),
 
-                
+
+
                 Specifications = product.Specifications.Select(spec => new ProductSpecificationDto
                 {
-                    
-                    
+
+
                     Translations = _mapper.Map<List<ProductSpecificationTranslationDto>>(
-                        spec.Translations.FirstOrDefault(st => st.LanguageId == languageId)
+                        spec.Translations.Where(t => t.LanguageId == languageId).ToList()
                     )
                 }).ToList()
             });

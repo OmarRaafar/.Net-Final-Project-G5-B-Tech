@@ -117,6 +117,7 @@ namespace InfrastructureB.Category
                     .Include(pc => pc.Category)
                         .ThenInclude(c => c.Translations)
                     .Where(pc => pc.IsMainCategory)
+                    //.Distinct()
                     .ToListAsync();
             }
             public async Task<List<ProductCategoryB>> GetSubCategoriesAsync()
@@ -126,6 +127,7 @@ namespace InfrastructureB.Category
                         .ThenInclude(c => c.Translations)
                     //.Include(pc => pc.Product)
                     .Where(pc => !pc.IsMainCategory)
+                    //.Distinct()
                     .ToListAsync();
             }
             public async Task<List<MainCategoryWithSubCategoriesDTO>> GetSubCategoriesByMainCategoryIdAsync(int mainCategoryId)
@@ -142,7 +144,7 @@ namespace InfrastructureB.Category
                                   .ThenInclude(c => c.Translations) // Include translations if required
                            .Select(pc => pc.Category) // 4. Select only the Category part
                            .ToList() // Convert subcategories to a list
-                   })
+                   })//.Distinct()
                    .ToListAsync(); // Finally, convert the main categories with their subcategories into a list asynchronously
             }
 
