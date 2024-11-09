@@ -50,7 +50,7 @@ namespace DTOsB.Controllers
             {
                 ViewBag.ErrorMessage = result.Msg;
                 ViewBag.Languages = await _languageService.GetAllLanguagesAsync();
-                return View("Index", new List<GetAllCategoriesDTO>());
+                return View("Index", new List<GetAllCategoriesDTO>()); 
             }
 
             var categories = result.Entity;
@@ -77,11 +77,15 @@ namespace DTOsB.Controllers
                 {
                     return NotFound(allCategoriesResult.Msg);
                 }
-                categories = allCategoriesResult.Entity;
+                categories = allCategoriesResult.Entity; 
             }
 
-            ViewBag.Languages = await _languageService.GetAllLanguagesAsync();
-            return View("Index", categories);
+            ViewBag.Languages = await _languageService.GetAllLanguagesAsync(); 
+            return View("Index", categories); 
+
+
+
+
         }
 
 
@@ -144,11 +148,11 @@ namespace DTOsB.Controllers
 
             return View(model);
         }
-
-        public async Task<IActionResult> Edit(int id)
-        {
-            var category = await _categoryService.GetCategoryByIdAsync(id);
-            if (!category.IsSuccess || category.Entity == null)
+            if (!category.IsSuccess ||category.Entity == null)
+            if (category == null)
+            if (category == null)
+            if (category == null)
+            if (category == null)
             {
                 return NotFound();
             }
@@ -206,12 +210,12 @@ namespace DTOsB.Controllers
         public async Task<IActionResult> Delete(int id)
         {
             var categoryEntity = await _categoryService.GetCategoryByIdAsync(id);
-            if (categoryEntity == null)
-            {
-                return NotFound();
-            }
-            var categoryDto = _mapper.Map<GetAllCategoriesDTO>(categoryEntity.Entity);
-
+            var categoryDto = _mapper.Map<GetAllCategoriesDTO>(categoryEntity);
+           
+            var categoryDto = _mapper.Map<GetAllCategoriesDTO>(categoryEntity);
+            var categoryDto = _mapper.Map<GetAllCategoriesDTO>(categoryEntity);
+            var categoryDto = _mapper.Map<GetAllCategoriesDTO>(categoryEntity);
+            var categoryDto = _mapper.Map<GetAllCategoriesDTO>(categoryEntity);
             return View(categoryDto);
         }
 

@@ -74,6 +74,27 @@ namespace B_Tech.API.Controllers
         }
 
 
+        public async Task<IActionResult> GetProductsByCategoryName(string categoryName)
+        {
+            try
+            {
+                var products = await _categoryService.GetProductsByCategoryNameAsync(categoryName);
+                if (products == null || !products.Any())
+                {
+                    return NotFound($"No products found for category: {categoryName}");
+                }
+                return Ok(products);
+            }
+            catch (Exception ex)
+                result = await _categoryService.GetAllCategoriesAsync();
+            }
+
+            if (result.IsSuccess)
+            {
+                return Ok(result.Entity);
+                return BadRequest(new { message = ex.Message });
+            }
+            return BadRequest(result.Msg);
         //GET: api/Category/FilterByLanguage?languageId=2
         [HttpGet("FilterByLanguage")]
         public async Task<IActionResult> FilterByLanguage(int languageId)
@@ -82,27 +103,6 @@ namespace B_Tech.API.Controllers
 
             if (languageId > 0)
             {
-                result = await _categoryService.GetCategoriesByLanguageAsync(languageId);
-            }
-            else
-            {
-                result = await _categoryService.GetAllCategoriesAsync();
-            }
-
-            if (result.IsSuccess)
-            {
-                return Ok(result.Entity);
-            }
-
-            return BadRequest(result.Msg);
-        }
-        //GET: api/Category/GetLanguages
-        [HttpGet("GetLanguages")]
-        public async Task<IActionResult> GetLanguages()
-        {
-            var languages = await _languageService.GetAllLanguagesAsync();
-            return Ok(languages);
-        }
 
         // GET: api/Category/GetProductsByCategoryName/{categoryName}
         [HttpGet("GetProductsByCategoryName/{categoryName}")]
@@ -117,25 +117,25 @@ namespace B_Tech.API.Controllers
 
             return Ok(result.Entity);
         }
-
+            }
         // GET: api/Category/GetProductsByCategoryId/{categoryId}
         [HttpGet("GetProductsByCategoryId/{categoryId}")]
-        public async Task<IActionResult> GetProductsByCategoryId(int categoryId)
-        {
-            var result = await _productCategoryService.GetProductsByCategoryIdAsync(categoryId);
-
-            if (!result.IsSuccess)
             {
-                return NotFound(result.Msg);
+                categories = await _categoryService.GetAllCategoriesAsync();
             }
 
-            return Ok(result.Entity);
+            return Ok(categories); 
         }
-
-        // GET: api/Category/GetMainCategories
-        [HttpGet("GetMainCategories")]
-        public async Task<IActionResult> GetMainCategories()
+        //GET: api/Category/GetLanguages
+        [HttpGet("GetLanguages")]
+        public async Task<IActionResult> GetLanguages()
         {
+            var languages = await _languageService.GetAllLanguagesAsync();
+            return Ok(languages);
+        }
+    
+
+         [HttpGet("GetProductsByCategoryId/{categoryId}")]
             var result = await _productCategoryService.GetMainCategoriesAsync();
 
             if (!result.IsSuccess)
@@ -153,13 +153,13 @@ namespace B_Tech.API.Controllers
             var result = await _productCategoryService.GetSubCategoriesAsync();
 
             if (!result.IsSuccess)
-            {
+        // GET: api/Category/GetMainCategories
                 return NotFound(result.Msg);
             }
 
             return Ok(result.Entity);
         }
-
+            try
         //api/Category/subcategories
         [HttpGet("subcategories/{id}")]
         public async Task<IActionResult> GetSubCategoriesById(int id)
@@ -170,8 +170,24 @@ namespace B_Tech.API.Controllers
             {
                 return NotFound(result.Msg); // Return a 404 if not found
             }
-
+                var mainCategories = await _categoryService.GetMainCategoriesAsync();
             return Ok(result.Entity); // Return a 200 with the entity
         }
+    }
+}
+            {
+                return NotFound(result.Msg);
+            }
+
+                return Ok(mainCategories); 
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
+
+
+
     }
 }

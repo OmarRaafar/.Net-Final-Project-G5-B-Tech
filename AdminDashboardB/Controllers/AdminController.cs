@@ -208,6 +208,8 @@ namespace DTOsB.Controllers
         }
         [AllowAnonymous]
         [HttpPost]
+        [AllowAnonymous]
+
         public async Task<IActionResult> CreateUser(RegisterDto model)
         {
             if (ModelState.IsValid)
@@ -221,7 +223,7 @@ namespace DTOsB.Controllers
                 //    City = model.City,
                 //    Country = model.Country,
                 //    PostalCode = model.PostalCode,
-                //    UserType = model.UserType, 
+                //    UserType = model.UserType,
                 //};
                 var existingEmail = await _userManager.FindByEmailAsync(model.Email);
                 if (existingEmail != null)
