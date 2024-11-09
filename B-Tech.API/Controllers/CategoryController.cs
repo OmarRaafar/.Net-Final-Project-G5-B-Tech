@@ -57,15 +57,9 @@ namespace B_Tech.API.Controllers
             {
                 var category = await _categoryService.GetCategoryByIdAsync(id);
 
-                if (category.Entity == null)
-                {
-                    return NotFound($"Category with id {id} not found");
-                }
-
-                var categoryDto = _mapper.Map<GetAllCategoriesDTO>(category.Entity);
+                var categoryDto = _mapper.Map<GetAllCategoriesDTO>(category);
 
                 return Ok(categoryDto);
-               
             }
             catch (Exception ex)
             {

@@ -4,6 +4,7 @@ using ApplicationB.Services_B.General;
 using ApplicationB.Services_B.User;
 using AutoMapper;
 using DTOsB.Category;
+using DTOsB.Product;
 using DTOsB.Shared;
 using Microsoft.AspNetCore.Http;
 using ModelsB.Category_B;
@@ -38,7 +39,7 @@ namespace ApplicationB.Services_B.Category
         {
             var categories = await _categoryRepository.GetAllAsync();
             var activeCategories = categories.Where(c => !c.IsDeleted);
-            var category = _mapper.Map<IEnumerable<GetAllCategoriesDTO>>(activeCategories);
+            var category= _mapper.Map<IEnumerable<GetAllCategoriesDTO>>(activeCategories);
             return ResultView<IEnumerable<GetAllCategoriesDTO>>.Success(category);
         }
         public async Task<ResultView<IEnumerable<GetAllCategoriesDTO>>> GetCategoriesByLanguageAsync(int languageId)
@@ -75,7 +76,7 @@ namespace ApplicationB.Services_B.Category
 
             // Retrieve categories and filter by name
             var categories = await _categoryRepository.GetAllAsync();
-
+           
             var filteredCategories = categories
                     .Where(c => c.Translations.Any(t =>
                         t.CategoryName.Contains(categoryName, StringComparison.OrdinalIgnoreCase)))
@@ -101,7 +102,7 @@ namespace ApplicationB.Services_B.Category
             }
 
             return ResultView<IEnumerable<GetAllCategoriesDTO>>.Success(mappedCategories);
-
+          
         }
         public async Task<ResultView<string>> AddCategoryAsync(CreateOrUpdateCategoriesDTO createCategoryDto, IFormFile imageFile)
         {
@@ -169,20 +170,20 @@ namespace ApplicationB.Services_B.Category
                 }
 
                 // Associate products if provided
-                //if (createCategoryDto.ProductIds != null && createCategoryDto.ProductIds.Any())
-                //{
-                //    foreach (var productId in createCategoryDto.ProductIds)
-                //    {
-                //        // Create ProductCategoryB entity
-                //        var productCategoryEntity = new ProductCategoryB
-                //        {
-                //            ProductId = productId,
-                //            Category = category,
-                //            IsMainCategory = translation.IsMainCategory
-                //        };
-                //        category.ProductCategories.Add(productCategoryEntity);
-                //    }
-                //}
+                if (createCategoryDto.ProductIds != null && createCategoryDto.ProductIds.Any())
+                {
+                    foreach (var productId in createCategoryDto.ProductIds)
+                    {
+                        // Create ProductCategoryB entity
+                        var productCategoryEntity = new ProductCategoryB
+                        {
+                            ProductId = productId,
+                            Category = category,
+                            IsMainCategory = translation.IsMainCategory
+                        };
+                        category.ProductCategories.Add(productCategoryEntity);
+                    }
+                }
             }
 
             // Log category data to check before saving
@@ -210,7 +211,7 @@ namespace ApplicationB.Services_B.Category
                 var newImageUrl = await HandleImageUploadAsync(imageFile);
                 if (string.IsNullOrEmpty(newImageUrl))
                 {
-                    categoryEntity.ImageUrl = existingImageUrl;
+                    categoryEntity.ImageUrl = existingImageUrl; 
                     return ResultView<string>.Failure("Image upload failed. Please provide a valid image.");
                 }
                 categoryEntity.ImageUrl = newImageUrl;
@@ -274,14 +275,14 @@ namespace ApplicationB.Services_B.Category
 
         public async Task<ResultView<string>> DeleteCategoryAsync(int id)
         {
-            var categoryEntity = await _categoryRepository.GetByIdAsync(id);
-            if (categoryEntity == null)
-            {
-                return ResultView<string>.Failure($"Category with ID {id} not found.");
-            }
+                var categoryEntity = await _categoryRepository.GetByIdAsync(id);
+                if (categoryEntity == null)
+                {
+                 return ResultView<string>.Failure($"Category with ID {id} not found.");
+                }
             // Check if the category is linked to any products or subcategories
             if (categoryEntity.ProductCategories.Any())
-            {
+                 {
                 // You can choose to throw an exception, log a warning, or handle it accordingly
                 return ResultView<string>.Failure($"Category with ID {id} cannot be deleted because it has associated products or subcategories.");
             }
@@ -297,9 +298,9 @@ namespace ApplicationB.Services_B.Category
         }
 
         public async Task<string> HandleImageUploadAsync(IFormFile imageFile)
-        {
-            if (imageFile == null || imageFile.Length == 0)
-                return null;
+            {
+                if (imageFile == null || imageFile.Length == 0)
+                    return null;
 
             //Logic to save the image to a folder and return the file path or URL
             var fileName = Path.GetFileNameWithoutExtension(imageFile.FileName);
@@ -316,6 +317,7 @@ namespace ApplicationB.Services_B.Category
 
             return $"/ImageUrls/categories/{newFileName}"; // Return the relative URL or path        
         }
+
 
     }
 }

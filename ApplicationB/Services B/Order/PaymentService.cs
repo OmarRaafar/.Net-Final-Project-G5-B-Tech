@@ -1,4 +1,9 @@
-﻿using PayPalCheckoutSdk.Core;
+﻿using ApplicationB.Contracts_B.Order;
+using AutoMapper;
+using DTOsB.Order.PaymentDTO;
+using DTOsB.Shared;
+using ModelsB.Order_B;
+using PayPalCheckoutSdk.Core;
 using PayPalCheckoutSdk.Orders;
 using System;
 using System.Collections.Generic;
@@ -12,18 +17,32 @@ namespace ApplicationB.Services_B.Order
 {
     public class PaymentService : IPaymentService
     {
-        public async Task<string> CreatePayment(decimal amount, string currency)
+        //public async Task<string> CreatePaymentAsync(decimal amount, string currency)
+        //{
+        //    var request = new OrdersCreateRequest();
+        //    request.Prefer("return=representation");
+        //    request.RequestBody(BuildRequestBody(amount, currency));
+
+        //    var response = await PayPalConfig.GetClient().Execute(request);
+        //    var result = response.Result<PayPalCheckoutSdk.Orders.Order>();
+
+        //    // Extract the approval URL
+        //    var approvalUrl = result.Links.FirstOrDefault(link => link.Rel == "approve")?.Href;
+        //    return approvalUrl; // Send this URL back to the client to redirect to PayPal
+        //}
+        private readonly IMapper mapper;
+        private readonly IPaymentRepository paymentRepository;
+
+        public PaymentService(IMapper _mapper, IPaymentRepository _paymentRepository)
         {
-            var request = new OrdersCreateRequest();
-            request.Prefer("return=representation");
-            request.RequestBody(BuildRequestBody(amount, currency));
-
-            var response = await PayPalConfig.GetClient().Execute(request);
-            var result = response.Result<PayPalCheckoutSdk.Orders.Order>();
-
-            // Extract the approval URL
-            var approvalUrl = result.Links.FirstOrDefault(link => link.Rel == "approve")?.Href;
-            return approvalUrl; // Send this URL back to the client to redirect to PayPal
+            mapper = _mapper;
+            paymentRepository = _paymentRepository;
+        }
+        public async Task<ResultView<AddOrUpdatePaymentBDTO>> CreatePaymentAsync(AddOrUpdatePaymentBDTO paymentBDTO)
+        {
+            var payment = mapper.Map<PaymentB>(paymentBDTO);
+            //await paymentRepository.AddAsync(payment);
+            return ResultView<AddOrUpdatePaymentBDTO>.Success(paymentBDTO);
         }
 
         private OrderRequest BuildRequestBody(decimal amount, string currency)

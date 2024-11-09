@@ -81,7 +81,7 @@ namespace DTOsB.Controllers
             return RedirectToAction("Login", "Admin");
         }
 
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetAllUsers()
         {
             var UserDto = await _userService.GetAllAppUsersAsync();
@@ -213,6 +213,7 @@ namespace DTOsB.Controllers
         }
         [AllowAnonymous]
         [HttpPost]
+
         public async Task<IActionResult> CreateUser(RegisterDto model)
         {
             if (ModelState.IsValid)
@@ -226,13 +227,13 @@ namespace DTOsB.Controllers
                 //    City = model.City,
                 //    Country = model.Country,
                 //    PostalCode = model.PostalCode,
-                //    UserType = model.UserType, 
+                //    UserType = model.UserType,
                 //};
                 var existingEmail = await _userManager.FindByEmailAsync(model.Email);
                 if (existingEmail != null)
-                {         
+                {
                     ModelState.AddModelError("Email", "The email address is already in use.");
-                    return View(model); 
+                    return View(model);
                 }
 
                 var user = _mapper.Map<ApplicationUserB>(model);

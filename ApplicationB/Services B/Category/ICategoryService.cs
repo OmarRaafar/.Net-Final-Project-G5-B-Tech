@@ -1,4 +1,5 @@
 ﻿using DTOsB.Category;
+using DTOsB.Product;
 using DTOsB.Shared;
 using Microsoft.AspNetCore.Http;
 using ModelsB.Category_B;

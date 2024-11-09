@@ -139,7 +139,7 @@ namespace ApplicationB.Services_B.Category
         public async Task<ResultView<List<ProductCategoryDto>>> GetProductsByCategoryIdAsync(int categoryId)
         {
             var productCategories = await _repository.GetByCategoryIdAsync(categoryId);
-           
+
             if (!productCategories.Any())
             {
                 return ResultView<List<ProductCategoryDto>>.Failure($"No products found for category with ID '{categoryId}'.");
@@ -185,9 +185,9 @@ namespace ApplicationB.Services_B.Category
             }
 
             var mappedSubCategories = mainCategoriesWithSubcategories
-                .SelectMany(mc => mc.SubCategories) 
-                .Distinct() 
-                .Select(subCategory => _mapper.Map<GetAllCategoriesDTO>(subCategory)) 
+                .SelectMany(mc => mc.SubCategories)
+                .Distinct()
+                .Select(subCategory => _mapper.Map<GetAllCategoriesDTO>(subCategory))
                 .ToList();
 
             return ResultView<IEnumerable<GetAllCategoriesDTO>>.Success(mappedSubCategories);
