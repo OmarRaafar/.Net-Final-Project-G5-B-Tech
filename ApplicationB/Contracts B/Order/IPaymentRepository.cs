@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ApplicationB.Contracts_B.Order
 {
-    public interface IPaymentRepository : IGenericRepositoryB<OrderB>
+    public interface IPaymentRepository : IGenericRepositoryB<PaymentB>
     {
     }
 }
