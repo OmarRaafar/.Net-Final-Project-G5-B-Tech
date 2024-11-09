@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace DTOsB.Controllers
 {
-    //[Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin")]
 
     public class OrderController : Controller
     {

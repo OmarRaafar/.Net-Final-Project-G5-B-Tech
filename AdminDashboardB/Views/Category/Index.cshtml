@@ -1,5 +1,12 @@
 ﻿﻿
- @model IEnumerable<DTOsB.Category.GetAllCategoriesDTO>
+@model IEnumerable<DTOsB.Category.GetAllCategoriesDTO> 
+@*  @model IPagedList<DTOsB.Category.GetAllCategoriesDTO>
+ *@
+@using X.PagedList.Mvc.Core;
+@using X.PagedList;
+
+<link rel="stylesheet" href="~/css/site.css" />
+
 <div class="container my-5 shadow p-4 rounded">
     <div class="row mb-5 mt-4 align-items-center">
         <!-- Language Filter -->
@@ -96,4 +103,58 @@
             </tbody>
         </table>
     </div>
+  
+
+        @if (Model is IPagedList<DTOsB.Category.GetAllCategoriesDTO> pagedModel)
+        {
+            <div class="d-flex justify-content-center mt-4">
+                @Html.PagedListPager(pagedModel, page => Url.Action("Index", new { page }),
+                         new PagedListRenderOptions
+            {
+                DisplayLinkToFirstPage = PagedListDisplayMode.IfNeeded,
+                DisplayLinkToLastPage = PagedListDisplayMode.IfNeeded,
+                DisplayLinkToPreviousPage = PagedListDisplayMode.Always,
+                DisplayLinkToNextPage = PagedListDisplayMode.Always
+            })
+            </div>
+        }
+       
 </div>
+<style>
+
+    .pagination-container .pagination {
+        display: flex;
+        gap: 8px;
+        list-style: none;
+        padding: 0;
+    }
+
+    .pagination-container .page-item {
+        border-radius: 5px;
+        border: 1px solid #007bff;
+    }
+
+        .pagination-container .page-item a {
+            color: #007bff;
+            padding: 10px 15px;
+            text-decoration: none;
+            display: block;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .pagination-container .page-item:hover a {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        .pagination-container .page-item:first-child a {
+            margin-left: 0;
+        }
+
+        .pagination-container .page-item:last-child a {
+            margin-right: 0;
+        }
+
+
+
+</style>

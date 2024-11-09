@@ -146,7 +146,7 @@ namespace InfrastructureB.Category
                                   .ThenInclude(c => c.Translations) // Include translations if required
                            .Select(pc => pc.Category) // 4. Select only the Category part
                            .ToList() // Convert subcategories to a list
-                   })
+                   })//.Distinct()
                    .ToListAsync(); // Finally, convert the main categories with their subcategories into a list asynchronously
             }
 

@@ -3,6 +3,7 @@ using DbContextB;
 using DTOsB.Shared;
 using InfrastructureB.General;
 using Microsoft.EntityFrameworkCore;
+using ModelsB.Localization_B;
 using ModelsB.Product_B;
 using System;
 using System.Collections.Generic;
@@ -38,10 +39,9 @@ namespace InfrastructureB.Product
 
         public override async Task<IQueryable<ProductB>> GetAllAsync()
         {
-            
-            return await Task.FromResult(_context.Products.Where(p => !p.IsDeleted).Include(p => p.Translations)
-                .Include(p => p.Images));
-
+            var products = _context.Products.Where(p => !p.IsDeleted).Include(p => p.Translations).Include(p => p.Images)
+                .Include(p=>p.Specifications).ThenInclude(p=>p.Translations);
+            return products;
         }
 
         public async Task<IQueryable<ProductB>> GetFilteredProductsAsync(int languageId)

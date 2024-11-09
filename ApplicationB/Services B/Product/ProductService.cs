@@ -123,6 +123,16 @@ public class ProductService: IProductService
 
         }
 
+        public async Task<ResultView<IEnumerable<ProductDto>>> GetAllProductsWithoutLangAsync()
+        {
+           
+            var filteredProducts = await _productRepository.GetAllAsync();
+
+            var productDtos = _mapper.Map<IEnumerable<ProductDto>>(filteredProducts);
+            return ResultView<IEnumerable<ProductDto>>.Success(productDtos);
+
+        }
+
 
         public async Task<ResultView<IEnumerable<ProductDto>>> SearchProductsByNameAsync(string name)
         {

@@ -19,7 +19,7 @@ using PayPalCheckoutSdk.Orders;
 
 namespace DTOsB.Controllers
 {
-    //[Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin")]
 
     public class ProductController : Controller
     {
@@ -55,8 +55,8 @@ namespace DTOsB.Controllers
         public async Task<IActionResult> Index(string searchString, int? selectedLanguageId, int? selectedCategoryId)
         {
             ViewBag.SearchString = searchString;
-           
-            
+
+
 
             var availableLanguages = await languageService.GetAllLanguagesAsync();
             ViewBag.AvailableLanguages = availableLanguages;
@@ -78,7 +78,7 @@ namespace DTOsB.Controllers
                 products = await productService.SearchProductsByNameAsync(searchString);
             }
 
-          
+
 
             if (selectedCategoryId > 0)
             {
@@ -134,7 +134,7 @@ namespace DTOsB.Controllers
 
         public async Task<IActionResult> Create()
         {
-           
+
             var categories = await categoryService.GetAllCategoriesAsync();
             ViewBag.Categories = categories.Entity;
 
@@ -144,15 +144,15 @@ namespace DTOsB.Controllers
         // POST: Products/Create
         [HttpPost]
         //[ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(ProductCreateOrUpdateDto productDto,List<GetAllCategoriesDTO> SelectedCategories)
+        public async Task<IActionResult> Create(ProductCreateOrUpdateDto productDto, List<GetAllCategoriesDTO> SelectedCategories)
         {
             //if (ModelState.IsValid)
             //{
-           
-            productDto.CreatedBy =  _userService.GetAppUserByIdAsync( _userService.GetCurrentUserId()).Result.UserName;
+
+            productDto.CreatedBy = _userService.GetAppUserByIdAsync(_userService.GetCurrentUserId()).Result.UserName;
             productDto.UpdatedBy = _userService.GetAppUserByIdAsync(_userService.GetCurrentUserId()).Result.UserName;
 
-           
+
 
             var result = await productService.CreateProductAsync(productDto);
             if (!result.IsSuccess)
@@ -196,17 +196,17 @@ namespace DTOsB.Controllers
                 {
                     CategoryId = SelectedCategories[i].Id,
                     ProductId = result.Entity.Id,
-                    IsMainCategory = (i==0)? true : false,
+                    IsMainCategory = (i == 0) ? true : false,
                 };
-                var Result =await productCategoryService.AddAsync(newItem);
-                
+                var Result = await productCategoryService.AddAsync(newItem);
+
                 if (!Result.IsSuccess)
                 {
                     ModelState.AddModelError("", Result.Msg);
                     return View(result.Entity);
                 }
             }
-           
+
             //Translations
             //foreach (var trans in productDto.Translations)
             //{
@@ -276,7 +276,7 @@ namespace DTOsB.Controllers
 
             //if (ModelState.IsValid)
             //{
-           
+
             productDto.UpdatedBy = _userService.GetAppUserByIdAsync(_userService.GetCurrentUserId()).Result.UserName;
             productDto.CreatedBy = _userService.GetAppUserByIdAsync(_userService.GetCurrentUserId()).Result.UserName;
 
@@ -284,7 +284,7 @@ namespace DTOsB.Controllers
             List<ProductCategoryDto> Items = new List<ProductCategoryDto>();
             for (int i = 0; i < SelectedCategories.Count; i++)
             {
-              
+
                 var newItem = new ProductCategoryDto
                 {
                     CategoryId = SelectedCategories[i].Id,
@@ -378,7 +378,7 @@ namespace DTOsB.Controllers
 
             if (result.IsSuccess)
             {
-                return RedirectToAction("Details", new { id = productDto.Id });
+                return RedirectToAction("Index", new { id = productDto.Id });
             }
             // Return the entire resultView to the view, since it's the expected type
             return View(resultView);
@@ -432,8 +432,8 @@ namespace DTOsB.Controllers
 
             var productB = await productService.GetProductByIdAsync(id);
             var categories = await productCategoryService.GetCategoriesByProductIdAsync(id);
-            ViewBag.ProductCategories = categories.Entity; 
-           
+            ViewBag.ProductCategories = categories.Entity;
+
             return View(productB);
         }
 

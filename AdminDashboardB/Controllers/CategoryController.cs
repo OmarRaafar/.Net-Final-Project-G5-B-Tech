@@ -6,39 +6,59 @@ using DTOsB.Category;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using X.PagedList;
+using X.PagedList.Extensions;
 
 namespace DTOsB.Controllers
 {
 
-    //[Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin")]
     public class CategoryController : Controller
     {
         private readonly ICategoryService _categoryService;
         private readonly ILanguageService _languageService;
         private readonly ICategoryRepository _categoryRepository;
         private readonly IMapper _mapper;
+        private readonly ILogger<CategoryController> _logger;
 
-        public CategoryController(ICategoryService categoryService, ILanguageService languageService, IMapper mapper, ICategoryRepository categoryRepository)
+        public CategoryController(ICategoryService categoryService, ILanguageService languageService, IMapper mapper, ICategoryRepository categoryRepository , ILogger<CategoryController> logger)
         {
             _categoryService = categoryService;
             _languageService = languageService;
             _categoryRepository = categoryRepository;
             _mapper = mapper;
+            _logger = logger;
         }
-        public async Task<IActionResult> Index()
+        
+        public async Task<IActionResult> Index(int? page)
         {
-            var result = await _categoryService.GetAllCategoriesAsync();
-
-            if (!result.IsSuccess)
+            try
             {
-                return View("Error", result.Msg);
+                var result = await _categoryService.GetAllCategoriesAsync();
+
+                if (!result.IsSuccess)
+                {
+                    return View("Error", result.Msg);
+                }
+
+                var categories = result.Entity;
+                ViewBag.Languages = await _languageService.GetAllLanguagesAsync();
+
+                int pageNumber = page ?? 1;
+                int pageSize = 4; // عدد العناصر لكل صفحة
+                var pagedCategories = categories.ToPagedList(pageNumber, pageSize) as IPagedList<DTOsB.Category.GetAllCategoriesDTO>;
+
+                return View(pagedCategories);
             }
-
-            var categories = result.Entity;
-
-            ViewBag.Languages = await _languageService.GetAllLanguagesAsync();
-            return View(categories);
+            catch (Exception ex)
+            {
+                // Log the exception here
+                _logger.LogError(ex, "Error occurred in Index action");
+                return View("Error", "An unexpected error occurred.");
+            }
         }
+
+       
         public async Task<IActionResult> Search(string name)
         {
             //var categories = await _categoryService.GetCategoryByNameAsync(name);
