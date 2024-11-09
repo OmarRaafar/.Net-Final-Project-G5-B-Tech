@@ -120,159 +120,101 @@ else
             </div>
 
 
-            <!-- Product Specifications -->
-            <@* form id="editSpecsForm" method="post" asp-action="EditSpecifications"> *@
-               <div id="specificationsContainer">
-                @for (int i = 0; i < Model.Entity.Specifications.Count; i++)
-                {
-                    var spec = Model.Entity.Specifications[i];
+              <!-- Specifications Region -->
 
-            <div class="specification-entry mb-4" data-index="@i">
-                    <input type="hidden" name="Model.Entity.Specifications[i].Id" value="@spec.Id" />
-                <!-- English Key and Value -->
-                <div class="mb-3">
-                    <label class="form-label fw-bold" for="EnKey_@i">English Key</label>
-                    <input type="text" class="form-control" id="EnKey_@i"
-                                          name="Model.Entity.Specifications[i].Translations[0].TranslatedKey"
-                           placeholder="Enter English Key" required />
-                                    <input type="hidden" name="Model.Entity.Specifications[i].Translations[0].LanguageId" value="2" />
-                </div>
-                <div class="mb-3">
-                    <label class="form-label fw-bold" for="EnValue_@i">English Value</label>
-                    <input type="text" class="form-control" id="EnValue_@i"
-                                              name="Model.Entity.Specifications[i].Translations[0].TranslatedValue"
-                         
-                           placeholder="Enter English Value" required />
-                            @*   value="@spec.Translations?.FirstOrDefault(t => t.LanguageId == 2)?.TranslatedValue" *@
-                </div>
-
-                <!-- Arabic Key and Value -->
-                <div class="mb-3">
-                    <label class="form-label fw-bold" for="ArKey_@i">Arabic Key</label>
-                    <input type="text" class="form-control" id="ArKey_@i"
-                                           name="Model.Entity.Specifications[i].Translations[1].TranslatedKey"
-                         
-                           placeholder="Enter Arabic Key" required />
-                            @*   value="@spec.Translations?.FirstOrDefault(t => t.LanguageId == 1)?.TranslatedKey" *@
-                                    <input type="hidden" name="Model.Entity.Specifications[i].Translations[1].LanguageId" value="1" />
-                </div>
-                <div class="mb-3">
-                    <label class="form-label fw-bold" for="ArValue_@i">Arabic Value</label>
-                    <input type="text" class="form-control" id="ArValue_@i"
-                                      name="Model.Entity.Specifications[i].Translations[1].TranslatedValue"
-                         
-                           placeholder="Enter Arabic Value" required />
-                            @*   value="@spec.Translations?.FirstOrDefault(t => t.LanguageId == 1)?.TranslatedValue" *@
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#specModal">
+                Add Specifications
+            </button>
+            <div class="modal fade" id="specModal" tabindex="-1" aria-labelledby="specModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="specModalLabel">Add Specifications</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form id="specForm" method="post">
+                                <div class="table-responsive shadow rounded-3">
+                                    <!-- Table structure for specifications -->
+                                    <table class="table table-hover text-center align-middle">
+                                        <thead class="text-center fw-bold shadow">
+                                            <tr>
+                                                <th>English Key</th>
+                                                <th>English Value</th>
+                                                <th>Arabic Key</th>
+                                                <th>Arabic Value</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="specificationsContainer">
+                                            <tr class="specification-entry">
+                                                <td>
+                                                    <input type="text" class="form-control" style="width: 100%;" name="Specifications[0].Translations[0].TranslatedKey" placeholder="Enter English Key" required>
+                                                    <input type="hidden" name="Specifications[0].Translations[0].LanguageId" value="2" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" style="width: 100%;" name="Specifications[0].Translations[0].TranslatedValue" placeholder="Enter English Value" required>
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" style="width: 100%;" name="Specifications[0].Translations[1].TranslatedKey" placeholder="Enter Arabic Key" required>
+                                                    <input type="hidden" name="Specifications[0].Translations[1].LanguageId" value="1" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="form-control" style="width: 100%;" name="Specifications[0].Translations[1].TranslatedValue" placeholder="Enter Arabic Value" required>
+                                                </td>
+                                                <td>
+                                                    <button type="button" class="btn btn-danger btn-sm delete-spec">Delete</button>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <!-- Button to add more specification entries -->
+                                <button type="button" class="btn btn-secondary mt-3" id="addSpec">Add More</button>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-success">Save Product</button>
+                        </div>
+                    </div>
                 </div>
             </div>
-                }
-</div>
 
 
-                <!-- Button to add more specifications -->
-                <div class="mb-3">
-                    <button type="button" class="btn btn-secondary" id="addSpec">Add More Specifications</button>
-                </div>
 
-            <!-- Submit Button -->
-            <div class="d-grid gap-2 mt-5">
-               <button type="submit" class="btn btn-success">Save Changes</button>
-            </div>
-
+            @*  <div class="d-grid gap-2 mt-5">
+            <button class="btn btn-success btn-lg shadow" type="submit">
+            Submit
+            </button>
+            </div> *@
         </form>
     </div>
 </div>
-        @* <script>
-            $('#editSpecModal').on('show.bs.modal', function (event) {
-                var button = $(event.relatedTarget); // Button that triggered the modal
-                var specId = button.data('spec-id'); // Get Specification Id
-                var enKey = button.data('en-key'); // Get English Key
-                var enValue = button.data('en-value'); // Get English Value
-                var arKey = button.data('ar-key'); // Get Arabic Key
-                var arValue = button.data('ar-value'); // Get Arabic Value
-
-                // Populate modal fields with the specification data
-                var modal = $(this);
-                modal.find('#specId').val(specId);
-                modal.find('#editEnKey').val(enKey);
-                modal.find('#editEnValue').val(enValue);
-                modal.find('#editArKey').val(arKey);
-                modal.find('#editArValue').val(arValue);
-            });
-        </script> *@
-            <script>
+<script>
     document.getElementById('addSpec').addEventListener('click', function () {
-        // Get the current number of specification entries to generate unique indexes
         const specCount = document.querySelectorAll('.specification-entry').length;
-        const specContainer = document.createElement('div');
-        specContainer.classList.add('specification-entry', 'mb-4');
-        specContainer.setAttribute('data-index', specCount);
 
-        // Generate the HTML for the new specification entry
-        specContainer.innerHTML = `
-                    <input type="hidden" name="Model.Entity.Specifications[${specCount}].Id" value="0" />
-                <!-- English Key and Value -->
-                <div class="mb-3">
-                    <label class="form-label fw-bold" for="EnKey_${specCount}">English Key</label>
-                        <input type="text" class="form-control" id="EnKey_${specCount}" name="Model.Entity.Specifications[${specCount}].Translations[0].TranslatedKey" placeholder="Enter English Key" required>
-                    <input type="hidden" name="Specifications[${specCount}].Translations[0].LanguageId" value="2" />
-                </div>
-                <div class="mb-3">
-                    <label class="form-label fw-bold" for="EnValue_${specCount}">English Value</label>
-                        <input type="text" class="form-control" id="EnValue_${specCount}" name="Model.Entity.Specifications[${specCount}].Translations[0].TranslatedValue" placeholder="Enter English Value" required>
-                </div>
-                <!-- Arabic Key and Value -->
-                <div class="mb-3">
-                    <label class="form-label fw-bold" for="ArKey_${specCount}">Arabic Key</label>
-                        <input type="text" class="form-control" id="ArKey_${specCount}" name="Model.Entity.Specifications[${specCount}].Translations[1].TranslatedKey" placeholder="Enter Arabic Key" required>
-                    <input type="hidden" name="Specifications[${specCount}].Translations[1].LanguageId" value="1" />
-                </div>
-                <div class="mb-3">
-                    <label class="form-label fw-bold" for="ArValue_${specCount}">Arabic Value</label>
-                        <input type="text" class="form-control" id="ArValue_${specCount}" name="Model.Entity.Specifications[${specCount}].Translations[1].TranslatedValue" placeholder="Enter Arabic Value" required>
-                </div>
-            `;
+        const specRow = document.createElement('tr');
+        specRow.classList.add('specification-entry');
+        specRow.innerHTML = `
+                        <td><input type="text" class="form-control" style="width: 100%;" name="Specifications[${specCount}].Translations[0].TranslatedKey" placeholder="Enter English Key" required></td>
+                        <input type="hidden" name="Specifications[${specCount}].Translations[0].LanguageId" value="2" />
+                        <td><input type="text" class="form-control" style="width: 100%;" name="Specifications[${specCount}].Translations[0].TranslatedValue" placeholder="Enter English Value" required></td>
+                        <td><input type="text" class="form-control" style="width: 100%;" name="Specifications[${specCount}].Translations[1].TranslatedKey" placeholder="Enter Arabic Key" required></td>
+                        <input type="hidden" name="Specifications[${specCount}].Translations[1].LanguageId" value="1" />
+                        <td><input type="text" class="form-control" style="width: 100%;" name="Specifications[${specCount}].Translations[1].TranslatedValue" placeholder="Enter Arabic Value" required></td>
+                        <td><button type="button" class="btn btn-danger btn-sm delete-spec">Delete</button></td>
+                    `;
 
-        // Append the new specification entry to the container
-        document.getElementById('specificationsContainer').appendChild(specContainer);
+        document.getElementById('specificationsContainer').appendChild(specRow);
+    });
+
+    document.getElementById('specificationsContainer').addEventListener('click', function (e) {
+        if (e.target.classList.contains('delete-spec')) {
+            e.target.closest('tr').remove();
+        }
     });
 </script>
-
-
-
-                            @* <script>
-    
-document.getElementById('addSpec').addEventListener('click', function () {
-    // Get the current number of specification entries to generate unique indexes
-    const specCount = document.querySelectorAll('.specification-entry').length;
-    const specContainer = document.createElement('div');
-    specContainer.classList.add('specification-entry', 'mb-3');
-    
-    // Generate the HTML for the new specification entry
-    specContainer.innerHTML = `
-        <div class="mb-4">
-            <label class="form-label fs-5 fw-bold" for="EnKey_${specCount}">English Key</label>
-            <input type="text" class="form-control shadow-sm" id="EnKey_${specCount}" name="Specifications[${specCount}].Translations[0].TranslatedKey" placeholder="Enter English Key" required>
-            <input type="hidden" name="Specifications[${specCount}].Translations[0].LanguageId" value="2" />
-        </div>
-        <div class="mb-4">
-            <label class="form-label fs-5 fw-bold" for="EnValue_${specCount}">English Value</label>
-            <input type="text" class="form-control shadow-sm" id="EnValue_${specCount}" name="Specifications[${specCount}].Translations[0].TranslatedValue" placeholder="Enter English Value" required>
-        </div>
-        <div class="mb-4">
-            <label class="form-label fs-5 fw-bold" for="ArKey_${specCount}">Arabic Key</label>
-            <input type="text" class="form-control shadow-sm" id="ArKey_${specCount}" name="Specifications[${specCount}].Translations[1].TranslatedKey" placeholder="Enter Arabic Key" required>
-            <input type="hidden" name="Specifications[${specCount}].Translations[1].LanguageId" value="1" />
-        </div>
-        <div class="mb-4">
-            <label class="form-label fs-5 fw-bold" for="ArValue_${specCount}">Arabic Value</label>
-            <input type="text" class="form-control shadow-sm" id="ArValue_${specCount}" name="Specifications[${specCount}].Translations[1].TranslatedValue" placeholder="Enter Arabic Value" required>
-        </div>
-    `;
-    
-    // Append the new specification entry to the container
-    document.getElementById('specificationsContainer').appendChild(specContainer);
-});
-</script> *@
 
 

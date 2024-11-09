@@ -1,4 +1,5 @@
 ﻿using ApplicationB.Contracts_B.Order;
+
 using DbContextB;
 using InfrastructureB.General;
 using ModelsB.Order_B;
@@ -10,11 +11,11 @@ using System.Threading.Tasks;
 
 namespace InfrastructureB.Order
 {
-    public class PaymentRepository : GenericRepositoryB<OrderB>, IPaymentRepository
+    public class PaymentRepository : GenericRepositoryB<PaymentB>, IPaymentRepository
     {
         public PaymentRepository(BTechDbContext context) : base(context)
         {
         }
-   
+
     }
 }

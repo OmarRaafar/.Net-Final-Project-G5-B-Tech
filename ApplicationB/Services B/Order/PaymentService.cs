@@ -41,7 +41,7 @@ namespace ApplicationB.Services_B.Order
         public async Task<ResultView<AddOrUpdatePaymentBDTO>> CreatePaymentAsync(AddOrUpdatePaymentBDTO paymentBDTO)
         {
             var payment = mapper.Map<PaymentB>(paymentBDTO);
-            //await paymentRepository.AddAsync(payment);
+            await paymentRepository.AddAsync(payment);
             return ResultView<AddOrUpdatePaymentBDTO>.Success(paymentBDTO);
         }
 
