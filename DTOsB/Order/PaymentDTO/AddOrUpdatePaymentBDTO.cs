@@ -10,29 +10,29 @@ namespace DTOsB.Order.PaymentDTO
 {
     public class AddOrUpdatePaymentBDTO
 
-    { 
-     public int Id { get; set; }
+    {
+        public int Id { get; set; }
 
-    [Column(TypeName = "money")]
-    public decimal Amount { get; set; }
-    public DateTime PaymentDate { get; set; }
-    [MaxLength(50)]
-    public string PaymentMethod { get; set; } = "PayPal";
-    [MaxLength(50)]
-    public string PaymentStatus { get; set; }  // e.g., "Success", "Failed"
-    [MaxLength(100)]
-    public string TransactionId { get; set; }
-    [MaxLength(500)]
-    public string GatewayResponse { get; set; }
-    public int OrderId { get; set; }
+        [Column(TypeName = "money")]
+        public decimal Amount { get; set; }
+        public DateTime PaymentDate { get; set; } = DateTime.Now;
+        [MaxLength(50)]
+        public string PaymentMethod { get; set; } = "PayPal";
+        [MaxLength(50)]
+        public string PaymentStatus { get; set; }  // e.g., "Success", "Failed"
+        [MaxLength(100)]
+        public string TransactionId { get; set; }
+        [MaxLength(500)]
+        public string GatewayResponse { get; set; }
+        public int OrderId { get; set; }
 
 
-    [MaxLength(100)]
-    public string CreatedBy { get; set; }
-    public DateTime Created { get; set; } = DateTime.Now;
-    [MaxLength(100)]
-    public string UpdatedBy { get; set; }
-    public DateTime Updated { get; set; } = DateTime.Now;
-    public bool? IsDeleted { get; set; } = false;
-}
+        [MaxLength(100)]
+        public string CreatedBy { get; set; }
+        public DateTime Created { get; set; } = DateTime.Now;
+        [MaxLength(100)]
+        public string UpdatedBy { get; set; }
+        public DateTime Updated { get; set; } = DateTime.Now;
+        public bool? IsDeleted { get; set; } = false;
+    }
 }

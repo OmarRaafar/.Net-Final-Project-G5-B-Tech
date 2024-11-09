@@ -38,7 +38,7 @@ namespace WebApplication1
 
 
             // Add services to the container.
-            
+
             builder.Services.AddDbContext<BTechDbContext>(options =>
            options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
@@ -46,7 +46,7 @@ namespace WebApplication1
                    .AddDefaultTokenProviders().AddDefaultUI();
 
 
-          
+
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 
@@ -83,7 +83,7 @@ namespace WebApplication1
             builder.Services.AddScoped<ILanguageService, LanguageService>();
             builder.Services.AddScoped<IImageService, ImageService>();
 
-            
+
 
             builder.Services.AddScoped<IUserRepository, UserRepository>();
             builder.Services.AddScoped<IUserService, UserService>();
@@ -91,14 +91,14 @@ namespace WebApplication1
             //==========Product==========
 
             builder.Services.AddScoped<IProductRepository, ProductRepository>();
-            builder.Services.AddScoped<IProductService,ProductService>();
+            builder.Services.AddScoped<IProductService, ProductService>();
             builder.Services.AddScoped<IProductImageRepository, ProductImageRepository>();
-            builder.Services.AddScoped<IProductImageService,ProductImageService>();
+            builder.Services.AddScoped<IProductImageService, ProductImageService>();
 
             builder.Services.AddScoped<IProductSpecificationRepository, ProductSpecificationRepository>();
-            builder.Services.AddScoped<IProductSpecificationService,ProductSpecificationService>();
+            builder.Services.AddScoped<IProductSpecificationService, ProductSpecificationService>();
             builder.Services.AddScoped<IProductTranslationRepository, ProductTranslationRepository>();
-            builder.Services.AddScoped<IProductTranslationService,ProductTranslationService>();
+            builder.Services.AddScoped<IProductTranslationService, ProductTranslationService>();
             builder.Services.AddScoped<IProductSpecificationTranslationRepository, ProductSpecificationTranslationRep>();
             builder.Services.AddScoped<IProductSpecificationTransService, ProductSpecificationTransService>();
             builder.Services.AddScoped<ISpecificationStoreRepository, SpecificationStoreRepository>();
@@ -152,7 +152,7 @@ namespace WebApplication1
 
 
             builder.Services.AddControllersWithViews();
-           
+
             var app = builder.Build();
 
 
@@ -162,7 +162,7 @@ namespace WebApplication1
             //    await seeder.SeedAsync(); // Call the seed method asynchronously
             //}
 
-          
+
             //using (var serviceScope = app.Services.GetService<IServiceScopeFactory>().CreateScope())
             //{
             //    var services = serviceScope.ServiceProvider;
@@ -201,7 +201,7 @@ namespace WebApplication1
 
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
+                pattern: "{controller=Admin}/{action=Login}/{id?}");
             app.MapRazorPages();
 
             await app.RunAsync();

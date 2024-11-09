@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ModelsB.Product_B;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -17,6 +18,10 @@ namespace DTOsB.Order.OrderItemDTO
         public int StockQuantity { get; set; }
         public int ProductId { get; set; }
         public int OrderId { get; set; }
+        public ProductB Product { get; set; }
+
+        public string Url { get; set; }
+        public string BrandName { get; set; }
 
 
         //****************************

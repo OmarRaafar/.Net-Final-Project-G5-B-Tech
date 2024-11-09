@@ -20,9 +20,8 @@ namespace DTOsB.Order.ShippingDTO
 
         [Column(TypeName = "money")]
         public decimal ShippingCost { get; set; }
-        public DateTime ShippedDate { get; set; }
-        public DateTime EstimatedDeliveryDate { get; set; }
-
+        public DateTime ShippedDate { get; set; } = DateTime.Now;
+        public DateTime EstimatedDeliveryDate { get; set; } = new DateTime(DateTime.Now.Second + 2);
         public int OrderId { get; set; }
 
         [MaxLength(100)]

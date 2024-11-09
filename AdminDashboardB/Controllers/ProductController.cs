@@ -19,7 +19,7 @@ using PayPalCheckoutSdk.Orders;
 
 namespace DTOsB.Controllers
 {
-    //[Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin")]
 
     public class ProductController : Controller
     {

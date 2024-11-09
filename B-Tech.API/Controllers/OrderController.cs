@@ -131,8 +131,8 @@ namespace B_Tech.API.Controllers
                     TotalPrice = product.Price + order.TotalPrice,
                     OrderDate = order.OrderDate,
                     ApplicationUserId = userId,
-                    UpdatedBy = userId,
-                    CreatedBy = userId,
+                    //UpdatedBy = userId,
+                    //CreatedBy = userId,
                     //  orderItems = (List<AddOrUpdateOrderItemBDTO>)order.OrderItems,
                 };
                 await orderService.UpdateOrderAsync(addOrder);
@@ -156,8 +156,8 @@ namespace B_Tech.API.Controllers
                     ProductId = productId,
                     Quantity = orderItem.Quantity + 1,
                     OrderId = order.Id,
-                    UpdatedBy = userId,
-                    CreatedBy = userId,
+                    //UpdatedBy = userId,
+                    //CreatedBy = userId,
                 };
                 await orderItemService.UpdateOrderItemAsync(newOrderItem);
             }
@@ -169,8 +169,8 @@ namespace B_Tech.API.Controllers
                     ProductId = productId,
                     Quantity = 1,
                     OrderId = order.Id,
-                    CreatedBy = userId,
-                    UpdatedBy = userId,
+                    //CreatedBy = userId,
+                    //UpdatedBy = userId,
                 };
                 await orderItemService.CreateOrderItemAsync(newOrderItem);
 
@@ -201,7 +201,9 @@ namespace B_Tech.API.Controllers
                 ProductName = oi.ProductName,
                 ProductPrice = oi.Price,
                 TotalPrice = oi.TotalPrice,
-                StockQuantity = oi.StockQuantity
+                StockQuantity = oi.StockQuantity,
+                imageUrl = oi.Url,
+                orderId = order.Id
             }).ToList();
 
             return Ok(cartItems);

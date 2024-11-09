@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 namespace DTOsB.Controllers
 {
 
-    //[Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin")]
     public class CategoryController : Controller
     {
         private readonly ICategoryService _categoryService;
@@ -181,19 +181,19 @@ namespace DTOsB.Controllers
         {
             //if (ModelState.IsValid)
             //{
-                try
-                {
-                    //model.Translations[0].IsMainCategory = Request.Form["Translations[0].IsMainCategory"] == "true";
+            try
+            {
+                //model.Translations[0].IsMainCategory = Request.Form["Translations[0].IsMainCategory"] == "true";
 
-                    await _categoryService.UpdateCategoryAsync(id, model, imageFile);
-                    return RedirectToAction("Index", "Category");
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine($"Error updating category: {ex.Message}");
+                await _categoryService.UpdateCategoryAsync(id, model, imageFile);
+                return RedirectToAction("Index", "Category");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error updating category: {ex.Message}");
 
-                    ModelState.AddModelError("", ex.Message);
-                }
+                ModelState.AddModelError("", ex.Message);
+            }
             //}
 
             var languages = await _languageService.GetAllLanguagesAsync();
@@ -202,7 +202,7 @@ namespace DTOsB.Controllers
             return View(model);
         }
 
-       
+
         public async Task<IActionResult> Delete(int id)
         {
             var categoryEntity = await _categoryService.GetCategoryByIdAsync(id);
