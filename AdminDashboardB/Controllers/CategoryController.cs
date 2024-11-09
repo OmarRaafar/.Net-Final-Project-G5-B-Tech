@@ -50,7 +50,7 @@ namespace DTOsB.Controllers
             {
                 ViewBag.ErrorMessage = result.Msg;
                 ViewBag.Languages = await _languageService.GetAllLanguagesAsync();
-                return View("Index", new List<GetAllCategoriesDTO>()); 
+                return View("Index", new List<GetAllCategoriesDTO>());
             }
 
             var categories = result.Entity;
@@ -77,15 +77,11 @@ namespace DTOsB.Controllers
                 {
                     return NotFound(allCategoriesResult.Msg);
                 }
-                categories = allCategoriesResult.Entity; 
+                categories = allCategoriesResult.Entity;
             }
 
-            ViewBag.Languages = await _languageService.GetAllLanguagesAsync(); 
-            return View("Index", categories); 
-
-
-
-
+            ViewBag.Languages = await _languageService.GetAllLanguagesAsync();
+            return View("Index", categories);
         }
 
 
@@ -125,18 +121,18 @@ namespace DTOsB.Controllers
                     ModelState.AddModelError("", ex.Message);
                 }
             }
-            //if (!ModelState.IsValid)
-            //{
-            //    foreach (var entry in ModelState)
-            //    {
-            //        var errors = entry.Value.Errors;
-            //        foreach (var error in errors)
-            //        {
+            if (!ModelState.IsValid)
+            {
+                foreach (var entry in ModelState)
+                {
+                    var errors = entry.Value.Errors;
+                    foreach (var error in errors)
+                    {
 
-            //            Console.WriteLine($"Error in {entry.Key}: {error.ErrorMessage}");
-            //        }
-            //    }
-            //}
+                        Console.WriteLine($"Error in {entry.Key}: {error.ErrorMessage}");
+                    }
+                }
+            }
             // Reload the languages if the model state is invalid
             var languages = await _languageService.GetAllLanguagesAsync();
             ViewBag.Languages = languages.Select(l => new SelectListItem
@@ -148,11 +144,11 @@ namespace DTOsB.Controllers
 
             return View(model);
         }
-            if (!category.IsSuccess ||category.Entity == null)
-            if (category == null)
-            if (category == null)
-            if (category == null)
-            if (category == null)
+
+        public async Task<IActionResult> Edit(int id)
+        {
+            var category = await _categoryService.GetCategoryByIdAsync(id);
+            if (!category.IsSuccess || category.Entity == null)
             {
                 return NotFound();
             }
@@ -183,22 +179,22 @@ namespace DTOsB.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, CreateOrUpdateCategoriesDTO model, IFormFile imageFile)
         {
-            //if (ModelState.IsValid)
-            //{
-            try
+            if (ModelState.IsValid)
             {
-                //model.Translations[0].IsMainCategory = Request.Form["Translations[0].IsMainCategory"] == "true";
+                try
+                {
+                    model.Translations[0].IsMainCategory = Request.Form["Translations[0].IsMainCategory"] == "true";
 
-                await _categoryService.UpdateCategoryAsync(id, model, imageFile);
-                return RedirectToAction("Index", "Category");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error updating category: {ex.Message}");
+                    await _categoryService.UpdateCategoryAsync(id, model, imageFile);
+                    return RedirectToAction("Index", "Category");
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Error updating category: {ex.Message}");
 
-                ModelState.AddModelError("", ex.Message);
+                    ModelState.AddModelError("", ex.Message);
+                }
             }
-            //}
 
             var languages = await _languageService.GetAllLanguagesAsync();
             ViewBag.Languages = new SelectList(languages, "Id", "Name");
@@ -206,19 +202,20 @@ namespace DTOsB.Controllers
             return View(model);
         }
 
-
+        // GET: Category/Delete
         public async Task<IActionResult> Delete(int id)
         {
             var categoryEntity = await _categoryService.GetCategoryByIdAsync(id);
+            if (categoryEntity == null)
+            {
+                return NotFound();
+            }
             var categoryDto = _mapper.Map<GetAllCategoriesDTO>(categoryEntity);
-           
-            var categoryDto = _mapper.Map<GetAllCategoriesDTO>(categoryEntity);
-            var categoryDto = _mapper.Map<GetAllCategoriesDTO>(categoryEntity);
-            var categoryDto = _mapper.Map<GetAllCategoriesDTO>(categoryEntity);
-            var categoryDto = _mapper.Map<GetAllCategoriesDTO>(categoryEntity);
+
             return View(categoryDto);
         }
 
+        // POST: Category/Delete
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
@@ -237,4 +234,6 @@ namespace DTOsB.Controllers
             return RedirectToAction(nameof(Index));
         }
     }
+
+
 }

@@ -58,20 +58,42 @@ namespace ApplicationB.Services_B.Category
             }
         }
 
-        public async Task<ResultView<ProductCategoryDto>> UpdateAsync(ProductCategoryDto productCategoryDto)
+        public async Task<ResultView<List<ProductCategoryDto>>> UpdateAsync(List<ProductCategoryDto> productCategoryDto)
         {
+            if (productCategoryDto == null || !productCategoryDto.Any())
+            {
+                return ResultView<List<ProductCategoryDto>>.Failure("Input data is empty. Unable to update.");
+            }
+
+            var productId = productCategoryDto[0].ProductId;
+            var existingProductCategories = await _repository.GetByProductIdAsync(productId);
+
+            if (existingProductCategories == null || !existingProductCategories.Any())
+            {
                 return ResultView<List<ProductCategoryDto>>.Failure("Product not found. Unable to update.");
             }
 
             try
             {
-                var productCategory = _mapper.Map<ProductCategoryB>(productCategoryDto);
-                await _repository.UpdateAsync(productCategory);
-                return ResultView<ProductCategoryDto>.Success(productCategoryDto);
+                // Delete existing categories for the product
+                foreach (var item in existingProductCategories)
+                {
+                    await _repository.DeleteAsync(item.ProductId, item.CategoryId);
+                }
+
+                // Add new categories
+                var newProductCategories = _mapper.Map<List<ProductCategoryB>>(productCategoryDto);
+                foreach (var item in newProductCategories)
+                {
+                    await _repository.AddAsync(item);
+                }
+
+                return ResultView<List<ProductCategoryDto>>.Success(productCategoryDto);
             }
             catch (Exception ex)
             {
-                return ResultView<ProductCategoryDto>.Failure($"Failed to update Product-Category: {ex.Message}");
+                // Log the exception (if logging is implemented)
+                return ResultView<List<ProductCategoryDto>>.Failure($"Failed to update Product-Category. Error: {ex.Message}");
             }
         }
 
@@ -155,14 +177,19 @@ namespace ApplicationB.Services_B.Category
 
         public async Task<ResultView<IEnumerable<GetAllCategoriesDTO>>> GetSubCategoriesByMainCategoryIdAsync(int mainCategoryId)
         {
-            var subCategories = await _repository.GetSubCategoriesByMainCategoryIdAsync(mainCategoryId);
+            var mainCategoriesWithSubcategories = await _repository.GetSubCategoriesByMainCategoryIdAsync(mainCategoryId);
 
-            if (subCategories == null || !subCategories.Any())
+            if (mainCategoriesWithSubcategories == null || !mainCategoriesWithSubcategories.Any())
             {
                 return ResultView<IEnumerable<GetAllCategoriesDTO>>.Failure("No subcategories found for the specified main category ID.");
             }
 
-            var mappedSubCategories = _mapper.Map<IEnumerable<GetAllCategoriesDTO>>(subCategories);
+            var mappedSubCategories = mainCategoriesWithSubcategories
+                .SelectMany(mc => mc.SubCategories)
+                .Distinct()
+                .Select(subCategory => _mapper.Map<GetAllCategoriesDTO>(subCategory))
+                .ToList();
+
             return ResultView<IEnumerable<GetAllCategoriesDTO>>.Success(mappedSubCategories);
         }
 

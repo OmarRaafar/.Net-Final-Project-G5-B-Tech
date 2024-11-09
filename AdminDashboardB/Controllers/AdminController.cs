@@ -208,7 +208,6 @@ namespace DTOsB.Controllers
         }
         [AllowAnonymous]
         [HttpPost]
-        [AllowAnonymous]
 
         public async Task<IActionResult> CreateUser(RegisterDto model)
         {
