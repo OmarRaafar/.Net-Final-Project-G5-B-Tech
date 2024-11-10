@@ -302,22 +302,13 @@ namespace ApplicationB.Services_B.Category
                 if (imageFile == null || imageFile.Length == 0)
                     return null;
 
-            // Generate unique file name
+            //Logic to save the image to a folder and return the file path or URL
             var fileName = Path.GetFileNameWithoutExtension(imageFile.FileName);
             var fileExtension = Path.GetExtension(imageFile.FileName);
             var newFileName = $"{fileName}_{DateTime.Now.Ticks}{fileExtension}";
 
-            // Define file path in wwwroot
-            var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "ImageUrls", "categories", newFileName);
+            var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/ImageUrls/categories", newFileName);
 
-            // Ensure directory exists
-            var directory = Path.GetDirectoryName(filePath);
-            if (!Directory.Exists(directory))
-            {
-                Directory.CreateDirectory(directory);
-            }
-
-            // Save the image
             using (var stream = new FileStream(filePath, FileMode.Create))
             {
                 await imageFile.CopyToAsync(stream);
@@ -325,7 +316,8 @@ namespace ApplicationB.Services_B.Category
             Console.WriteLine($"Image saved to: {filePath}");
 
             return $"/ImageUrls/categories/{newFileName}"; // Return the relative URL or path        
-            }
-   
+        }
+
+
     }
 }

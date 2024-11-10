@@ -14,6 +14,7 @@ using ApplicationB.Services_B.Product;
 using ApplicationB.Services_B.User;
 using AutoMapper;
 using DbContextB;
+using FFImageLoading;
 using InfrastructureB.Category;
 using InfrastructureB.General;
 using InfrastructureB.Order;
@@ -91,6 +92,7 @@ namespace B_Tech.API
 
             builder.Services.AddCors(op =>
             {
+                
                 op.AddPolicy("Default", policy =>
                 {
                     policy.AllowAnyHeader()
@@ -145,6 +147,7 @@ namespace B_Tech.API
 
 
             #region AddScoped
+            builder.Services.AddScoped<ImageService , ImageService>();
 
             builder.Services.AddScoped<ILanguageRepository, LanguageRepository>();
             builder.Services.AddScoped<ILanguageService, LanguageService>();

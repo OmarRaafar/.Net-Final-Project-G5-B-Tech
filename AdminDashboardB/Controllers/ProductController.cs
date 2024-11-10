@@ -51,12 +51,9 @@ namespace DTOsB.Controllers
             productCategoryService = _productCategoryService;
         }
 
-
         public async Task<IActionResult> Index(string searchString, int? selectedLanguageId, int? selectedCategoryId)
         {
             ViewBag.SearchString = searchString;
-
-
 
             var availableLanguages = await languageService.GetAllLanguagesAsync();
             ViewBag.AvailableLanguages = availableLanguages;
@@ -77,8 +74,6 @@ namespace DTOsB.Controllers
             {
                 products = await productService.SearchProductsByNameAsync(searchString);
             }
-
-
 
             if (selectedCategoryId > 0)
             {

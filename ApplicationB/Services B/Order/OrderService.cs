@@ -91,7 +91,7 @@ namespace ApplicationB.Services_B.Order
             if (shippingResulView.Entity == null) orderDto.ShippingCost = 70;
             else orderDto.ShippingCost = shippingResulView.Entity.ShippingCost;
 
-            if( order.Payment.PaymentStatus==null) orderDto.PaymentStatus="Pending";
+            //if( order.Payment.PaymentStatus==null) orderDto.PaymentStatus="Pending";
 
             return orderDto;
         }

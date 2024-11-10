@@ -6,11 +6,12 @@ namespace AdminDashboardB.Models
     {
         private readonly IWebHostEnvironment _webHostEnvironment;
 
-        public ImageService(IWebHostEnvironment webHostEnvironment)
+        public ImageService(IWebHostEnvironment webHostEnvironment) 
         {
             _webHostEnvironment = webHostEnvironment;
         }
 
+      
         public async Task<string> SaveImageAsync(IFormFile imageFile, string folderName = "ImageUrls")
         {
             if (imageFile == null)
@@ -33,8 +34,13 @@ namespace AdminDashboardB.Models
                 await imageFile.CopyToAsync(fileStream);
             }
 
+
+
             // Return the relative path for storing in the database
             return Path.Combine("/ImageUrls", uniqueFileName).Replace("\\", "/");
         }
+
+
+
     }
 }
