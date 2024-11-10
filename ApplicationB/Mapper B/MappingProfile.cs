@@ -121,6 +121,7 @@ namespace ApplicationB.Mapper_B
             CreateMap<OrderB, SelectOrderBDTO>()
 
                 .ReverseMap();
+            CreateMap<SelectOrderBDTO, AddOrUpdateOrderBDTO>().ReverseMap();
 
             CreateMap<OrderItemB, AddOrUpdateOrderItemBDTO>().ReverseMap();
             CreateMap<OrderItemB, SelectOrderItemBDTO>()
