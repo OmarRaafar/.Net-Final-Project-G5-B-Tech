@@ -26,5 +26,7 @@ namespace InfrastructureB.Order
             var orders = (await base.GetAllAsync());
             return orders;
         }
+
+        
     }
 }

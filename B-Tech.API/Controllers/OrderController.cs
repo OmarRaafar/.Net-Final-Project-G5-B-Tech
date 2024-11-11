@@ -313,15 +313,9 @@ namespace B_Tech.API.Controllers
             {
                 // Retrieve the order by ID
                 var order = await orderService.GetOrderByIdAsync(orderId);
-                //var order = orderResponse?.OrderItems;
-
-                //if (order == null || order.IsDeleted)
-                //{
-                //    return NotFound(new { message = "Order not found or has been deleted." });
-                //}
-
+               
                 // Update order details: status, total, and user who completed the order
-                order.CurrentStatus = ModelsB.Order_B.Status.Shipped; // Assuming "Completed" status exists
+                order.CurrentStatus = ModelsB.Order_B.Status.Pending; // Assuming "Completed" status exists
                 order.TotalPrice = total;
                 order.UpdatedBy = user;
                 order.Updated = DateTime.Now;
