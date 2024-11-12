@@ -24,15 +24,13 @@ namespace ApplicationB.Services_B.Order
         private readonly IShippingService shippingService;
 
         public OrderService(IOrderRepository _orderRepository, IMapper _mapper, IUserService _userService,
-                            IOrderItemService _orderItemService, IShippingService _shippingService
-            , IUserRepository userRepository)
+                            IOrderItemService _orderItemService, IShippingService _shippingService)
         {
             orderRepository = _orderRepository;
             mapper = _mapper;
             userService = _userService;
             orderItemService = _orderItemService;
             shippingService = _shippingService;
-            //_userRepository = userRepository;
         }
         public async Task<ResultView<AddOrUpdateOrderBDTO>> CreateOrderAsync(AddOrUpdateOrderBDTO orderBDTO)
         {
@@ -101,31 +99,6 @@ namespace ApplicationB.Services_B.Order
 
         //*************************************************************
 
-
-
-        //public async Task<ResultView<AddOrUpdateOrderBDTO>> UpdateOrderAsync(AddOrUpdateOrderBDTO orderBDTO)
-        //{
-        //    if (orderBDTO == null)
-        //        return ResultView<AddOrUpdateOrderBDTO>.Failure("Order data cannot be null.");
-
-        //    var existingOrder = await orderRepository.GetByIdAsync(orderBDTO.Id);
-        //    if (existingOrder == null)
-        //        return ResultView<AddOrUpdateOrderBDTO>.Failure("Order not found. Unable to update.");
-
-        //    // Check if the user exists
-        //    var userExists = await userRepository.ExistsAsync(orderBDTO.ApplicationUserId);
-        //    if (!userExists)
-        //        return ResultView<AddOrUpdateOrderBDTO>.Failure("Associated user does not exist.");
-
-        //    // Apply changes from DTO to the existing order
-        //    mapper.Map(orderBDTO, existingOrder);
-        //    existingOrder.Updated = DateTime.Now;
-
-        //    await orderRepository.UpdateAsync(existingOrder);
-
-        //    return ResultView<AddOrUpdateOrderBDTO>.Success(orderBDTO);
-        //}
-
         public async Task<ResultView<AddOrUpdateOrderBDTO>> UpdateOrderAsync(AddOrUpdateOrderBDTO orderBDTO)
         {
             if (orderBDTO == null)
@@ -135,18 +108,16 @@ namespace ApplicationB.Services_B.Order
             if (existingOrder == null)
                 return ResultView<AddOrUpdateOrderBDTO>.Failure("Order not found. Unable to update.");
 
-            // Apply changes from DTO to the existing order
-            mapper.Map(orderBDTO, existingOrder);
+            //mapper.Map(orderBDTO, existingOrder);
+            //existingOrder.UpdatedBy = userService.GetCurrentUserId();
+            //existingOrder.Updated = DateTime.Now;
 
-            // Update timestamp and user
-            existingOrder.ApplicationUserId = orderBDTO.UpdatedBy;
-            existingOrder.OrderDate = DateTime.Now;
+            //for update current status in dashboard
+            existingOrder.CurrentStatus = orderBDTO.CurrentStatus;
 
             await orderRepository.UpdateAsync(existingOrder);
-
             return ResultView<AddOrUpdateOrderBDTO>.Success(orderBDTO);
         }
-
     }
 
 
