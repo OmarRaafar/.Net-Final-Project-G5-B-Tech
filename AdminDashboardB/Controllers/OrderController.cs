@@ -77,7 +77,7 @@ namespace DTOsB.Controllers
                 OrderDate = order.OrderDate,
                 TotalPrice = order.TotalPrice,
                 CurrentStatus = order.CurrentStatus,
-                ApplicationUserId = "db0a8336-7f0f-416c-90c8-a8dfd01d97f7"
+                ApplicationUserId = order.ApplicationUserId
             };
 
             return View("Edit", updateOrder);
