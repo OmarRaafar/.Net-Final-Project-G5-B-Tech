@@ -313,7 +313,7 @@ namespace B_Tech.API.Controllers
             {
                 // Retrieve the order by ID
                 var order = await orderService.GetOrderByIdAsync(orderId);
-               
+
                 // Update order details: status, total, and user who completed the order
                 order.CurrentStatus = ModelsB.Order_B.Status.Pending; // Assuming "Completed" status exists
                 order.TotalPrice = total;

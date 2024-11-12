@@ -57,7 +57,7 @@ namespace ApplicationB.Services_B.Order
             //existingOrderItem.UpdatedBy = userService.GetCurrentUserId();
             //existingOrderItem.Updated = DateTime.Now;
 
-            await orderItemRepository.UpdateAsync(existingOrderItem);
+            await orderItemRepository.DeleteAsync(existingOrderItem.Id);
             return ResultView<SelectOrderItemBDTO>.Success(null);
         }
 

@@ -39,7 +39,7 @@
                         <span asp-validation-for="Translations[0].CategoryName" class="text-danger"></span>
 
                         <label class="form-label fs-5 fw-bold" for="Description">Category Description</label>
-                        <textarea class="form-control shadow-sm" name="Translations[0].Description" placeholder="Enter Description" rows="3" required></textarea>
+                        <textarea class="form-control shadow-sm" name="Translations[0].Description" placeholder="Enter Description" rows="3" ></textarea>
                         <span asp-validation-for="Translations[0].Description" class="text-danger"></span>
 
                         <select class="form-select shadow-sm" name="Translations[0].LanguageId" required>
@@ -80,7 +80,7 @@
                     <span class="text-danger"></span>
 
                     <label class="form-label fs-5 fw-bold">Category Description</label>
-                    <textarea class="form-control shadow-sm" name="Translations[${translationIndex}].Description" placeholder="Enter Description" rows="3" required></textarea>
+                    <textarea class="form-control shadow-sm" name="Translations[${translationIndex}].Description" placeholder="Enter Description" rows="3" ></textarea>
                     <span class="text-danger"></span>
 
                     <select class="form-select shadow-sm" name="Translations[${translationIndex}].LanguageId" required>

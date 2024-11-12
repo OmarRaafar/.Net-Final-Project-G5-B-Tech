@@ -12,7 +12,7 @@ using X.PagedList.Extensions;
 namespace DTOsB.Controllers
 {
 
-    [Authorize(Roles = "Admin")]
+    //[Authorize(Roles = "Admin")]
     public class CategoryController : Controller
     {
         private readonly ICategoryService _categoryService;
@@ -21,7 +21,7 @@ namespace DTOsB.Controllers
         private readonly IMapper _mapper;
         private readonly ILogger<CategoryController> _logger;
 
-        public CategoryController(ICategoryService categoryService, ILanguageService languageService, IMapper mapper, ICategoryRepository categoryRepository , ILogger<CategoryController> logger)
+        public CategoryController(ICategoryService categoryService, ILanguageService languageService, IMapper mapper, ICategoryRepository categoryRepository, ILogger<CategoryController> logger)
         {
             _categoryService = categoryService;
             _languageService = languageService;
@@ -29,7 +29,7 @@ namespace DTOsB.Controllers
             _mapper = mapper;
             _logger = logger;
         }
-        
+
         public async Task<IActionResult> Index(int? page)
         {
             try
@@ -58,10 +58,10 @@ namespace DTOsB.Controllers
             }
         }
 
-       
+
         public async Task<IActionResult> Search(string name)
         {
-            
+
             var result = await _categoryService.GetCategoryByNameAsync(name);
 
             if (!result.IsSuccess)
@@ -130,16 +130,16 @@ namespace DTOsB.Controllers
                     {
                         ModelState.AddModelError("", "At least one translation is required.");
                     }
-                   
 
-                await _categoryService.AddCategoryAsync(model, imageFile);
-                return RedirectToAction("Index", "Category"); // Redirect to the category list
-            }
+
+                    await _categoryService.AddCategoryAsync(model, imageFile);
+                    return RedirectToAction("Index", "Category"); // Redirect to the category list
+                }
                 catch (Exception ex)
                 {
-                ModelState.AddModelError("", ex.Message);
+                    ModelState.AddModelError("", ex.Message);
+                }
             }
-        }
             if (!ModelState.IsValid)
             {
                 foreach (var entry in ModelState)

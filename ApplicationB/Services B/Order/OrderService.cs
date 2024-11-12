@@ -76,10 +76,10 @@ namespace ApplicationB.Services_B.Order
         public async Task<SelectOrderBDTO> GetOrderByIdAsync(int id)
         {
             OrderB order = await orderRepository.GetByIdAsync(id);
-           
+
 
             var orderDto = mapper.Map<SelectOrderBDTO>(order);
-            
+
             var test = new SelectOrderBDTO();
             if (orderDto == null) return test;
 
@@ -101,7 +101,7 @@ namespace ApplicationB.Services_B.Order
 
         //*************************************************************
 
-        
+
 
         //public async Task<ResultView<AddOrUpdateOrderBDTO>> UpdateOrderAsync(AddOrUpdateOrderBDTO orderBDTO)
         //{
@@ -148,4 +148,7 @@ namespace ApplicationB.Services_B.Order
         }
 
     }
+
+
+
 }
