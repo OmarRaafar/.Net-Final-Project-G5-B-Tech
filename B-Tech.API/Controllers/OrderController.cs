@@ -306,7 +306,7 @@ namespace B_Tech.API.Controllers
             return Ok(cartItems);
         }
 
-        [HttpPut("finish-order")]
+        [HttpPost("finish-order")]
         public async Task<IActionResult> FinishOrder(int orderId, decimal total, string user)
         {
             try
@@ -321,7 +321,7 @@ namespace B_Tech.API.Controllers
                 //}
 
                 // Update order details: status, total, and user who completed the order
-                order.CurrentStatus = ModelsB.Order_B.Status.Shipped; // Assuming "Completed" status exists
+                order.CurrentStatus = ModelsB.Order_B.Status.Delivered; // Assuming "Completed" status exists
                 order.TotalPrice = total;
                 order.UpdatedBy = user;
                 order.Updated = DateTime.Now;

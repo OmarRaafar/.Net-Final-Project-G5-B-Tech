@@ -13,9 +13,9 @@ namespace DTOsB.Category
         [MinLength(2, ErrorMessage = "Category Name cannot be less than 2 characters.")]
         [Required(ErrorMessage = "Category Name is required.")]
         public string CategoryName { get; set; }
-        [MaxLength(150, ErrorMessage = "Description cannot be longer than 50 characters.")]
-        [MinLength(20, ErrorMessage = "Description cannot be less than 20 characters.")]
-        [Required(ErrorMessage = "Description is required.")]
+        //[MaxLength(150, ErrorMessage = "Description cannot be longer than 50 characters.")]
+        //[MinLength(20, ErrorMessage = "Description cannot be less than 20 characters.")]
+        //[Required(ErrorMessage = "Description is required.")]
         public string? Description { get; set; }
 
         [Required(ErrorMessage = "Please select a language.")]

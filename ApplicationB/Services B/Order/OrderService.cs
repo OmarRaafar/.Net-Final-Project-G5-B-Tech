@@ -73,10 +73,10 @@ namespace ApplicationB.Services_B.Order
         public async Task<SelectOrderBDTO> GetOrderByIdAsync(int id)
         {
             OrderB order = await orderRepository.GetByIdAsync(id);
-           
+
 
             var orderDto = mapper.Map<SelectOrderBDTO>(order);
-            
+
             var test = new SelectOrderBDTO();
             if (orderDto == null) return test;
 
@@ -110,6 +110,9 @@ namespace ApplicationB.Services_B.Order
             //mapper.Map(orderBDTO, existingOrder);
             //existingOrder.UpdatedBy = userService.GetCurrentUserId();
             //existingOrder.Updated = DateTime.Now;
+
+            //for update current status in dashboard
+            existingOrder.CurrentStatus = orderBDTO.CurrentStatus;
 
             await orderRepository.UpdateAsync(existingOrder);
             return ResultView<AddOrUpdateOrderBDTO>.Success(orderBDTO);

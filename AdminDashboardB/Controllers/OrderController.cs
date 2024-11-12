@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace DTOsB.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    //[Authorize(Roles = "Admin")]
 
     public class OrderController : Controller
     {
@@ -19,7 +19,18 @@ namespace DTOsB.Controllers
         public async Task<IActionResult> Index()
         {
             var orders = await orderService.GetAllOrdersAsync();
-            return View(orders);
+
+            // for can't show in cart status in dashboard
+            List<SelectOrderBDTO> recivedOrder = new List<SelectOrderBDTO> { };
+
+            foreach (var or in orders)
+            {
+                if (or.CurrentStatus != 0)
+                {
+                    recivedOrder.Add(or);
+                }
+            }
+            return View(recivedOrder);
         }
 
         //==============Add=====================
@@ -55,7 +66,7 @@ namespace DTOsB.Controllers
         {
             SelectOrderBDTO order = await orderService.GetOrderByIdAsync(id);
 
-            if (order == null || order.CurrentStatus == ModelsB.Order_B.Status.Shipped || order.CurrentStatus == ModelsB.Order_B.Status.Delivered)
+            if (order == null || order.CurrentStatus == ModelsB.Order_B.Status.Delivered)
             {
                 TempData["ErrorMessage"] = "You can't edit this order anymore.";
                 return RedirectToAction("Index");
@@ -68,20 +79,21 @@ namespace DTOsB.Controllers
                 CurrentStatus = order.CurrentStatus,
                 ApplicationUserId = "db0a8336-7f0f-416c-90c8-a8dfd01d97f7"
             };
-            
+
             return View("Edit", updateOrder);
         }
 
         [HttpPost]
         public async Task<IActionResult> Edit(AddOrUpdateOrderBDTO orderBDTO)
-        {
-            if (ModelState.IsValid)
-            {
-                await orderService.UpdateOrderAsync(orderBDTO);
-                return RedirectToAction("Index");
-            }
+        s{
+            //if (ModelState.IsValid)
+            //{
+            var recivedOrder = await orderService.UpdateOrderAsync(orderBDTO);
 
-            return View(orderBDTO);
+            return RedirectToAction("Index", recivedOrder);
+            //}
+
+            //return View(orderBDTO);
         }
 
         //==============Details=====================
