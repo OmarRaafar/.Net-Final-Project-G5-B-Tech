@@ -85,7 +85,7 @@ namespace DTOsB.Controllers
 
         [HttpPost]
         public async Task<IActionResult> Edit(AddOrUpdateOrderBDTO orderBDTO)
-        s{
+        {
             //if (ModelState.IsValid)
             //{
             var recivedOrder = await orderService.UpdateOrderAsync(orderBDTO);
