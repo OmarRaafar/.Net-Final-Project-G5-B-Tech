@@ -33,7 +33,53 @@ namespace B_Tech.API.Controllers
         //    return View();
         //}
 
+
+
         //**********************************************************
+        [HttpGet]
+        [Route("GetAllOrders")]
+        public async Task<IActionResult> GetOrders()
+        {
+            var orders = await orderService.GetAllOrdersAsync();
+
+            // Exclude orders with status 0 (InCart)
+            var receivedOrders = orders
+                .Where(order => order.CurrentStatus != 0)
+                .ToList();
+
+            return Ok(receivedOrders);
+        }
+        [HttpGet("user/{userId}")]
+        public async Task<IActionResult> GetOrdersByUserId(string userId)
+        {
+            if (string.IsNullOrEmpty(userId))
+            {
+                return BadRequest("User ID cannot be null or empty.");
+            }
+
+            var orders = await orderService.GetAllOrdersAsync();
+            if (orders == null)
+            {
+                return Ok("No orders found.");
+            }
+
+            var userOrders = new List<SelectOrderBDTO>();
+
+            foreach (var order in orders)
+            {
+                if (order.ApplicationUserId == userId && order.CurrentStatus != 0) // Exclude "InCart"
+                {
+                    userOrders.Add(order);
+                }
+            }
+
+            if (userOrders.Count == 0)
+            {
+                return Ok("No orders found for the user with the given criteria.");
+            }
+
+            return Ok(userOrders);
+        }
 
         [HttpPut("update-order-item-quantity")]
         public async Task<IActionResult> UpdateOrderItemQuantity(int orderItemId, int newQuantity)
@@ -299,8 +345,10 @@ namespace B_Tech.API.Controllers
                 ProductPrice = oi.Price,
                 TotalPrice = oi.TotalPrice,
                 StockQuantity = oi.StockQuantity,
-                imageUrl = oi.Url,
-                orderId = order.Id
+                //imageUrl = oi.Url,
+                ImageUrl = oi.Url ?? "https://th.bing.com/th?id=OIP.xTFtOgznrvARU9DXPCed7AHaH_&w=240&h=259&c=8&rs=1&qlt=90&o=6&dpr=1.3&pid=3.1&rm=2", // Default image
+                OrderId = order.Id
+                //orderId = order.Id
             }).ToList();
 
             return Ok(cartItems);
