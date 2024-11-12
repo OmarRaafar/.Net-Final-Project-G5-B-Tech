@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ModelsB.Order_B;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -23,5 +24,6 @@ namespace DTOsB.Order.OrderItemDTO
         public string UpdatedBy { get; set; }
         public DateTime Updated { get; set; } = DateTime.Now;
         public bool? IsDeleted { get; set; } = false;
+        public Status CurrentStatus { get; set; }
     }
 }
