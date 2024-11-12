@@ -101,7 +101,7 @@ namespace ApplicationB.Services_B.Order
 
         //*************************************************************
 
-        
+
 
         //public async Task<ResultView<AddOrUpdateOrderBDTO>> UpdateOrderAsync(AddOrUpdateOrderBDTO orderBDTO)
         //{
@@ -142,13 +142,13 @@ namespace ApplicationB.Services_B.Order
             existingOrder.ApplicationUserId = orderBDTO.UpdatedBy;
             existingOrder.OrderDate = DateTime.Now;
 
-            //for update current status in dashboard
-            existingOrder.CurrentStatus = orderBDTO.CurrentStatus;
-
             await orderRepository.UpdateAsync(existingOrder);
 
             return ResultView<AddOrUpdateOrderBDTO>.Success(orderBDTO);
         }
 
     }
+
+
+
 }
