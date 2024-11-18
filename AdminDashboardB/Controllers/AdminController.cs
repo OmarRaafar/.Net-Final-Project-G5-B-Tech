@@ -207,6 +207,7 @@ namespace DTOsB.Controllers
         //}
 
         [AllowAnonymous]
+
         public IActionResult CreateUser()
         {
             return View();

@@ -14,22 +14,25 @@ namespace WebApplication1.Controllers
         private readonly IProductService productService;
         private readonly ICategoryService CatService;
         private readonly IOrderService OrderService;
+        private readonly IUserService UserService;
 
 
-        public HomeController(ILogger<HomeController> logger, IProductService _productService, ICategoryService _catService, IOrderService _orderService)
+        public HomeController(ILogger<HomeController> logger, IProductService _productService, ICategoryService _catService, IOrderService _orderService, IUserService _userService)
         {
             _logger = logger;
             productService = _productService;
             CatService = _catService;
             OrderService = _orderService;
-
+            UserService = _userService;
         }
 
         public IActionResult Index()
         {
-            ViewBag.ProductsCount = productService.GetAllProductsAsync().Result.Entity.Count();
-            ViewBag.CategoriesCount = CatService.GetAllCategoriesAsync().Result.Entity.Count();
-            ViewBag.OrdersCount = OrderService.GetAllOrdersAsync().Result.Count();
+            ViewBag.ProductsCount = productService.GetAllProductsAsync().Result?.Entity?.Count() ?? 0;
+            ViewBag.CategoriesCount = CatService.GetAllCategoriesAsync().Result?.Entity?.Count() ?? 0;
+            ViewBag.OrdersCount = OrderService.GetAllOrdersAsync().Result?.Count() ?? 0;
+            ViewBag.UsersCount = UserService.GetAllAppUsersAsync().Result?.Count() ?? 0;
+
 
             return View();
         }

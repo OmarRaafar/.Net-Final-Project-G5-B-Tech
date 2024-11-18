@@ -11,6 +11,8 @@
     <title>@ViewData["Title"]</title>
 
     <link href="https://fonts.googleapis.com/css2?family=Russo+One&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <style>
         h1.wrapper {
@@ -30,7 +32,7 @@
         }
 
             svg text {
-                font-size: 3rem;
+                font-size: 2.5rem;
                 fill: rgba(72,138,204,0);
                 stroke: rgba(54, 95, 160, 1);
                 stroke-width: 1;
@@ -60,14 +62,12 @@
             }
         }
 
-
         .highlight {
             fill: #f39c12;
             stroke: #e67e22;
             font-weight: bold;
             animation: colorShift 3s infinite alternate;
         }
-
 
         @@keyframes colorShift {
             0% {
@@ -97,34 +97,85 @@
                 transform: translateY(-10px);
                 box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
             }
+
+        @@media (max-width: 768px) {
+            h1.wrapper {
+                font-size: 1.8rem;
+                margin-top: -50px;
+            }
+
+            svg text {
+                font-size: 1.8rem;
+            }
+
+            .hover-card {
+                margin-bottom: 15px;
+            }
+        }
+
+        @@media (max-width: 576px) {
+            h1.wrapper {
+                font-size: 1.6rem;
+                margin-top: -40px;
+            }
+
+            svg text {
+                font-size: 1.6rem;
+            }
+
+            .card {
+                padding: 10px;
+            }
+        }
+
+        @@media (max-width: 480px) {
+            h1.wrapper {
+                font-size: 1.3rem;
+                margin-top: -30px;
+                padding: 8px;
+                letter-spacing: 0.5px;
+            }
+
+            svg text {
+                font-size: 1.3rem;
+            }
+
+            .card {
+                padding: 8px;
+                border-radius: 8px;
+            }
+
+            .hover-card {
+                margin-bottom: 10px;
+            }
+
+            .text-muted {
+                font-size: 0.9rem;
+            }
+        }
     </style>
 </head>
 <body>
-
     <div class="container mt-5 p-4 shadow rounded col-md-11">
         <div class="row justify-content-center mt-5">
-            <div class="row text-center mb-4">
-                <div class="col wrapper">
-                    <!-- Welcome Title -->
-                    <h1 class="wrapper text-center mb-4 bg-body text-dark fw-bold  shadow rounded">
-                        <svg>
-                            <text x="50%" y="50%" dy=".35em" text-anchor="middle">
-                                Welcome to <tspan class="highlight">B.Tech</tspan> Dashboard
-                            </text>
-                        </svg>
-                    </h1>
-                    <!-- Description -->
-                    <p class="text-muted" style="font-size: 1.25rem; color: #666;">
-                        Here’s an overview of your store statistics.
-                    </p>
-                </div>
-
+            <div class="col-12 col-md-8 text-center">
+                <!-- Welcome Title -->
+                <h1 class="wrapper shadow mb-4">
+                    <svg class="w-100">
+                        <text x="50%" y="50%" dy=".35em" text-anchor="middle">
+                            Welcome to <tspan class="highlight">B.Tech</tspan> Dashboard
+                        </text>
+                    </svg>
+                </h1>
+                <!-- Description -->
+                <p class="text-muted" style="font-size: 1.25rem; color: #666;">
+                    Here’s an overview of your store statistics.
+                </p>
             </div>
-
 
             <div class="row g-4 my-3">
                 <!-- Products Card -->
-                <div class="col-md-3">
+                <div class="col-md-6 col-lg-3">
                     <div class="card shadow border-0 hover-card" style="border-radius: 12px; background-color: #f8f9fa;">
                         <div class="card-body text-center">
                             <div class="icon mb-3 text-primary">
@@ -138,7 +189,7 @@
                 </div>
 
                 <!-- Categories Card -->
-                <div class="col-md-3">
+                <div class="col-md-6 col-lg-3">
                     <div class="card shadow border-0 hover-card" style="border-radius: 12px; background-color: #e9f7fd;">
                         <div class="card-body text-center">
                             <div class="icon mb-3 text-success">
@@ -152,7 +203,7 @@
                 </div>
 
                 <!-- Orders Card -->
-                <div class="col-md-3">
+                <div class="col-md-6 col-lg-3">
                     <div class="card shadow border-0 hover-card" style="border-radius: 12px; background-color: #f9e6e6;">
                         <div class="card-body text-center">
                             <div class="icon mb-3 text-danger">
@@ -166,22 +217,20 @@
                 </div>
 
                 <!-- Users Card -->
-                <div class="col-md-3">
+                <div class="col-md-6 col-lg-3">
                     <div class="card shadow border-0 hover-card" style="border-radius: 12px; background-color: #fff3cd;">
                         <div class="card-body text-center">
                             <div class="icon mb-3 text-warning">
                                 <i class="fas fa-users fa-3x"></i>
                             </div>
                             <h5 class="card-title fw-bold text-dark">Users</h5>
-                            <p class="display-6 text-warning">0</p>
+                            <p class="display-6 text-warning">@ViewBag.UsersCount</p>
                             <p class="text-muted">Registered users</p>
                         </div>
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
-
 </body>
 </html>
