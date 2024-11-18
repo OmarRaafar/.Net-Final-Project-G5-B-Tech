@@ -346,7 +346,7 @@ namespace B_Tech.API.Controllers
                 TotalPrice = oi.TotalPrice,
                 StockQuantity = oi.StockQuantity,
                 //imageUrl = oi.Url,
-                ImageUrl = oi.Url ?? "https://th.bing.com/th?id=OIP.xTFtOgznrvARU9DXPCed7AHaH_&w=240&h=259&c=8&rs=1&qlt=90&o=6&dpr=1.3&pid=3.1&rm=2", // Default image
+                ImageUrl = oi.Product.Images.FirstOrDefault().Url,
                 OrderId = order.Id
                 //orderId = order.Id
             }).ToList();

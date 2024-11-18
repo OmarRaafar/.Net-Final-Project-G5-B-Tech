@@ -1,4 +1,5 @@
 ﻿using ModelsB.Order_B;
+using ModelsB.Product_B;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -25,5 +26,6 @@ namespace DTOsB.Order.OrderItemDTO
         public DateTime Updated { get; set; } = DateTime.Now;
         public bool? IsDeleted { get; set; } = false;
         public Status CurrentStatus { get; set; }
+        public ProductB product { get; set; }
     }
 }

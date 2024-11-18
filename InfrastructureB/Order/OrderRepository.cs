@@ -18,7 +18,7 @@ namespace InfrastructureB.Order
         }
         public override async Task<OrderB> GetByIdAsync(int id)
         {
-           return await _context.Orders.Where(o=>o.Id == id).Include(o=>o.Shipping).Include(o => o.Payment).FirstOrDefaultAsync();
+            return await _context.Orders.Where(o => o.Id == id).Include(o => o.Shipping).Include(o => o.Payment).Include(o => o.OrderItems).ThenInclude(o => o.Product).ThenInclude(o => o.Images).FirstOrDefaultAsync();
         }
         public override async Task<IQueryable<OrderB>> GetAllAsync()
         {
@@ -27,6 +27,6 @@ namespace InfrastructureB.Order
             return orders;
         }
 
-        
+
     }
 }

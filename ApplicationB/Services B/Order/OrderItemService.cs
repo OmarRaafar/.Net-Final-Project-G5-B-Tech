@@ -111,6 +111,10 @@ namespace ApplicationB.Services_B.Order
             //mapper.Map(orderItemBDTO, existingOrderItem);
             //existingOrderItem.UpdatedBy = userService.GetCurrentUserId();
             //existingOrderItem.Updated = DateTime.Now;
+            existingOrderItem.Quantity = orderItemBDTO.Quantity;
+            existingOrderItem.OrderId = orderItemBDTO.OrderId;
+            existingOrderItem.ProductId = orderItemBDTO.ProductId;
+
 
             await orderItemRepository.UpdateAsync(existingOrderItem);
             return ResultView<AddOrUpdateOrderItemBDTO>.Success(orderItemBDTO);

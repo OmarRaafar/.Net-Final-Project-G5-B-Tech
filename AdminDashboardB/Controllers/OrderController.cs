@@ -49,7 +49,7 @@ namespace DTOsB.Controllers
             /* (ModelState.IsValid)
             {*/
             orderBDTO.OrderDate = DateTime.Now;
-            orderBDTO.TotalPrice = 5000;
+            //orderBDTO.TotalPrice = 5000;
             orderBDTO.ApplicationUserId = "db0a8336-7f0f-416c-90c8-a8dfd01d97f7";
 
 

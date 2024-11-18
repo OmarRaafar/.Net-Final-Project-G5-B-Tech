@@ -32,5 +32,7 @@ namespace DTOsB.Order.OrderItemDTO
         public string UpdatedBy { get; set; }
         public DateTime Updated { get; set; } = DateTime.Now;
         public bool? IsDeleted { get; set; } = false;
+
+
     }
 }
