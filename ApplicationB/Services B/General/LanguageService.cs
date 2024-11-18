@@ -1,5 +1,8 @@
 ﻿using ApplicationB.Contracts_B.General;
+using ApplicationB.Services_B.Product;
+using AutoMapper;
 using DTOsB.Shared;
+using ModelsB.Localization_B;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,12 +14,16 @@ namespace ApplicationB.Services_B.General
     public class LanguageService : ILanguageService
     {
         private readonly ILanguageRepository _languageRepository;
+        //private readonly IProductTranslationService _productTranslationService;
+        private readonly IMapper _mapper;
         private int _currentLanguageId;
 
-        public LanguageService(ILanguageRepository languageRepository)
+        public LanguageService(ILanguageRepository languageRepository, IMapper mapper)
         {
             _languageRepository = languageRepository;
             _currentLanguageId = 2; // Default to English
+            _mapper = mapper;
+            //_productTranslationService = productTranslationService;
         }
 
         // Get the currently selected language
@@ -50,6 +57,48 @@ namespace ApplicationB.Services_B.General
         }
 
 
+        public async Task<ResultView<LanguageDto>> CreateProductAsync(LanguageDto langDto)
+        {
+            if (langDto.Id > 0)
+                return ResultView<LanguageDto>.Failure("Language already exists. Use update to modify it.");
+
+            var lang = _mapper.Map<LanguageB>(langDto);
+            var createdLang = await _languageRepository.AddAsync(lang);
+
+            return ResultView<LanguageDto>.Success(_mapper.Map<LanguageDto>(createdLang));
+        }
+
+
+        public async Task<ResultView<LanguageDto>> UpdateProductAsync(LanguageDto langDto)
+        {
+            if (langDto == null)
+                return ResultView<LanguageDto>.Failure("Language must have data to be added");
+
+            var existingLang = await _languageRepository.GetByIdAsync(langDto.Id);
+            if (existingLang == null)
+                return ResultView<LanguageDto>.Failure("Language not found. Unable to update.");
+
+            _mapper.Map(langDto, existingLang);
+
+            await _languageRepository.UpdateAsync(existingLang);
+            return ResultView<LanguageDto>.Success(langDto);
+        }
+
+
+        public async Task<ResultView<LanguageDto>> DeletelangAsync(int id)
+        {
+            var existingLang = await _languageRepository.GetByIdAsync(id);
+
+            if (existingLang == null)
+                return ResultView<LanguageDto>.Failure("Language not found. Unable to delete.");
+
+            //var product = _productTranslationService.GetAllTranslationsAsync().Result.Entity.FirstOrDefault(l => l.LanguageId == id);
+            //if (product != null)
+            //    return ResultView<LanguageDto>.Failure("Language is related with product. Unable to delete.");
+
+            await _languageRepository.DeleteAsync(existingLang.Id);
+            return ResultView<LanguageDto>.Success(null);
+        }
 
 
         // Handle default language detection from Accept-Language header
@@ -105,4 +154,17 @@ namespace ApplicationB.Services_B.General
                 Name = l.Name,
             }).ToList();
         }
-    } }
+
+        public async Task<ResultView<LanguageDto>> GetLangByIdAsync(int id)
+        {
+
+            var lang = await _languageRepository.GetByIdAsync(id);
+
+            if (lang == null)
+                return ResultView<LanguageDto>.Failure("Product not found.");
+
+            var langDto = _mapper.Map<LanguageDto>(lang);
+            return ResultView<LanguageDto>.Success(langDto);
+        }
+    }
+}

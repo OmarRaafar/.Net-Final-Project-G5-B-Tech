@@ -1,11 +1,11 @@
-﻿@model  DTOsB.Shared.ResultView< IEnumerable<DTOsB.Product.ProductDto>>
+﻿@model DTOsB.Shared.ResultView< IEnumerable<DTOsB.Product.ProductDto>>
 @* @model DTOsB.Shared.EntityPaginatedB<DTOsB.Product.ProductDto> *@
 @*     @model DTOsB.Product.ProductViewModelWithLang *@
 
 
 @{
     ViewData["Title"] = "Products";
-   var languages = ViewBag.AvailableLanguages as List<DTOsB.Shared.LanguageDto>;
+    var languages = ViewBag.AvailableLanguages as List<DTOsB.Shared.LanguageDto>;
     var categories = ViewBag.Categories as List<DTOsB.Category.GetAllCategoriesDTO>;
 }
 
@@ -14,57 +14,57 @@
 
 <div class="container my-5 shadow p-4 rounded">
     <div class="container my-5 shadow p-4 rounded">
-    <form asp-action="Index" method="get">
-        <!-- Language Dropdown -->
-        <div class="mb-3">
-            <label for="selectedLanguageId" class="form-label">Select Language</label>
-            <select class="form-select" name="selectedLanguageId" onchange="this.form.submit()">
-                <option value="">Select Language</option>
-                @foreach (var lang in languages)
-                {
-                    <option value="@lang.Id">
-                        @lang.Name
-                    </option>
-                }
-                }
-            </select>
-        </div>
+        <form asp-action="Index" method="get">
+            <!-- Language Dropdown -->
+            <div class="mb-3">
+                <label for="selectedLanguageId" class="form-label">Select Language</label>
+                <select class="form-select" name="selectedLanguageId" onchange="this.form.submit()">
+                    <option value="">Select Language</option>
+                    @foreach (var lang in languages)
+                    {
+                        <option value="@lang.Id">
+                            @lang.Name
+                        </option>
+                    }
+                    }
+                </select>
+            </div>
 
-        <!-- Category Dropdown -->
-        <div class="mb-3">
-            <label for="selectedCategoryId" class="form-label">Select Category</label>
-            <select class="form-select" name="selectedCategoryId" onchange="this.form.submit()">
-                <option value="">Select Category</option>
-                @foreach (var cat in categories)
-                {
-                    <option value="@cat.Id">
-                        @cat.Translations.FirstOrDefault()?.CategoryName
-                    </option>
-                }
-                }
-            </select>
-        </div>
+            <!-- Category Dropdown -->
+            <div class="mb-3">
+                <label for="selectedCategoryId" class="form-label">Select Category</label>
+                <select class="form-select" name="selectedCategoryId" onchange="this.form.submit()">
+                    <option value="">Select Category</option>
+                    @foreach (var cat in categories)
+                    {
+                        <option value="@cat.Id">
+                            @cat.Translations.FirstOrDefault()?.CategoryName
+                        </option>
+                    }
+                    }
+                </select>
+            </div>
 
-        <!-- Search Field -->
-        <div class="mb-3">
-            <label for="searchString" class="form-label">Product Name</label>
-            <input type="search" class="form-control" name="searchString" placeholder="Search Products" value="@ViewBag.SearchString" aria-label="Search">
-        </div>
+            <!-- Search Field -->
+            <div class="mb-3">
+                <label for="searchString" class="form-label">Product Name</label>
+                <input type="search" class="form-control" name="searchString" placeholder="Search Products" value="@ViewBag.SearchString" aria-label="Search">
+            </div>
 
-            
 
-        <!-- Submit Button -->
-        <div class="text-center">
-            <button type="submit" class="btn btn-primary">Search & Filter</button>
-        </div>
-    </form>
+
+            <!-- Submit Button -->
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary">Search & Filter</button>
+            </div>
+        </form>
         <div class="col-12 col-md-3 text-center mt-3 mt-md-0">
             <a asp-action="Create" class="shadow btn btn-success">
                 <i class="fa-solid fa-plus me-2"></i>Add New Product
             </a>
         </div>
-        
-</div>
+
+    </div>
 
 
     @* @if ((languages != null && languages.Any()) && (categories != null && categories.Any()))
@@ -96,7 +96,7 @@
     }
 
 
-  
+
     <div class="row mb-5 mt-4 align-items-center">
         <div class="shadow rounded-3 bg-dark ms-3 rounded p-1 col-12 col-md-3 text-center text-light fs-5 fw-bold">
             <label for="search" class="form-label">Product Name </label>
@@ -175,7 +175,7 @@
                                 <a class="btn btn-danger text-white" asp-action="Delete" asp-route-id="@item.Id">
                                     <i class="fa-solid fa-pen-to-square"></i> Delete
                                 </a>
-                               @*  <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteConfirmModal" data-item-id="@item.Id">
+                                @*  <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteConfirmModal" data-item-id="@item.Id">
                                     Delete
                                 </button>
                                 <!-- Delete Confirmation Modal -->
@@ -206,12 +206,12 @@
                     </tr>
                 }
 
-          
+
             </tbody>
         </table>
     </div>
-    
-   
+
+
 
 </div>
 

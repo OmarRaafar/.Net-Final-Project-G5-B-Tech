@@ -129,6 +129,12 @@ namespace WebApplication1
 
             builder.Services.AddScoped<IPaymentRepository, PaymentRepository>();
             builder.Services.AddScoped<PaymentService>();
+
+
+            ////==========Language==========
+
+            //builder.Services.AddScoped<ILanguageRepository, LanguageRepository>();
+            //builder.Services.AddScoped<ILanguageService, LanguageService>();
             #endregion
 
 
@@ -201,7 +207,7 @@ namespace WebApplication1
 
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Admin}/{action=Login}/{id?}");
+                pattern: "{controller=Home}/{action=Index}/{id?}");
             app.MapRazorPages();
 
             await app.RunAsync();

@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace InfrastructureB.General
 {
-    public class LanguageRepository :ILanguageRepository
+    public class LanguageRepository : ILanguageRepository
     {
         private readonly BTechDbContext _context;
 
@@ -38,6 +38,29 @@ namespace InfrastructureB.General
         public async Task<bool> AnyAsync(Func<LanguageB, bool> predicate)
         {
             return await Task.FromResult(_context.Languages.Any(predicate));
+        }
+
+        public async Task<LanguageB> AddAsync(LanguageB entity)
+        {
+            var recieved = (await _context.Languages.AddAsync(entity)).Entity;
+            await _context.SaveChangesAsync();
+            return recieved;
+        }
+
+        public async Task UpdateAsync(LanguageB entity)
+        {
+            _context.Languages.Update(entity);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task DeleteAsync(int id)
+        {
+            var entity = await GetByIdAsync(id);
+            if (entity != null)
+            {
+                _context.Remove(entity);
+                await _context.SaveChangesAsync();
+            }
         }
     }
 }

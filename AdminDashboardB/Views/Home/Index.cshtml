@@ -2,7 +2,60 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="container my-5 p-4 shadow rounded col-md-12">
+    <div class="row justify-content-center mt-5">
+        @* <h2 class="text-center mb-4 bg-light fw-bold text-primary p-4 shadow rounded" style="margin-top: -100px">Edit Product</h2> *@
+        <div class="row text-center mb-4">
+            <div class="col">
+                <h1 class="text-center mb-4 bg-light fw-bold text-primary p-4 shadow rounded" style="margin-top: -100px">Welcome to the Dashboard</h1>
+                <p class="text-muted">Here’s an overview of your store statistics.</p>
+            </div>
+        </div>
+
+        <div class="row g-4">
+            <!-- Products Card -->
+            <div class="col-md-3">
+                <div class="card shadow-sm border-0" style="border-radius: 10px;">
+                    <div class="card-body text-center">
+                        <div class="icon mb-3 text-primary">
+                            <i class="fas fa-box fa-3x"></i>
+                        </div>
+                        <h5 class="card-title fw-bold">Products</h5>
+                        <p class="display-6">@ViewBag.ProductsCount</p>
+                        <p class="text-muted">Available in store</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Categories Card -->
+            <div class="col-md-3">
+                <div class="card shadow-sm border-0" style="border-radius: 10px;">
+                    <div class="card-body text-center">
+                        <div class="icon mb-3 text-success">
+                            <i class="fas fa-list-alt fa-3x"></i>
+                        </div>
+                        <h5 class="card-title fw-bold">Categories</h5>
+                        <p class="display-6">@ViewBag.CategoriesCount</p>
+                        <p class="text-muted">Product categories</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Orders Card -->
+            <div class="col-md-3">
+                <div class="card shadow-sm border-0" style="border-radius: 10px;">
+                    <div class="card-body text-center">
+                        <div class="icon mb-3 text-danger">
+                            <i class="fas fa-shopping-cart fa-3x"></i>
+                        </div>
+                        <h5 class="card-title fw-bold">Orders</h5>
+                        <p class="display-6">@ViewBag.OrdersCount</p>
+                        <p class="text-muted">Total placed</p>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
 </div>

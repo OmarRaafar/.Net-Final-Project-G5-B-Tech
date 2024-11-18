@@ -13,5 +13,11 @@ namespace ApplicationB.Contracts_B.General
         Task<LanguageB> GetByIdAsync(int Id);
         Task<List<LanguageB>> GetAllAsync();
         Task<bool> AnyAsync(Func<LanguageB, bool> predicate);
+
+        Task<LanguageB> AddAsync(LanguageB entity);
+
+        Task UpdateAsync(LanguageB entity);
+
+        Task DeleteAsync(int id);
     }
 }
