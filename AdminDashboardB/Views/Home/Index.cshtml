@@ -2,60 +2,186 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="container my-5 p-4 shadow rounded col-md-12">
-    <div class="row justify-content-center mt-5">
-        @* <h2 class="text-center mb-4 bg-light fw-bold text-primary p-4 shadow rounded" style="margin-top: -100px">Edit Product</h2> *@
-        <div class="row text-center mb-4">
-            <div class="col">
-                <h1 class="text-center mb-4 bg-light fw-bold text-primary p-4 shadow rounded" style="margin-top: -100px">Welcome to the Dashboard</h1>
-                <p class="text-muted">Here’s an overview of your store statistics.</p>
-            </div>
-        </div>
 
-        <div class="row g-4">
-            <!-- Products Card -->
-            <div class="col-md-3">
-                <div class="card shadow-sm border-0" style="border-radius: 10px;">
-                    <div class="card-body text-center">
-                        <div class="icon mb-3 text-primary">
-                            <i class="fas fa-box fa-3x"></i>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Russo+One&display=swap" rel="stylesheet">
+
+    <style>
+        h1.wrapper {
+            font-family: "Russo One", sans-serif;
+            text-align: center;
+            margin-top: -100px;
+            letter-spacing: 1px;
+            color: #365FA0;
+            background-color: #f8f9fa;
+            padding: 10px;
+            border-radius: 10px;
+        }
+
+        svg {
+            width: 100%;
+            height: auto;
+        }
+
+            svg text {
+                font-size: 3rem;
+                fill: rgba(72,138,204,0);
+                stroke: rgba(54, 95, 160, 1);
+                stroke-width: 1;
+                animation: strokeEffect 5s infinite alternate;
+            }
+
+        @@keyframes strokeEffect {
+            0% {
+                fill: rgba(72,138,204,0);
+                stroke: rgba(54,95,160,1);
+                stroke-dashoffset: 25%;
+                stroke-dasharray: 0 50%;
+                stroke-width: 2;
+            }
+
+            70% {
+                fill: rgba(72,138,204,0);
+                stroke: rgba(54,95,160,1);
+            }
+
+            100% {
+                fill: rgba(72,138,204,1);
+                stroke: rgba(54,95,160,0);
+                stroke-dashoffset: -25%;
+                stroke-dasharray: 50% 0;
+                stroke-width: 0;
+            }
+        }
+
+
+        .highlight {
+            fill: #f39c12;
+            stroke: #e67e22;
+            font-weight: bold;
+            animation: colorShift 3s infinite alternate;
+        }
+
+
+        @@keyframes colorShift {
+            0% {
+                fill: #f39c12;
+                stroke: #e67e22;
+                transform: scale(1);
+            }
+
+            50% {
+                fill: #1cc88a;
+                stroke: #17a673;
+                transform: scale(1.2);
+            }
+
+            100% {
+                fill: #f39c12;
+                stroke: #e67e22;
+                transform: scale(1);
+            }
+        }
+
+        .hover-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+            .hover-card:hover {
+                transform: translateY(-10px);
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            }
+    </style>
+</head>
+<body>
+
+    <div class="container mt-5 p-4 shadow rounded col-md-11">
+        <div class="row justify-content-center mt-5">
+            <div class="row text-center mb-4">
+                <div class="col wrapper">
+                    <!-- Welcome Title -->
+                    <h1 class="wrapper text-center mb-4 bg-body text-dark fw-bold  shadow rounded">
+                        <svg>
+                            <text x="50%" y="50%" dy=".35em" text-anchor="middle">
+                                Welcome to <tspan class="highlight">B.Tech</tspan> Dashboard
+                            </text>
+                        </svg>
+                    </h1>
+                    <!-- Description -->
+                    <p class="text-muted" style="font-size: 1.25rem; color: #666;">
+                        Here’s an overview of your store statistics.
+                    </p>
+                </div>
+
+            </div>
+
+
+            <div class="row g-4 my-3">
+                <!-- Products Card -->
+                <div class="col-md-3">
+                    <div class="card shadow border-0 hover-card" style="border-radius: 12px; background-color: #f8f9fa;">
+                        <div class="card-body text-center">
+                            <div class="icon mb-3 text-primary">
+                                <i class="fas fa-box fa-3x"></i>
+                            </div>
+                            <h5 class="card-title fw-bold text-dark">Products</h5>
+                            <p class="display-6 text-primary">@ViewBag.ProductsCount</p>
+                            <p class="text-muted">Available in store</p>
                         </div>
-                        <h5 class="card-title fw-bold">Products</h5>
-                        <p class="display-6">@ViewBag.ProductsCount</p>
-                        <p class="text-muted">Available in store</p>
+                    </div>
+                </div>
+
+                <!-- Categories Card -->
+                <div class="col-md-3">
+                    <div class="card shadow border-0 hover-card" style="border-radius: 12px; background-color: #e9f7fd;">
+                        <div class="card-body text-center">
+                            <div class="icon mb-3 text-success">
+                                <i class="fas fa-list-alt fa-3x"></i>
+                            </div>
+                            <h5 class="card-title fw-bold text-dark">Categories</h5>
+                            <p class="display-6 text-success">@ViewBag.CategoriesCount</p>
+                            <p class="text-muted">Product categories</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Orders Card -->
+                <div class="col-md-3">
+                    <div class="card shadow border-0 hover-card" style="border-radius: 12px; background-color: #f9e6e6;">
+                        <div class="card-body text-center">
+                            <div class="icon mb-3 text-danger">
+                                <i class="fas fa-shopping-cart fa-3x"></i>
+                            </div>
+                            <h5 class="card-title fw-bold text-dark">Orders</h5>
+                            <p class="display-6 text-danger">@ViewBag.OrdersCount</p>
+                            <p class="text-muted">Total placed</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Users Card -->
+                <div class="col-md-3">
+                    <div class="card shadow border-0 hover-card" style="border-radius: 12px; background-color: #fff3cd;">
+                        <div class="card-body text-center">
+                            <div class="icon mb-3 text-warning">
+                                <i class="fas fa-users fa-3x"></i>
+                            </div>
+                            <h5 class="card-title fw-bold text-dark">Users</h5>
+                            <p class="display-6 text-warning">0</p>
+                            <p class="text-muted">Registered users</p>
+                        </div>
                     </div>
                 </div>
             </div>
-
-            <!-- Categories Card -->
-            <div class="col-md-3">
-                <div class="card shadow-sm border-0" style="border-radius: 10px;">
-                    <div class="card-body text-center">
-                        <div class="icon mb-3 text-success">
-                            <i class="fas fa-list-alt fa-3x"></i>
-                        </div>
-                        <h5 class="card-title fw-bold">Categories</h5>
-                        <p class="display-6">@ViewBag.CategoriesCount</p>
-                        <p class="text-muted">Product categories</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Orders Card -->
-            <div class="col-md-3">
-                <div class="card shadow-sm border-0" style="border-radius: 10px;">
-                    <div class="card-body text-center">
-                        <div class="icon mb-3 text-danger">
-                            <i class="fas fa-shopping-cart fa-3x"></i>
-                        </div>
-                        <h5 class="card-title fw-bold">Orders</h5>
-                        <p class="display-6">@ViewBag.OrdersCount</p>
-                        <p class="text-muted">Total placed</p>
-                    </div>
-                </div>
-            </div>
-
 
         </div>
     </div>
-</div>
+
+</body>
+</html>
