@@ -48,7 +48,7 @@ namespace ApplicationB.Mapper_B
             CreateMap<ProductImageB, ProductImageCreateOrUpdateDto>()
             .ForMember(dest => dest.ImageFile, opt => opt.Ignore()).ReverseMap();
 
-            
+
             // Mapping for product translations
             CreateMap<ProductTranslationB, ProductTranslationDto>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
@@ -70,7 +70,7 @@ namespace ApplicationB.Mapper_B
                     .ForMember(dest => dest.TranslatedValue, opt => opt.MapFrom(src => src.TranslatedValue))
                     .ForMember(dest => dest.LanguageId, opt => opt.MapFrom(src => src.LanguageId))
                     .ReverseMap();
-            
+
 
             CreateMap<SpecificationStore, SpecificationStoreDto>().ReverseMap();
             CreateMap<ReviewB, ReviewDto>().ReverseMap();
@@ -110,11 +110,15 @@ namespace ApplicationB.Mapper_B
             CreateMap<CategoryB, GetAllCategoriesDTO>()
                 .ForMember(dest => dest.Translations, opt => opt.MapFrom(src => src.Translations))
                 .ForMember(dest => dest.ImageUrl, opt => opt.MapFrom(src => src.ImageUrl));
-            CreateMap<ResultView<CategoryB>, ResultView<GetAllCategoriesDTO>>()
-                .ForMember(dest => dest.Entity, opt => opt.MapFrom(src => src.Entity))
-                .ForMember(dest => dest.IsSuccess, opt => opt.MapFrom(src => src.IsSuccess))
-                .ForMember(dest => dest.Msg, opt => opt.MapFrom(src => src.Msg));
+            //CreateMap<ResultView<CategoryB>, ResultView<GetAllCategoriesDTO>>()
+            //    .ForMember(dest => dest.Entity, opt => opt.MapFrom(src => src.Entity))
+            //    .ForMember(dest => dest.IsSuccess, opt => opt.MapFrom(src => src.IsSuccess))
+            //    .ForMember(dest => dest.Msg, opt => opt.MapFrom(src => src.Msg));
 
+            CreateMap<ResultView<CategoryB>, ResultView<GetAllCategoriesDTO>>()
+     .ForMember(dest => dest.Entity, opt => opt.MapFrom(src => src.Entity))
+     .ForMember(dest => dest.IsSuccess, opt => opt.MapFrom(src => src.IsSuccess))
+     .ForMember(dest => dest.Msg, opt => opt.MapFrom(src => src.Msg));
             // Order --------------------------------
 
             CreateMap<OrderB, AddOrUpdateOrderBDTO>().ReverseMap();
@@ -125,7 +129,7 @@ namespace ApplicationB.Mapper_B
 
             CreateMap<OrderItemB, AddOrUpdateOrderItemBDTO>().ReverseMap();
             CreateMap<OrderItemB, SelectOrderItemBDTO>()
-                .ForMember(dest=> dest.ProductName, opt=>opt.MapFrom(src=> src.Product.Translations.FirstOrDefault().Name))
+                .ForMember(dest => dest.ProductName, opt => opt.MapFrom(src => src.Product.Translations.FirstOrDefault().Name))
                 .ForMember(dest => dest.Price, opt => opt.MapFrom(src => src.Product.Price))
                 .ForMember(dest => dest.StockQuantity, opt => opt.MapFrom(src => src.Product.StockQuantity))
                 .ReverseMap();

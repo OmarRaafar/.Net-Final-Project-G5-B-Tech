@@ -225,11 +225,11 @@ namespace DTOsB.Controllers
         public async Task<IActionResult> Delete(int id)
         {
             var categoryEntity = await _categoryService.GetCategoryByIdAsync(id);
-            if (categoryEntity == null)
+            if (categoryEntity == null || !categoryEntity.IsSuccess)
             {
                 return NotFound();
             }
-            var categoryDto = _mapper.Map<GetAllCategoriesDTO>(categoryEntity);
+            var categoryDto = _mapper.Map<GetAllCategoriesDTO>(categoryEntity.Entity);
 
             return View(categoryDto);
         }
